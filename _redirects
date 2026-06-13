@@ -1,0 +1,9 @@
+# Netlify redirects
+/about     /about.html   200
+/jasoseol  /jasoseol.html  200
+/interview /interview.html  200
+/course    /course.html  200
+/mock_interview /mock_interview.html  200
+/tool      /tool.html   200
+/pro       /pro.html    200
+/community /community.html  200
