@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REPOSITION | 스펙 리포지셔닝 에이전시</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:#000;color:#fff;
+  font-family:'Noto Sans KR',sans-serif;
+  font-size:16px;
+  overflow-x:hidden;cursor:none;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-feature-settings:"kern" 1;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+}
+
+/* CURSOR */
+#cur{width:10px;height:10px;background:#FECC00;border-radius:50%;position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
+#cur2{width:36px;height:36px;border:1.5px solid rgba(254,204,0,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s ease}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:flex-start;gap:0;padding:0 48px;height:64px;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase;flex-shrink:0;padding-right:4px;border-right:1px solid rgba(255,255,255,.08)}
+.logo span{color:#FECC00}
+/* center menu */
+.nav-menu{display:flex;align-items:stretch;height:64px;list-style:none;margin:0 0 0 16px;flex:1}
+.nav-menu > li{position:relative;display:flex;align-items:center}
+.nav-menu > li > a{display:flex;align-items:center;gap:5px;padding:0 16px;height:64px;color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap;transition:color .2s;position:relative}
+.nav-menu > li > a:hover,.nav-menu > li > a.active{color:#fff}
+.nav-menu > li > a::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:#FECC00;transform:scaleX(0);transition:transform .2s}
+.nav-menu > li:hover > a::after{transform:scaleX(1)}
+.nav-arr{font-size:8px;opacity:.45;transition:transform .2s;display:inline-block}
+.nav-menu > li:hover .nav-arr{transform:rotate(180deg)}
+/* dropdown */
+.nav-drop{display:none;position:absolute;top:64px;left:0;background:#111;border:1px solid rgba(255,255,255,.08);border-top:2px solid #FECC00;min-width:190px;padding:6px 0;box-shadow:0 16px 40px rgba(0,0,0,.7);z-index:600}
+.nav-menu > li:hover .nav-drop{display:block}
+.nav-drop a{display:block;padding:10px 20px;color:rgba(255,255,255,.65);text-decoration:none;font-size:13px;font-weight:400;transition:color .2s,background .2s;white-space:nowrap}
+.nav-drop a:hover{color:#FECC00;background:rgba(254,204,0,.05)}
+.drop-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:10px 20px 4px;display:block}
+.nav-drop hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin:4px 0}
+/* right */
+.nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;margin-left:auto}
+.nav-cta{background:#FECC00;color:#000;padding:9px 20px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;text-decoration:none;transition:opacity .2s;white-space:nowrap;border:none;cursor:none}
+.nav-cta:hover{opacity:.85}
+
+/* MARQUEE */
+.mbar{overflow:hidden;white-space:nowrap;background:#FECC00;padding:13px 0}
+.mtrack{display:inline-block;animation:mtick 24s linear infinite}
+.mtrack span{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#000;margin:0 36px}
+.mtrack span.dot{opacity:.3;margin:0}
+@keyframes mtick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* ══════════════════════
+   HERO
+══════════════════════ */
+#hero{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  position:relative;overflow:hidden;
+}
+
+/* LEFT */
+.hero-left{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:160px 48px 80px 64px;
+  position:relative;z-index:2;
+  border-right:1px solid rgba(255,255,255,.06);
+  min-width:0;overflow:hidden;
+}
+.hero-tag{
+  font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:#FECC00;margin-bottom:36px;
+  display:flex;align-items:center;gap:12px;font-weight:500;
+  opacity:0;animation:up .7s .3s forwards;
+}
+.hero-tag::before{content:'';width:28px;height:1px;background:#FECC00;display:block;flex-shrink:0}
+
+.hero-h1{
+  font-family:'Noto Sans KR',sans-serif;
+  font-weight:900;
+  font-size:clamp(28px,3.2vw,52px);
+  line-height:1.22;
+  letter-spacing:-.025em;
+  word-break:keep-all;
+  overflow-wrap:break-word;
+  max-width:100%;
+  opacity:0;animation:up .9s .5s forwards;
+}
+.hero-h1 .line-1{display:block;color:rgba(255,255,255,.65)}
+.hero-h1 .line-2{display:block;color:#fff;margin-top:2px}
+
+.hero-sub{
+  margin-top:36px;
+  font-size:15px;line-height:2.0;
+  color:rgba(255,255,255,.85);font-weight:300;
+  max-width:460px;word-break:keep-all;
+  opacity:0;animation:up .8s .72s forwards;
+}
+.hero-sub strong{color:#fff;font-weight:600}
+
+.hero-btns{
+  display:flex;flex-direction:column;gap:16px;
+  margin-top:44px;
+  opacity:0;animation:up .8s .92s forwards;
+}
+.btn-y{background:#FECC00;color:#000;padding:18px 40px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:14px;letter-spacing:.02em;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .2s,opacity .2s;cursor:none;align-self:flex-start}
+.btn-y:hover{transform:translateY(-2px);opacity:.9}
+.btn-w{color:rgba(255,255,255,.5);font-size:12px;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:3px;white-space:nowrap;transition:color .2s,border-color .2s;align-self:flex-start}
+.btn-w:hover{color:#fff;border-color:#fff}
+
+/* RIGHT — Geometric Key Visual */
+.hero-right{
+  position:relative;
+  background:#050505;
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+
+
+
+/* Scroll */
+.hero-scroll{position:absolute;bottom:36px;left:64px;display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.28);opacity:0;animation:up .7s 1.6s forwards}
+.scroll-line{width:44px;height:1px;background:rgba(255,255,255,.12);position:relative;overflow:hidden}
+.scroll-line::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:#FECC00;animation:sl 2s ease-in-out infinite}
+@keyframes sl{0%{left:-100%}100%{left:100%}}
+@keyframes up{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+/* ══════════════════════
+   SECTION BASE
+══════════════════════ */
+.slabel{font-family:'Noto Sans KR',sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:#FECC00;margin-bottom:72px;display:flex;align-items:center;gap:14px;font-weight:700}
+.slabel::after{content:'';width:40px;height:1px;background:#FECC00}
+
+/* ══════════════════════
+   CONCEPT
+══════════════════════ */
+#concept{background:#111;padding:140px 64px;position:relative;overflow:hidden}
+#concept::after{content:'REPOSITION';position:absolute;bottom:-50px;right:-20px;font-family:'Syne',sans-serif;font-weight:800;font-size:180px;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1px rgba(254,204,0,.05);pointer-events:none;user-select:none;white-space:nowrap}
+.cgrid{display:grid;grid-template-columns:1fr 1fr;gap:100px;align-items:center}
+.ch2{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(34px,4vw,58px);line-height:1.22;letter-spacing:-.02em;word-break:keep-all}
+.ch2 .y{color:#FECC00}
+.concept-tagline{
+  font-size:15px;line-height:1.9;color:rgba(255,255,255,.75);
+  font-weight:300;word-break:keep-all;margin-bottom:28px;
+}
+.concept-word{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(22px,2.6vw,36px);
+  letter-spacing:.12em;text-transform:uppercase;
+  color:#FECC00;margin-top:28px;
+  border-top:1px solid rgba(254,204,0,.2);
+  padding-top:24px;
+}
+.cdef{border-left:2px solid #FECC00;padding-left:28px;margin-bottom:44px}
+.dw{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;color:#FECC00;margin-bottom:12px;letter-spacing:.06em}
+.db{font-size:15px;line-height:2.0;color:rgba(255,255,255,.9);font-weight:300;word-break:keep-all}
+.db strong{color:#fff;font-weight:600}
+.tfs{display:flex;flex-direction:column}
+.tr{display:grid;grid-template-columns:9rem 2rem 1fr;align-items:center;padding:18px 0;border-bottom:1px solid rgba(255,255,255,.08)}
+.tr:last-child{border-bottom:none}
+.tbef{font-size:14px;color:rgba(255,255,255,.55)}
+.tarr{color:#FECC00;font-size:18px;text-align:center}
+.taft{font-size:15px;font-weight:600;color:#fff}
+
+/* ══════════════════════
+   PROBLEM
+══════════════════════ */
+#problem{background:#000;padding:140px 64px}
+.ph2{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(30px,3.6vw,54px);line-height:1.25;letter-spacing:-.02em;max-width:640px;margin-bottom:80px;word-break:keep-all}
+.ph2 em{font-style:normal;color:#FECC00}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.07)}
+.card{background:#000;padding:52px 40px;position:relative;overflow:hidden;transition:background .3s}
+.card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#FECC00;transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.card:hover{background:#0c0c0c}
+.card:hover::after{transform:scaleX(1)}
+.cnum{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:44px;line-height:1;color:#FECC00;margin-bottom:24px;letter-spacing:-.02em}
+.ct{font-weight:700;font-size:17px;line-height:1.65;margin-bottom:18px;color:#fff;word-break:keep-all}
+.cb{font-size:15px;line-height:2.0;color:rgba(255,255,255,.88);font-weight:300;word-break:keep-all}
+
+/* ══════════════════════
+   SERVICES
+══════════════════════ */
+#services{background:#111;padding:140px 64px}
+.sh2{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(26px,3.2vw,48px);line-height:1.28;letter-spacing:-.02em;max-width:640px;margin-bottom:80px;word-break:keep-all}
+.sh2 .y{color:#FECC00}
+.svcs{display:flex;flex-direction:column}
+.svc{display:grid;grid-template-columns:56px 14rem 1fr 9rem;gap:40px;align-items:center;padding:38px 0;border-top:1px solid rgba(255,255,255,.1);position:relative;overflow:hidden}
+.svc:last-child{border-bottom:1px solid rgba(255,255,255,.1)}
+.svc::before{content:'';position:absolute;left:-64px;top:0;bottom:0;width:0;background:rgba(254,204,0,.04);transition:width .3s}
+.svc:hover::before{width:calc(100% + 128px)}
+.si{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;color:rgba(255,255,255,.5);letter-spacing:.06em}
+.sn{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:19px;transition:color .2s;line-height:1.4;word-break:keep-all}
+.svc:hover .sn{color:#FECC00}
+.sd{font-size:15px;line-height:1.95;color:rgba(255,255,255,.88);font-weight:300;word-break:keep-all}
+.ss{text-align:right}
+.ss-n{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:36px;color:#FECC00;display:block;line-height:1;letter-spacing:-.02em}
+.ss-l{font-size:11px;color:rgba(255,255,255,.65);letter-spacing:.06em;margin-top:6px;display:block}
+
+/* ══════════════════════
+   TESTIMONIALS
+══════════════════════ */
+#testimonials{background:#000;padding:140px 64px}
+
+.tcard{background:#000;padding:64px 56px}
+.tcard.feat{background:#FECC00}
+.tcard.feat .ttag,.tcard.feat .tq,.tcard.feat .tname{color:#000}
+.tcard.feat .tmeta{color:rgba(0,0,0,.55)}
+.tcard.feat .tres{background:#000;color:#FECC00;border-color:transparent}
+.ttag{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;border:1px solid rgba(255,255,255,.22);padding:6px 14px;margin-bottom:28px;color:#fff}
+.tcard.feat .ttag{border-color:rgba(0,0,0,.18);color:#000}
+.tq{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:18px;line-height:1.8;margin-bottom:32px;color:#fff;word-break:keep-all}
+.tres{display:inline-block;background:rgba(254,204,0,.1);border:1px solid rgba(254,204,0,.28);padding:9px 16px;margin-bottom:28px;font-size:12px;font-weight:700;color:#FECC00;letter-spacing:.06em}
+.tname{font-weight:700;font-size:16px;color:#fff}
+.tmeta{font-size:13px;color:rgba(255,255,255,.7);margin-top:6px;line-height:1.7;word-break:keep-all}
+
+/* ══════════════════════
+   CTA
+══════════════════════ */
+#cta{background:#FECC00;padding:130px 64px;display:flex;justify-content:space-between;align-items:center;gap:60px}
+.cta-eye{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(0,0,0,.5);margin-bottom:20px;font-weight:500}
+.cta-h{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(36px,5vw,72px);line-height:1.12;letter-spacing:-.02em;color:#000;word-break:keep-all}
+.cta-sub{font-size:16px;line-height:1.95;color:rgba(0,0,0,.6);margin-top:22px;max-width:460px;font-weight:300;word-break:keep-all}
+.cta-r{text-align:right;flex-shrink:0}
+.btn-blk{background:#000;color:#FECC00;padding:22px 48px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:15px;letter-spacing:.03em;text-decoration:none;display:inline-block;white-space:nowrap;transition:transform .2s,opacity .2s;cursor:none}
+.btn-blk:hover{transform:translateY(-3px);opacity:.9}
+.cta-u{font-size:13px;color:rgba(0,0,0,.42);margin-top:16px;letter-spacing:.03em}
+.cta-u strong{color:#000;font-weight:700}
+
+/* ══════════════════════
+   FOOTER
+══════════════════════ */
+footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:44px 64px;display:flex;justify-content:space-between;align-items:center}
+.fl{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;letter-spacing:.12em;text-transform:uppercase;color:#fff}
+.fl span{color:#FECC00}
+.fc{font-size:12px;color:rgba(255,255,255,.3);letter-spacing:.05em}
+.flinks{display:flex;gap:28px}
+.flinks a{font-size:11px;color:rgba(255,255,255,.35);text-decoration:none;letter-spacing:.1em;text-transform:uppercase;transition:color .2s}
+.flinks a:hover{color:#FECC00}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+/* ══════════════════════
+   INTRO
+══════════════════════ */
+
+
+
+
+
+#intro-line1 
+#intro-line2 
+
+/* bottom progress bar */
+
+/* fade out */
+#intro.fade-out{
+  opacity:0;
+  transition:opacity .7s ease;
+}
+/* body locked during intro */
+body.intro-active{overflow:hidden}
+/* ── INTRO ── */
+#intro{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;pointer-events:all}
+#intro-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
+.intro-line{display:flex;align-items:baseline;gap:3px;overflow:hidden;padding:3px 0}
+.intro-line2{gap:1px}
+.ic{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(36px,7vw,96px);letter-spacing:-.02em;color:#fff;opacity:0;transform:translateY(48px);display:inline-block;transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
+#intro-bar{position:absolute;bottom:0;left:0;height:3px;width:0;background:#FECC00}
+#wipe{position:fixed;inset:0;z-index:9998;background:#FECC00;transform:translateX(-100%);pointer-events:none;will-change:transform}
+body.noscroll{overflow:hidden}
+
+/* ── KEY VISUAL ── */
+.hero-right{
+  position:relative;
+  background:#0a0a0a;
+  border-left:1px solid rgba(255,255,255,.06);
+  overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+}
+.kv-wrap{
+  position:relative;z-index:2;
+  width:100%;height:100%;
+  display:flex;flex-direction:column;
+  justify-content:center;
+  padding:60px 56px;
+}
+/* scanline effect */
+.kv-scan{
+  position:absolute;inset:0;z-index:3;
+  background:repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0,0,0,.18) 3px,
+    rgba(0,0,0,.18) 4px
+  );
+  pointer-events:none;
+}
+/* top label */
+.kv-top-label{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(11px,1.1vw,15px);
+  letter-spacing:.35em;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+  margin-bottom:32px;
+  display:flex;align-items:center;gap:0;
+}
+.kv-reg{font-size:.7em;vertical-align:super;margin-left:2px}
+/* stage: clipping container */
+.kv-stage{
+  position:relative;
+  height:clamp(60px,8vw,80px);
+  overflow:hidden;
+}
+/* each word */
+.kv-word{
+  position:absolute;inset:0;
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(24px,3.6vw,52px);
+  line-height:1;letter-spacing:-.04em;
+  color:#fff;
+  display:flex;align-items:center;
+  transform:translateY(110%);
+  opacity:0;
+  transition:none;
+  will-change:transform,opacity;
+  white-space:nowrap;
+}
+.kv-word.active{
+  transform:translateY(0%);
+  opacity:1;
+}
+.kv-word.exit-up{
+  transform:translateY(-110%);
+  opacity:0;
+  transition:transform .28s cubic-bezier(.55,0,1,.45), opacity .28s ease;
+}
+.kv-word.enter-from-bottom{
+  transform:translateY(0%);
+  opacity:1;
+  transition:transform .28s cubic-bezier(0,.55,.45,1), opacity .28s ease;
+}
+/* accent color per word */
+.kv-word[data-index="0"]{color:rgba(255,255,255,.35)}
+.kv-word[data-index="1"]{color:#FECC00}
+.kv-word[data-index="2"]{
+  color:#000;
+  background:#FECC00;
+  padding:0 18px;
+  display:inline-flex;
+  align-items:center;
+  height:1.2em;
+  box-shadow:4px 4px 0 rgba(254,204,0,.25);
+}
+/* bottom */
+.kv-bottom{margin-top:36px}
+.kv-bar-wrap{
+  width:100%;height:2px;
+  background:rgba(255,255,255,.08);
+  margin-bottom:20px;overflow:hidden;
+}
+.kv-bar{
+  height:100%;background:#FECC00;
+  width:0%;
+  animation:kvBarAnim 1.2s linear infinite;
+}
+@keyframes kvBarAnim{
+  0%{width:0%;margin-left:0%}
+  50%{width:60%;margin-left:20%}
+  100%{width:0%;margin-left:100%}
+}
+.kv-sub{
+  font-size:13px;line-height:1.8;
+  color:rgba(255,255,255,.45);
+  font-weight:300;word-break:keep-all;
+  letter-spacing:.02em;
+}
+/* background big ghost text */
+.hero-right::before{
+  content:'RE';
+  position:absolute;bottom:-40px;right:-20px;
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:38vw;line-height:1;
+  color:transparent;
+  -webkit-text-stroke:1px rgba(254,204,0,.03);
+  pointer-events:none;user-select:none;
+  z-index:1;
+}
+
+
+/* ── TESTIMONIALS CAROUSEL ── */
+.tc-outer{
+  position:relative;
+  overflow:hidden;
+  margin-top:60px;
+  /* fade edges */
+  mask-image:linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 6%,#000 94%,transparent 100%);
+}
+.tc-track{
+  display:flex;
+  gap:20px;
+  width:max-content;
+  animation:tcScroll 80s linear infinite;
+  cursor:none;
+}
+.tc-track:hover{ animation-play-state:paused; }
+@keyframes tcScroll{
+  0%{transform:translateX(0)}
+  100%{transform:translateX(-50%)}
+}
+.tc-card{
+  background:#0d0d0d;
+  border:1px solid rgba(255,255,255,.08);
+  width:320px;
+  flex-shrink:0;
+  padding:36px 32px;
+  position:relative;
+  transition:border-color .3s;
+}
+.tc-card:hover{ border-color:rgba(254,204,0,.35); }
+.tc-card.tc-yellow{
+  background:#FECC00;
+}
+.tc-card.tc-yellow .tc-tag,
+.tc-card.tc-yellow .tc-q,
+.tc-card.tc-yellow .tc-name{ color:#000; }
+.tc-card.tc-yellow .tc-meta{ color:rgba(0,0,0,.5); }
+.tc-card.tc-yellow .tc-result{ background:#000;color:#FECC00;border-color:transparent; }
+.tc-tag{
+  font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  color:#FECC00;margin-bottom:16px;display:block;
+}
+.tc-q{
+  font-family:'Noto Sans KR',sans-serif;font-weight:700;
+  font-size:14px;line-height:1.75;color:#fff;
+  margin-bottom:16px;word-break:keep-all;
+  display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden;
+}
+.tc-full{display:none;}
+.tc-result{
+  display:inline-block;
+  background:rgba(254,204,0,.08);border:1px solid rgba(254,204,0,.22);
+  padding:6px 12px;font-size:11px;font-weight:700;
+  color:#FECC00;letter-spacing:.05em;margin-bottom:16px;
+}
+.tc-name{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;color:#fff;}
+.tc-meta{font-size:11px;color:rgba(255,255,255,.4);margin-top:3px;line-height:1.5;}
+.t-count{
+  text-align:center;margin-top:36px;
+  font-size:13px;color:rgba(255,255,255,.35);letter-spacing:.08em;
+}
+
+/* ── POPUP ── */
+
+#t-popup-bg{
+  display:none;
+  position:fixed;inset:0;z-index:8000;
+  background:rgba(0,0,0,.75);
+  backdrop-filter:blur(6px);
+  align-items:center;justify-content:center;
+  cursor:none;
+}
+#t-popup-bg.open{display:flex;}
+#t-popup{
+  background:#111;
+  border:1px solid rgba(254,204,0,.25);
+  width:min(620px,90vw);
+  max-height:80vh;
+  overflow-y:auto;
+  padding:52px 48px;
+  position:relative;
+  animation:popIn .25s cubic-bezier(0,.55,.45,1);
+}
+@keyframes popIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+#t-popup-close{
+  position:absolute;top:20px;right:24px;
+  background:none;border:none;
+  color:rgba(255,255,255,.4);font-size:18px;cursor:none;
+  transition:color .2s;
+}
+#t-popup-close:hover{color:#FECC00;}
+#t-popup-content{font-family:'Noto Sans KR',sans-serif;word-break:keep-all;}
+.pop-tag{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#FECC00;border:1px solid rgba(254,204,0,.3);display:inline-block;padding:5px 12px;margin-bottom:24px;}
+.pop-body{font-size:15px;line-height:2.05;color:rgba(255,255,255,.85);margin-bottom:28px;}
+.pop-result{display:inline-block;background:rgba(254,204,0,.1);border:1px solid rgba(254,204,0,.25);padding:8px 14px;font-size:12px;font-weight:700;color:#FECC00;letter-spacing:.06em;margin-bottom:20px;}
+.pop-name{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:15px;color:#fff;margin-bottom:4px;}
+.pop-meta{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;}
+
+
+/* ── TOOL PAGE STYLES ── */
+#page-tool { display:none; min-height:100vh; background:#000; }
+#page-tool .t-nav{position:sticky;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 64px;height:64px;background:rgba(0,0,0,.96);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+#page-tool .t-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase}
+#page-tool .t-logo span{color:#FECC00}
+#page-tool .t-back{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;cursor:pointer;background:none;border-left:none;border-right:none;border-top:none;font-family:inherit;transition:color .2s}
+#page-tool .t-back:hover{color:#FECC00;border-bottom-color:#FECC00}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase}
+.logo span{color:#FECC00}
+.nav-back{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;transition:color .2s,border-color .2s}
+.nav-back:hover{color:#FECC00;border-color:#FECC00}
+
+/* HERO */
+.hero{padding:140px 64px 80px;border-bottom:1px solid rgba(255,255,255,.07)}
+.hero-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FECC00;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-weight:500}
+.hero-label::before{content:'';width:28px;height:1px;background:#FECC00;display:block}
+.hero-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,5vw,72px);line-height:1.05;letter-spacing:-.03em;margin-bottom:20px}
+.hero-h1 span{color:#FECC00}
+.hero-sub{font-size:16px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;max-width:560px}
+
+/* MAIN LAYOUT */
+.main{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 320px);border-bottom:1px solid rgba(255,255,255,.07)}
+
+/* LEFT PANEL — INPUT */
+.panel-left{padding:60px 64px;border-right:1px solid rgba(255,255,255,.07);background:#0a0a0a}
+.panel-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:32px;display:flex;align-items:center;gap:10px}
+.panel-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+/* URL input */
+.url-section{margin-bottom:40px}
+.url-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
+.url-wrap{display:flex;gap:10px}
+.url-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:14px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.url-input::placeholder{color:rgba(255,255,255,.3)}
+.url-input:focus{border-color:#FECC00}
+.btn-fetch{background:#FECC00;color:#000;padding:14px 22px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.btn-fetch:hover{opacity:.85}
+.btn-fetch:disabled{opacity:.4;cursor:not-allowed}
+
+/* divider */
+.or-divider{text-align:center;color:rgba(255,255,255,.25);font-size:12px;letter-spacing:.1em;margin:24px 0;position:relative}
+.or-divider::before,.or-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:rgba(255,255,255,.08)}
+.or-divider::before{left:0}
+.or-divider::after{right:0}
+
+/* textarea */
+.jd-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
+.jd-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:16px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;outline:none;resize:vertical;min-height:260px;transition:border-color .2s}
+.jd-textarea::placeholder{color:rgba(255,255,255,.3)}
+.jd-textarea:focus{border-color:#FECC00}
+
+/* user context */
+.context-section{margin-top:28px}
+.context-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
+.context-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:16px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;outline:none;resize:vertical;min-height:120px;transition:border-color .2s}
+.context-textarea::placeholder{color:rgba(255,255,255,.3)}
+.context-textarea:focus{border-color:#FECC00}
+
+/* analyze btn */
+.btn-analyze{width:100%;margin-top:28px;background:#FECC00;color:#000;padding:18px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:.04em;border:none;cursor:pointer;transition:opacity .2s,transform .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-analyze:hover{opacity:.9;transform:translateY(-1px)}
+.btn-analyze:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-analyze .spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-analyze.loading .spinner{display:block}
+.btn-analyze.loading .btn-text{opacity:.7}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* status */
+.status-msg{margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);text-align:center;min-height:18px;line-height:1.7;white-space:pre-line}
+
+/* RIGHT PANEL — OUTPUT */
+.panel-right{padding:60px 64px;background:#050505;overflow-y:auto}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:400px;text-align:center;color:rgba(255,255,255,.2)}
+.empty-icon{font-size:48px;margin-bottom:20px;opacity:.4}
+.empty-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;color:rgba(255,255,255,.3)}
+.empty-sub{font-size:13px;line-height:1.8;color:rgba(255,255,255,.2)}
+
+/* result sections */
+.result-hidden{display:none}
+.result-section{margin-bottom:48px}
+.rs-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.rs-num{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#FECC00;line-height:1}
+.rs-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#fff;letter-spacing:.04em}
+.rs-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(254,204,0,.1);color:#FECC00;border:1px solid rgba(254,204,0,.25);padding:4px 10px;margin-left:auto}
+
+/* company summary */
+.company-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-bottom:8px}
+.cg-item{background:#0d0d0d;padding:16px 20px}
+.cg-key{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;font-weight:600}
+.cg-val{font-size:14px;font-weight:500;color:#fff;line-height:1.5}
+
+/* JD parse */
+.jd-parsed{background:#0d0d0d;border-left:2px solid #FECC00;padding:20px 24px;margin-bottom:8px}
+.jd-parsed p{font-size:14px;line-height:1.95;color:rgba(255,255,255,.8);font-weight:300}
+.jd-parsed strong{color:#fff;font-weight:600}
+
+/* question strategy cards */
+.q-cards{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06)}
+.q-card{background:#0d0d0d;padding:28px 28px}
+.q-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.q-card-num{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#FECC00;flex-shrink:0;line-height:1;margin-top:2px}
+.q-card-question{font-weight:700;font-size:15px;line-height:1.55;color:#fff}
+.q-card-strategy{font-size:13px;line-height:1.9;color:rgba(255,255,255,.7);font-weight:300;padding-left:34px}
+.q-card-strategy .kw{display:inline-block;background:rgba(254,204,0,.1);border:1px solid rgba(254,204,0,.2);color:#FECC00;font-size:11px;font-weight:700;padding:2px 8px;margin:0 2px;letter-spacing:.06em}
+
+/* draft */
+.draft-items{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06)}
+.draft-item{background:#0d0d0d;padding:28px}
+.draft-q{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FECC00;margin-bottom:12px}
+.draft-a{font-size:14px;line-height:2.05;color:rgba(255,255,255,.82);font-weight:300;white-space:pre-wrap}
+.draft-copy{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);font-family:'Noto Sans KR',sans-serif;font-size:11px;padding:7px 14px;cursor:pointer;transition:border-color .2s,color .2s}
+.draft-copy:hover{border-color:#FECC00;color:#FECC00}
+
+/* positioning box */
+.pos-box{background:#0d0d0d;border:1px solid rgba(254,204,0,.2);padding:28px}
+.pos-headline{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#FECC00;margin-bottom:12px;line-height:1.3}
+.pos-sub{font-size:14px;line-height:1.9;color:rgba(255,255,255,.75);font-weight:300}
+.pos-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pos-tag{font-size:11px;font-weight:700;letter-spacing:.08em;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);padding:5px 12px}
+
+/* loading skeleton */
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.05) 25%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.05) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;height:16px;border-radius:2px;margin-bottom:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* error */
+.error-box{background:rgba(255,80,80,.08);border:1px solid rgba(255,80,80,.25);padding:20px 24px;color:rgba(255,120,120,.9);font-size:14px;line-height:1.8}
+
+/* FOOTER */
+footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+.fl{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;letter-spacing:.12em}
+.fl span{color:#FECC00}
+.fc{font-size:12px;color:rgba(255,255,255,.3)}
+
+</style>
+</head>
+<body>
+
+<div id="page-home">
+<div id="cur"></div>
+<div id="cur2"></div>
+<!-- INTRO -->
+<div id="intro">
+  <div id="intro-inner">
+    <div class="intro-line">
+      <span class="ic">스</span><span class="ic">펙</span><span class="ic">의</span>
+    </div>
+    <div class="intro-line intro-line2">
+      <span class="ic">R</span><span class="ic">E</span><span class="ic">P</span><span class="ic">O</span><span class="ic">S</span><span class="ic">I</span><span class="ic">T</span><span class="ic">I</span><span class="ic">O</span><span class="ic">N</span><span class="ic">I</span><span class="ic">N</span><span class="ic">G</span>
+    </div>
+  </div>
+  <div id="intro-bar"></div>
+</div>
+<div id="wipe"></div>
+<nav id="nav">
+  <a href="reposition.html" class="logo"><span>REPOSITION</span></a>
+  <ul class="nav-menu">
+    <li>
+      <a href="about.html">리포지셔닝이란? <span class="nav-arr">▼</span></a>
+      <div class="nav-drop">
+        <span class="drop-label">개념</span>
+        <a href="about.html">리포지셔닝이란?</a>
+        <a href="jasoseol.html">자기설득서란?</a>
+        <a href="interview.html">완벽통제면접이란?</a>
+      </div>
+    </li>
+    <li>
+      <a href="course.html" class="nav-highlight">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <div class="nav-drop">
+        <span class="drop-label">REPOSITION CAMP</span>
+        <a href="course.html#bootcamp">리포지셔닝 부트캠프</a>
+        <a href="course.html#jasoseol">자기설득서 클래스</a>
+        <a href="course.html#interview">완벽통제 면접 클래스</a>
+        <hr>
+        <a href="course.html" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+      </div>
+    </li>
+    <li>
+      <a href="mock_interview.html" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
+    </li>
+    <li>
+      <a href="pro.html">현직자 피드백</a>
+    </li>
+    <li><a href="tool.html">JD 분석기</a></li>
+    <li><a href="community.html">커뮤니티</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reposition.html#cta" class="nav-cta">무료 진단 신청</a>
+  </div>
+</nav>
+
+<div class="mbar">
+  <div class="mtrack">
+    <span>REPOSITION</span><span class="dot">·</span>
+    <span>Repositioning®</span><span class="dot">·</span>
+    <span>자기설득서</span><span class="dot">·</span>
+    <span>취업은 마케팅이다</span><span class="dot">·</span>
+    <span>이력서 = 제품</span><span class="dot">·</span>
+    <span>자소서 = 브랜딩</span><span class="dot">·</span>
+    <span>면접 = 세일즈</span><span class="dot">·</span>
+    <span>인식 점유의 싸움</span><span class="dot">·</span>
+    <span>REPOSITION</span><span class="dot">·</span>
+    <span>Repositioning®</span><span class="dot">·</span>
+    <span>자기설득서</span><span class="dot">·</span>
+    <span>취업은 마케팅이다</span><span class="dot">·</span>
+    <span>이력서 = 제품</span><span class="dot">·</span>
+    <span>자소서 = 브랜딩</span><span class="dot">·</span>
+    <span>면접 = 세일즈</span><span class="dot">·</span>
+    <span>인식 점유의 싸움</span><span class="dot">·</span>
+  </div>
+</div>
+
+<section id="hero">
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="hero-tag">스펙 리포지셔닝 에이전시, REPOSITION</div>
+    <h1 class="hero-h1">
+      <span class="line-1">스펙을 키우는 게 아니라</span>
+      <span class="line-2">스펙이 읽히는 방식을 바꿔야합니다.</span>
+    </h1>
+    <p class="hero-sub">
+      서류 탈락의 이유는 스펙 부족이 아닙니다. 인사담당자가 당신의 경험을 이해하지 못해서입니다. 기획자 J는 당신의 이력서, 자소서, 면접 답변이 <strong>"뽑아야 할 이유"로 읽히도록</strong> 다시 설계합니다.
+    </p>
+    <div class="hero-btns">
+      <a href="#cta" class="btn-y">무료 스펙 진단 신청하기 →</a>
+      <a href="#services" class="btn-w">서비스 더 보기</a>
+    </div>
+  </div>
+
+  <!-- RIGHT: Key Visual -->
+  <div class="hero-right">
+    <div class="kv-wrap">
+      <!-- top label -->
+      <div class="kv-top-label">REPOSITION<span class="kv-reg">®</span></div>
+      <!-- big switching text -->
+      <div class="kv-stage">
+        <div class="kv-word active" data-index="0">PROBLEM</div>
+        <div class="kv-word" data-index="1">REPOSITIONING</div>
+        <div class="kv-word" data-index="2">SOLUTION!</div>
+      </div>
+      <!-- bottom line -->
+      <div class="kv-bottom">
+        <div class="kv-bar-wrap"><div class="kv-bar"></div></div>
+        <div class="kv-sub">세상을 유리하게 바라보는 관점을 바꾸는 기술</div>
+      </div>
+    </div>
+    <!-- scanline overlay -->
+    <div class="kv-scan"></div>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<!-- CONCEPT -->
+<section id="concept">
+  <div class="slabel rev">What is Repositioning®</div>
+  <div class="cgrid">
+    <div class="rev">
+      <p class="concept-tagline">세상을 유리하게 바라보는<br>관점을 바꾸는 기술</p>
+      <h2 class="ch2">당신의 스펙은<br><span class="y">충분합니다.</span><br>단지 다르게<br>읽혀야 합니다.</h2>
+      <p class="concept-word">REPOSITIONING</p>
+    </div>
+    <div class="rev d1">
+      <div class="cdef">
+        <div class="dw">리포지셔닝 Repositioning®</div>
+        <p class="db">스펙을 늘리는 것이 아니라, 이미 가진 경험이 인사담당자에게 읽히는 방식을 전략적으로 재설계하는 것. 취업은 능력 경쟁이 아니라 <strong>인식 점유의 싸움</strong>입니다.</p>
+      </div>
+      <div class="tfs">
+        <div class="tr"><span class="tbef">낮은 학점</span><span class="tarr">→</span><span class="taft">실무형 성장 스토리</span></div>
+        <div class="tr"><span class="tbef">직무 전환</span><span class="tarr">→</span><span class="taft">복합 관점의 강점</span></div>
+        <div class="tr"><span class="tbef">경력 공백</span><span class="tarr">→</span><span class="taft">방향 전환의 증거</span></div>
+        <div class="tr"><span class="tbef">짧은 경력</span><span class="tarr">→</span><span class="taft">실패비용 낮은 신입</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section id="problem">
+  <div class="slabel rev">The Problem</div>
+  <h2 class="ph2 rev">"열심히 준비했는데, 왜 나는 계속 <em>떨어지는</em> 걸까요?"</h2>
+  <div class="cards">
+    <div class="card rev">
+      <div class="cnum">01</div>
+      <div class="ct">서류 합격률이 10% 미만인데, 뭘 고쳐야 할지 모릅니다.</div>
+      <p class="cb">대기업 공채 서류 합격률은 평균 5~15%. 비슷한 스펙인데 합격하는 사람의 차이는 스펙의 양이 아니라, 경험을 직무 언어로 번역하는 능력입니다. 지원서 50장을 넣고도 연락이 없다면 문제는 스펙이 아닙니다.</p>
+    </div>
+    <div class="card rev d1">
+      <div class="cnum">02</div>
+      <div class="ct">직무 전환, 공백기, 낮은 학점 — 어떻게 설명해야 할지 막막합니다.</div>
+      <p class="cb">지원자의 약 40%는 이력서에 설명하기 애매한 공백을 안고 있습니다. 약점을 방어하려 할수록 면접관은 더 파고듭니다. 약점은 없애는 게 아니라, 다르게 읽히게 프레이밍하는 겁니다.</p>
+    </div>
+    <div class="card rev d2">
+      <div class="cnum">03</div>
+      <div class="ct">면접에서 말은 하는데, 기억에 남지 않습니다.</div>
+      <p class="cb">면접관은 하루 평균 8~12명을 만납니다. 면접 후 기억에 남는 지원자는 2~3명뿐. 답변을 잘 외워가는 것과 면접관의 머릿속에 '이 사람'으로 기억되는 것은 전혀 다른 준비입니다.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="slabel rev">What We Do</div>
+  <h2 class="sh2 rev">스펙을 쌓는 데는 6개월이 걸리지만, 스펙이 <span class="y">읽히는 방식</span>은 지금 바꿀 수 있습니다.</h2>
+  <div class="svcs">
+    <div class="svc rev">
+      <span class="si">01</span>
+      <span class="sn">스펙 리포지셔닝 진단</span>
+      <span class="sd">당신의 이력 전체를 보고 "채용시장에서 어떤 프레임으로 팔려야 하는가"를 설계합니다. 약점이 강점으로 읽히게 만드는 1시간.</span>
+      <div class="ss"><span class="ss-n">2.3×</span><span class="ss-l">서류 합격률 향상</span></div>
+    </div>
+    <div class="svc rev d1">
+      <span class="si">02</span>
+      <span class="sn">자기설득서 전략 설계</span>
+      <span class="sd">좋은 문장이 아니라, 뽑아야 할 이유를 설계합니다. 주장 → 근거 → 어필 구조로 모든 자소서 문항을 재설계합니다.</span>
+      <div class="ss"><span class="ss-n">↓57%</span><span class="ss-l">합격 소요 기간</span></div>
+    </div>
+    <div class="svc rev d2">
+      <span class="si">03</span>
+      <span class="sn">면접 리포지셔닝</span>
+      <span class="sd">질문에 답하는 면접이 아니라, 내 프레임으로 끌고 가는 면접. 약점 질문이 와도 프레임을 빼앗기지 않습니다.</span>
+      <div class="ss"><span class="ss-n">3×</span><span class="ss-l">최종 합격률 향상</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="slabel rev">Real Results · 수강생 후기 23개</div>
+
+  <!-- CAROUSEL TRACK -->
+  <div class="tc-outer">
+    <div class="tc-track" id="tcTrack">
+
+      <!-- row 1: cards 1-12 -->
+      <div class="tc-card">
+        <div class="tc-tag">✦ 서합률 10% → 70%</div>
+        <p class="tc-q">"전략적으로 작성하면서 여러 회사의 서류를 통과하게 되었습니다."</p>
+        <p class="tc-full">수업 듣기 전에는 강의 찾아보면서 열심히 자소서를 썼지만 서류 통과도 하기 힘들었는데 리클 들으면서 전략적으로 자기소개서를 작성하는 데 이해를 하게 되었고 전략적으로 작성하면서 여러 회사의 서류를 통과하게 되었습니다! 리클 듣고 나서 서합률이 10%에서 정말 70%로 증가하였고 최근에는 면접도 다녀올 정도로 많이 향상됐습니다.</p>
+        <div class="tc-result">📌 서합률 10% → 70%</div>
+        <div class="tc-name">rav********</div>
+        <div class="tc-meta">리포지셔닝 클래스 1기 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 4개 지원 · 3개 합격 (75%)</div>
+        <p class="tc-q">"윈터캠프 기간 총 4개 기업에 지원해서 3개 합격하는 75% 합격률은 너무 신기했습니다."</p>
+        <p class="tc-full">이번 리포지셔닝 클래스는 저에게 큰 전환점이 되었습니다. '자기설득서'가 되어야 한다는 가르침이 정말 인상 깊었습니다. 5 why 법칙, 주장-근거-어필의 구조로 가야 한다는 점이 새롭게 다가왔고 이전 자소서들과 비교해보면 확실히 글이 눈에 잘 들어오고 정리가 잘 되었다는 느낌이 많이 들었습니다. 총 4개의 기업에 지원해서 3개 합격하는 75%의 합격률은 너무 신기했습니다. (포지션, 직무 모두 달랐습니다.)</p>
+        <div class="tc-result">📌 4개 지원 · 3개 합격 · 직무 모두 상이</div>
+        <div class="tc-name">jep****</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.02</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 2주 만에 면접 5개</div>
+        <p class="tc-q">"J님 방식대로 자소서랑 포트폴리오 싹 고치고 나니 2주 만에 면접만 5개를 보게 됐고 최종 2군데 합격했습니다."</p>
+        <p class="tc-full">이번 리클 3기 윈터캠프를 수강했는데 이거 완전 제 커리어 2막을 열어준 진짜 최고의 소비임다!!! 처음에는 쌩퇴사하고 백수라 28만원이 크게 느껴졌었거든요. 근데 이번에 연봉 280만 원 이상 오르고 나니까 완전 가성비 그잡채였네욥. 그동안은 서류 넣어도 감감무소식이었는데 J님께서 알려주신 방식대로 자소서랑 포트폴리오 싹 고치고 나니까 2주 만에 면접만 5개를 보게 됐고 최종으로는 2군데에 합격했습니다.</p>
+        <div class="tc-result">📌 연봉 280만원 ↑ · 2군데 최종 합격</div>
+        <div class="tc-name">dus******</div>
+        <div class="tc-meta">리클 3기 윈터캠프 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 경력 10년차도 서탈 탈출</div>
+        <p class="tc-q">"신입부터 10년차 경력직까지 탈락만 하고 있다면 누가 들어도 후회 없는 강의입니다."</p>
+        <p class="tc-full">저는 연차가 꽤 높은 경력직이라 수월하게 재취업을 할 수 있을 거라 생각했는데 1~2년 사이 급변한 채용 시장에서 계속되는 서류 탈락이라는 고배를 마셨습니다. 마지막 보루로 윈터캠프를 신청하게 되었는데 제가 탈락하는 원인 분석부터 길 잃은 직무 방향성까지 잡을 수 있었습니다. JD를 분석하고 이력서와 포트폴리오를 전면 수정한 결과 드디어 서류 탈락 지옥에서 벗어나 재취업의 희망을 찾았습니다.</p>
+        <div class="tc-result">📌 서류 탈락 반복 → 재취업 성공</div>
+        <div class="tc-name">wor**********</div>
+        <div class="tc-meta">윈터캠프 · 경력 10년차 · 2026.03</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 3주 밀착 후 서류 합격</div>
+        <p class="tc-q">"1:1 밀착 컨설팅으로 작성한 자소서로 서류통과가 되는 기적이 있었습니다 😙"</p>
+        <p class="tc-full">자소서를 쓰면서 방향성을 잡기 어려운 취준생이라면 강하게 추천드리고 싶은 강의입니다. 여러 컨설팅을 받아봤지만 대부분 그때그때 첨삭해 주는 방식이라 자소서 작성 능력이 크게 늘지 않았습니다. 하지만 이 부트캠프에서는 자소서를 어떤 사고 과정과 구조로 써야 하는지 체계적인 프로세스로 설명해 주셔서 방향을 잡을 수 있었습니다. 특히 3주 동안의 1:1 밀착 컨설팅을 통해 직접 적용하며 제 글의 문제점을 이해하고 스스로 글을 설계하는 힘을 기를 수 있었습니다.</p>
+        <div class="tc-result">📌 서류 합격 + 스스로 쓰는 힘 완성</div>
+        <div class="tc-name">ekg*****</div>
+        <div class="tc-meta">리포지셔닝 부트캠프 · 2026.03</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 대치동 키즈 추천</div>
+        <p class="tc-q">"28만원에 개인 교습 하신다고 생각하시면 되세요. 가성비를 넘은 프리미엄입니다."</p>
+        <p class="tc-full">사교육의 메카 대치동에서 일타강사 터치 받으면서 대학 갔어요. 거기에 익숙해져 있다 보니 진정한 프리미엄은 찾기 어렵구나 라고 생각했습니다. 결국 프리미엄이라는 건 학생에 대한 열정이라고 생각합니다. 진심으로 이 사람이 잘됐으면 좋겠다는 마음이 학생에게 고스란히 전달되거든요. 자소서 첨삭까지 계속 붙을 때까지 꼼꼼히 봐주시는 걸 보고 내가 하길 잘했다 감사하다 라고 생각했어요. 28만원에 개인 교습 하신다고 생각하시면 되세요.</p>
+        <div class="tc-result">📌 가성비를 넘은 프리미엄</div>
+        <div class="tc-name">jep****</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.02</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 인식 싸움으로 재탄생</div>
+        <p class="tc-q">"단순 경험 정리를 넘어 어떤 관점으로 나를 재정의해야 할지 깨닫게 해주었습니다."</p>
+        <p class="tc-full">단순 경험정리를 넘어 어떤 관점으로 나를 재정의해야 할지 깨닫게 해주었습니다. 이후 자신을 정의하고 설득하는데 더 확신을 가지며 쉽게 자기소개서를 작성할 수 있었습니다. 원래 지원하려던 직무 뿐만 아니라 다른 직무에도 지원할 수 있는 배경을 만들어 주셨습니다. 서탈하는 이유를 모르겠는 사람, 다양한 직무에 지원하며 직무별로 다른 페르소나를 가져가고 싶은 사람에게 추천합니다.</p>
+        <div class="tc-result">📌 직무 확장 + 전략적 자소서 완성</div>
+        <div class="tc-name">inj********</div>
+        <div class="tc-meta">리포지셔닝 클래스 수강생 · 2026.03</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 화상통화로 사고방식 체험</div>
+        <p class="tc-q">"단순 첨삭이 아니라 화상통화로 실시간 수정 과정을 지켜보면서 사고방식을 체험할 수 있었어요."</p>
+        <p class="tc-full">자소서의 거의 모든 문항이 직무 경험을 물어본다고 착각하고 있었어요. '인식을 바꿔야 한다'라는 말 뜻을 머리로만 이해하고 진심으로 깨닫기까지는 2~3주 정도 걸린 것 같아요. 아마 지속적인 1:1 피드백이 없었다면 어려웠을 거에요. 단순 첨삭이 아니라 화상통화를 통해서 실시간으로 제 초안을 수정하는 '과정'을 지켜보면서 기획자님의 사고방식을 잠깐이나마 체험할 수 있었어요. 비대면 리포지셔닝캠프에 굉장히 회의적인 사람이라 이번이 제 첫 컨설팅이었는데 정말 200% 만족입니다!!</p>
+        <div class="tc-result">📌 서탈·면탈 반복 → 전략적 자소서 완성</div>
+        <div class="tc-name">las*******</div>
+        <div class="tc-meta">리포지셔닝 클래스 수강생 · 2026.03</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 인간적으로도 좋은 강의</div>
+        <p class="tc-q">"취업 관련 강의 뿐만 아니라 인간적으로도 좋은 내용 알려주신 기획자 J님 덕분에 글 퀄리티가 올라갔습니다."</p>
+        <p class="tc-full">단순히 자기소개서를 작성하는 것이 아니라 자신이 취업시장에서 어떻게 해야 가치를 올릴 수 있는지, 기업의 니즈를 정확히 파악할 수 있는지에 대해 꼼꼼한 강의 잘 들었습니다. 실제 이전의 글들에 비해 훨씬 퀄리티가 올라갔고 어떤 식으로 접근해야 하는지 보다 명확해졌습니다. 또한 개인적인 피드백으로 귀찮게 해도 오히려 반겨주시며 이런 열정이 자신에게는 더 보람이 된다며 환영해주시는 모습이 인상적이었습니다.</p>
+        <div class="tc-result">📌 글 퀄리티 향상 + 방향성 확립</div>
+        <div class="tc-name">han*****</div>
+        <div class="tc-meta">부트캠프 수강생 · 2026.03</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 합격하는 자소서 발견</div>
+        <p class="tc-q">"자소서를 쓰면서 늘 이게 맞는 방향일까? 라는 고민이 있었지만 이제는 스스로 설계하는 힘이 생겼습니다."</p>
+        <p class="tc-full">그동안 자소서를 쓰면서 늘 '이게 맞는 방향일까?'라는 고민이 있었지만 제 글의 구조적인 문제를 스스로 파악하기는 어려웠습니다. 여러 컨설팅을 받아봤지만 대부분 그때그때 첨삭해 주는 방식이라 자소서 작성 능력이 크게 늘지 않았습니다. 하지만 이 부트캠프에서는 자소서를 어떤 사고 과정과 구조로 써야 하는지 체계적인 프로세스로 설명해 주셔서 방향을 잡을 수 있었습니다. 그리고 이를 통해 작성한 자소서로 서류통과가 되는 기적이 있었습니당 핳하ㅏ😙</p>
+        <div class="tc-result">📌 서류 합격 달성</div>
+        <div class="tc-name">han*****</div>
+        <div class="tc-meta">부트캠프 수강생 · 2026.03</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 면접 2군데 확정</div>
+        <p class="tc-q">"J님 덕분에 자소서랑 포폴 잘 만들어서 면접 2군데 갑니다. 한 군덴 제 연봉보다 20%는 높은 곳이네요 ㅎㅎ"</p>
+        <p class="tc-full">J님 덕분에 자소서랑 포폴 잘 만들어서 면접 2군데 갑니다. 한 군덴 잡포털 기준 제 연봉보다 20%는 높은 곳이네요 ㅎㅎ</p>
+        <div class="tc-result">📌 연봉 20%↑ 기업 면접 확정</div>
+        <div class="tc-name">n92****</div>
+        <div class="tc-meta">수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 커리어 2막 오픈</div>
+        <p class="tc-q">"최종으로 2군데에 합격해서 내일 처우 협의하러 갑니다. 리포지셔닝 캠프 감다살 개쩐다 그자체!"</p>
+        <p class="tc-full">윈터캠프 같이 진행하며 제이님 방식대로 쓴 자소서가 반응이 와서 4개 면접을 보게 되었고 2개 기업에 최종 합격해서 그 중 가장 규모 있는 곳에 내일 처우 협의하러 갑니다! 면접까지 간 경험조차도 없었는데 최합까지 같이 해주셔서 감사했습니다!! 커리어 2막을 여는 데 크으으으으은 도움을 주셔서 또 감사드리고 리포지셔닝 캠프 진짜 감다살 개쩐다 그자체였습니다!!</p>
+        <div class="tc-result">📌 2개 기업 최종 합격</div>
+        <div class="tc-name">dus******</div>
+        <div class="tc-meta">윈터캠프 3기 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 대기업 신입 가능 확신</div>
+        <p class="tc-q">"반년 재직 직장 세 개인데 대기업 신입 가능하다고 못박아주시고 언제나 격려를 해주셔서 두렵지 않아진 것 같아요."</p>
+        <p class="tc-full">우선 기획자 J님께 감사드린다고 하고 싶어요. 반년 재직 직장 세 개인데 대기업 신입 가능하다고 못박아주시고 언제나 격려를 해주셔서 소기업만 다니던 저에게 공채 준비가 두렵지 않아진 것 같아요. 퇴사 이유도 아주 큰 고민이었는데 그것도 명쾌하게 잡아주신 점이 너무 좋았습니다. 특히 비틀기! 아주 유용하게 잘 쓰고 있어요. 앞으로 오게 될 공채 시즌에 단단하고 강한 무기를 장착한 느낌이라 아주 좋아요.</p>
+        <div class="tc-result">📌 공채 준비 전략 완성</div>
+        <div class="tc-name">jep****</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 9년차 마케터도 새발의 피</div>
+        <p class="tc-q">"자소서를 수없이 써왔다 생각했지만 저의 자소서들은 새발의 피였습니다... J님만의 킥이 강의에 있습니다."</p>
+        <p class="tc-full">저는 올해 9년차 마케터입니다. 자소서를 수없이 써왔다 생각했지만 저의 자소서들은 새발의 피였습니다....ㅋㅋㅋㅋ ㅠㅠ PPT 자료만 보고 파악할 수 없는 J님만의 킥이 강의 3회에 걸쳐 있다고 생각했어요. 연차가 있어도 방향이 필요하다면 꼭 도움이 될만한 클래스라 생각합니다!</p>
+        <div class="tc-result">📌 연차 불문 방향성 재정립</div>
+        <div class="tc-name">wce****</div>
+        <div class="tc-meta">9년차 마케터 · 2026.01</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ GPT 의존 탈출</div>
+        <p class="tc-q">"수강하기 전엔 GPT가 써준 자소서만 있었어요. 이제는 스스로 생각하고 나만의 자소서를 씁니다."</p>
+        <p class="tc-full">수강하기 전에 과제 제출용 GPT가 써준 자소서만 있었어요. 질문 의도를 못 잡으니 동문서답하기 바빴고요. 내 이야기는 없고 합격 자소서 내용이랑 틀을 비슷하게 가져가니 설득하는 글은 내밀지도 못했죠. 수강 후 나아진 점: GPT 의존하지 않고 스스로 생각하는 연습, 자소서 문항을 읽고 무엇을 요구하는지 직무분석, 무슨 내용을 어떻게 적어야 하는지 드디어 알았다. 취준 처음이고 무경력이라고 쫄지 말아요 잘 할거에요!</p>
+        <div class="tc-result">📌 스스로 쓰는 자소서 완성</div>
+        <div class="tc-name">mae******</div>
+        <div class="tc-meta">리클 2기 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 5Why로 질문 의도 파악</div>
+        <p class="tc-q">"5Why 기법을 활용해 질문의 진짜 의도를 파악하는 방법을 배우면서 스스로 정리하는 능력이 크게 향상됐습니다."</p>
+        <p class="tc-full">3주 동안 진행된 리포지셔닝 클래스를 통해 그동안 막연하게 느껴졌던 자소서 작성의 방향성을 확실히 잡을 수 있었어요. 특히 5Why 기법을 활용해 질문의 진짜 의도를 파악하는 방법을 배우면서 어떤 내용을 중심으로 써야 하는지 스스로 정리하는 능력이 크게 향상된 것 같습니다! 짧은 기간이었지만 실제로 문장을 구성하는 방식이나 나만의 경험을 효과적으로 드러내는 방법을 익히는 데에 큰 도움이 된 시간이었습니다.</p>
+        <div class="tc-result">📌 자소서 방향성 확립</div>
+        <div class="tc-name">wce****</div>
+        <div class="tc-meta">리클 1기 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 생각의 전환</div>
+        <p class="tc-q">"글은 글이고 면접은 면접이라는 생각이 잘못됐다는 걸 알게 됐습니다. 이전 자소서와 비교해보면 퀄이 다릅니다!!"</p>
+        <p class="tc-full">솔직히 이전에 자기소개서를 썼을 때는 글은 글이고 면접은 면접이라는 생각도 있었고 년차별로 뽑고자 인재상 이런 것들에 대해서 파악하는 것도 없이 그냥 무조건 들이박듯이 썼습니다. 하지만 어느 순간 이게 잘못된 것 같다는 생각이 들기도 했는데 마침 J님의 무료로 배포해주시는 자료를 읽으면서 바로 윈터 캠프에 참여하기로 했습니다. 첫주는 솔직히 어떻게 따라가야 할지 어려움이 클 수도 있지만 2째주부터는 실력이 향상된 것을 느끼실 겁니다. 이전 자소서와 비교해봐도 퀄이 다릅니다!! 꼭 참여해보시길 추천 드립니다!!</p>
+        <div class="tc-result">📌 자소서 퀄리티 대폭 향상</div>
+        <div class="tc-name">whd*******</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 스스로 쓰는 힘</div>
+        <p class="tc-q">"다른 클래스도 들어보고 첨삭도 받아봤지만 대부분 일회성이었는데 리클은 스스로 쓰는 힘을 길러줍니다."</p>
+        <p class="tc-full">리포지셔닝 클래스의 차별화된 점은 '스스로' 자소서를 쓸 수 있는 힘을 길러주는 점이라고 생각합니다. 다른 클래스도 들어보고 첨삭도 받아봤지만 대부분이 일회성이었고 타 기업 자소서를 쓰려고 할 때면 또 다시 막막함과 답답함이 느껴졌습니다. 리클 수강 이후 자소서 작성 시 구조적인 짜임을 어떻게 가져가야 할지 이해할 수 있었습니다. 어떤 문항이 나오더라도 스스로 답을 찾아 작성할 수 있는 힘을 길러준다는 점에서 타 클래스와 확연한 차이를 느낄 수 있었습니다. 최근 첫 번째 서류 합격해서 면접도 보고 왔습니다 ㅎㅎ 리클 듣기 전에는 서류 합격률 0%였는데 이게 됩니다..?</p>
+        <div class="tc-result">📌 서합률 0% → 첫 서류 합격!</div>
+        <div class="tc-name">doh**********</div>
+        <div class="tc-meta">리클 1기 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 자소서 레시피 획득</div>
+        <p class="tc-q">"자소서 레시피 배웠으니 재료만 잘 구해오면 되겠다는 자신감 얻었어요. 2025년 하반기 최고의 소비!"</p>
+        <p class="tc-full">수강하기 전에 과제 제출용 GPT가 써준 자소서만 있었어요. 내 이야기는 없고 취준카페에 있는 합격자소서 내용이랑 틀을 비슷하게 가져가니 설득하는 글은 내밀지도 못했죠. 얼마나 엉망이었냐면 지원동기에 동기는 안 꺼내고 회사 칭찬만 했어요ㅋㅋ 수강 후: GPT 의존하지 않고 스스로 생각하는 연습, 자소서 문항을 읽고 무엇을 요구하는지 직무분석 가능, 자소서 레시피 배웠으니 자격증 취득이든 경험이든 내가 재료만 잘 구해오면 되겠다 자신감 얻었어요. 취준 처음이고 무경력이라고 쫄지 말아요!</p>
+        <div class="tc-result">📌 2025 하반기 최고의 소비</div>
+        <div class="tc-name">seo**********</div>
+        <div class="tc-meta">리클 2기 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 스스로 사고하는 자소서</div>
+        <p class="tc-q">"J님만의 법칙으로 자소서의 기본 개념을 알려준 수업. 어떤 문항이 나오더라도 스스로 답을 찾을 수 있어요."</p>
+        <p class="tc-full">리포지셔닝 클래스는 J님만의 법칙으로 자소서의 기본 개념을 알려준 수업입니다. 저는 인터넷에서 이것저것 본 문구 혹은 구조로 자소서를 써왔던 사람이었는데 찬찬히 기본을 배우고 자신만의 틀을 쓰는 법을 배울 수 있어 많이 배운 수업이었다고 생각합니다. 요즘 워낙 자소서 자료들이 많기도 하다보니 근본적인 고민 혹은 질문을 놓치는 것들이 많은데 처음부터 구조화된 수업으로 나라는 사람을 잘 어필할 수 있게 도와주었습니다. 또한 매 수업 후 주어지는 과제들을 통해 연습할 수 있던 것도 큰 도움이 되었습니다.</p>
+        <div class="tc-result">📌 자소서 구조화 완성</div>
+        <div class="tc-name">tmd*********</div>
+        <div class="tc-meta">리클 1기 수강생 · 2026.01</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 서류 합격률이 달라졌어요</div>
+        <p class="tc-q">"서류 통과율이 다릅니다! 리포지셔닝 클래스 이후 확실히 결과가 달라졌습니다."</p>
+        <p class="tc-full">서류 합격률이 달라졌어요! 서류 통과율이 다릅니다! 리포지셔닝 클래스를 수강한 이후 서류 결과가 확실히 달라졌음을 체감하고 있습니다. 자소서를 어떻게 써야 하는지, 인사담당자의 시각에서 어떻게 읽히는지를 배운 것이 가장 큰 도움이 되었습니다.</p>
+        <div class="tc-result">📌 서류 합격률 향상 체감</div>
+        <div class="tc-name">jk9****</div>
+        <div class="tc-meta">수강생 · 2026.05</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 유용했어요</div>
+        <p class="tc-q">"내용이 정말 유용했습니다. 자소서 작성에 있어 새로운 관점을 얻게 되었어요."</p>
+        <p class="tc-full">내용이 정말 유용했습니다. 자소서 작성에 있어 새로운 관점을 얻게 되었어요. 앞으로의 취업 준비에 큰 도움이 될 것 같습니다. 감사합니다.</p>
+        <div class="tc-result">📌 새로운 관점 획득</div>
+        <div class="tc-name">tul********</div>
+        <div class="tc-meta">수강생 · 2026.04</div>
+      </div>
+
+      <div class="tc-card">
+        <div class="tc-tag">✦ 감사합니다</div>
+        <p class="tc-q">"정말 감사합니다. 자소서에 대한 막연한 두려움이 사라졌어요."</p>
+        <p class="tc-full">정말 감사합니다. 자소서에 대한 막연한 두려움이 사라졌어요. 이전까지는 자소서를 쓸 때마다 막막했는데 이제는 어떻게 접근해야 하는지 알게 된 것 같습니다. 덕분에 취업 준비에 자신감이 생겼습니다.</p>
+        <div class="tc-result">📌 자소서 두려움 극복</div>
+        <div class="tc-name">inj********</div>
+        <div class="tc-meta">수강생 · 2026.03</div>
+      </div>
+
+      <div class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 취업이 마무리될 것</div>
+        <p class="tc-q">"리포지셔닝 클래스를 통해 좋은 시작을 하다보면 어느새 취업이 마무리 될 것입니다!"</p>
+        <p class="tc-full">요즘 취업 정말 어렵고 서류조차 통과하는 것이 너무 어려운 시대가 왔습니다. J님의 자소서 클래스는 '스스로 사고하고 답변할 수 있는 방법'을 알려주는 클래스입니다. 그리고 동시에 '가장 나다운 자소서'를 작성할 수 있게 되어 나를 설득할 수 있는 구조를 체계적으로 만들어나갈 수 있답니다. 리포지셔닝 클래스를 통해 좋은 시작을 하다보면 어느새 취업이 마무리 될 것입니다!</p>
+        <div class="tc-result">📌 나다운 자소서 완성</div>
+        <div class="tc-name">doh**********</div>
+        <div class="tc-meta">리클 2기 수강생 · 2026.01</div>
+      </div>
+
+    
+
+      <!-- row 1: cards 1-12 -->
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 서합률 10% → 70%</div>
+        <p class="tc-q">"전략적으로 작성하면서 여러 회사의 서류를 통과하게 되었습니다."</p>
+        <p class="tc-full">수업 듣기 전에는 강의 찾아보면서 열심히 자소서를 썼지만 서류 통과도 하기 힘들었는데 리클 들으면서 전략적으로 자기소개서를 작성하는 데 이해를 하게 되었고 전략적으로 작성하면서 여러 회사의 서류를 통과하게 되었습니다! 리클 듣고 나서 서합률이 10%에서 정말 70%로 증가하였고 최근에는 면접도 다녀올 정도로 많이 향상됐습니다.</p>
+        <div class="tc-result">📌 서합률 10% → 70%</div>
+        <div class="tc-name">rav********</div>
+        <div class="tc-meta">리포지셔닝 클래스 1기 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 4개 지원 · 3개 합격 (75%)</div>
+        <p class="tc-q">"윈터캠프 기간 총 4개 기업에 지원해서 3개 합격하는 75% 합격률은 너무 신기했습니다."</p>
+        <p class="tc-full">이번 리포지셔닝 클래스는 저에게 큰 전환점이 되었습니다. '자기설득서'가 되어야 한다는 가르침이 정말 인상 깊었습니다. 5 why 법칙, 주장-근거-어필의 구조로 가야 한다는 점이 새롭게 다가왔고 이전 자소서들과 비교해보면 확실히 글이 눈에 잘 들어오고 정리가 잘 되었다는 느낌이 많이 들었습니다. 총 4개의 기업에 지원해서 3개 합격하는 75%의 합격률은 너무 신기했습니다. (포지션, 직무 모두 달랐습니다.)</p>
+        <div class="tc-result">📌 4개 지원 · 3개 합격 · 직무 모두 상이</div>
+        <div class="tc-name">jep****</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.02</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 2주 만에 면접 5개</div>
+        <p class="tc-q">"J님 방식대로 자소서랑 포트폴리오 싹 고치고 나니 2주 만에 면접만 5개를 보게 됐고 최종 2군데 합격했습니다."</p>
+        <p class="tc-full">이번 리클 3기 윈터캠프를 수강했는데 이거 완전 제 커리어 2막을 열어준 진짜 최고의 소비임다!!! 처음에는 쌩퇴사하고 백수라 28만원이 크게 느껴졌었거든요. 근데 이번에 연봉 280만 원 이상 오르고 나니까 완전 가성비 그잡채였네욥. 그동안은 서류 넣어도 감감무소식이었는데 J님께서 알려주신 방식대로 자소서랑 포트폴리오 싹 고치고 나니까 2주 만에 면접만 5개를 보게 됐고 최종으로는 2군데에 합격했습니다.</p>
+        <div class="tc-result">📌 연봉 280만원 ↑ · 2군데 최종 합격</div>
+        <div class="tc-name">dus******</div>
+        <div class="tc-meta">리클 3기 윈터캠프 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 경력 10년차도 서탈 탈출</div>
+        <p class="tc-q">"신입부터 10년차 경력직까지 탈락만 하고 있다면 누가 들어도 후회 없는 강의입니다."</p>
+        <p class="tc-full">저는 연차가 꽤 높은 경력직이라 수월하게 재취업을 할 수 있을 거라 생각했는데 1~2년 사이 급변한 채용 시장에서 계속되는 서류 탈락이라는 고배를 마셨습니다. 마지막 보루로 윈터캠프를 신청하게 되었는데 제가 탈락하는 원인 분석부터 길 잃은 직무 방향성까지 잡을 수 있었습니다. JD를 분석하고 이력서와 포트폴리오를 전면 수정한 결과 드디어 서류 탈락 지옥에서 벗어나 재취업의 희망을 찾았습니다.</p>
+        <div class="tc-result">📌 서류 탈락 반복 → 재취업 성공</div>
+        <div class="tc-name">wor**********</div>
+        <div class="tc-meta">윈터캠프 · 경력 10년차 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 3주 밀착 후 서류 합격</div>
+        <p class="tc-q">"1:1 밀착 컨설팅으로 작성한 자소서로 서류통과가 되는 기적이 있었습니다 😙"</p>
+        <p class="tc-full">자소서를 쓰면서 방향성을 잡기 어려운 취준생이라면 강하게 추천드리고 싶은 강의입니다. 여러 컨설팅을 받아봤지만 대부분 그때그때 첨삭해 주는 방식이라 자소서 작성 능력이 크게 늘지 않았습니다. 하지만 이 부트캠프에서는 자소서를 어떤 사고 과정과 구조로 써야 하는지 체계적인 프로세스로 설명해 주셔서 방향을 잡을 수 있었습니다. 특히 3주 동안의 1:1 밀착 컨설팅을 통해 직접 적용하며 제 글의 문제점을 이해하고 스스로 글을 설계하는 힘을 기를 수 있었습니다.</p>
+        <div class="tc-result">📌 서류 합격 + 스스로 쓰는 힘 완성</div>
+        <div class="tc-name">ekg*****</div>
+        <div class="tc-meta">리포지셔닝 부트캠프 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 대치동 키즈 추천</div>
+        <p class="tc-q">"28만원에 개인 교습 하신다고 생각하시면 되세요. 가성비를 넘은 프리미엄입니다."</p>
+        <p class="tc-full">사교육의 메카 대치동에서 일타강사 터치 받으면서 대학 갔어요. 거기에 익숙해져 있다 보니 진정한 프리미엄은 찾기 어렵구나 라고 생각했습니다. 결국 프리미엄이라는 건 학생에 대한 열정이라고 생각합니다. 진심으로 이 사람이 잘됐으면 좋겠다는 마음이 학생에게 고스란히 전달되거든요. 자소서 첨삭까지 계속 붙을 때까지 꼼꼼히 봐주시는 걸 보고 내가 하길 잘했다 감사하다 라고 생각했어요. 28만원에 개인 교습 하신다고 생각하시면 되세요.</p>
+        <div class="tc-result">📌 가성비를 넘은 프리미엄</div>
+        <div class="tc-name">jep****</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.02</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 인식 싸움으로 재탄생</div>
+        <p class="tc-q">"단순 경험 정리를 넘어 어떤 관점으로 나를 재정의해야 할지 깨닫게 해주었습니다."</p>
+        <p class="tc-full">단순 경험정리를 넘어 어떤 관점으로 나를 재정의해야 할지 깨닫게 해주었습니다. 이후 자신을 정의하고 설득하는데 더 확신을 가지며 쉽게 자기소개서를 작성할 수 있었습니다. 원래 지원하려던 직무 뿐만 아니라 다른 직무에도 지원할 수 있는 배경을 만들어 주셨습니다. 서탈하는 이유를 모르겠는 사람, 다양한 직무에 지원하며 직무별로 다른 페르소나를 가져가고 싶은 사람에게 추천합니다.</p>
+        <div class="tc-result">📌 직무 확장 + 전략적 자소서 완성</div>
+        <div class="tc-name">inj********</div>
+        <div class="tc-meta">리포지셔닝 클래스 수강생 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 화상통화로 사고방식 체험</div>
+        <p class="tc-q">"단순 첨삭이 아니라 화상통화로 실시간 수정 과정을 지켜보면서 사고방식을 체험할 수 있었어요."</p>
+        <p class="tc-full">자소서의 거의 모든 문항이 직무 경험을 물어본다고 착각하고 있었어요. '인식을 바꿔야 한다'라는 말 뜻을 머리로만 이해하고 진심으로 깨닫기까지는 2~3주 정도 걸린 것 같아요. 아마 지속적인 1:1 피드백이 없었다면 어려웠을 거에요. 단순 첨삭이 아니라 화상통화를 통해서 실시간으로 제 초안을 수정하는 '과정'을 지켜보면서 기획자님의 사고방식을 잠깐이나마 체험할 수 있었어요. 비대면 리포지셔닝캠프에 굉장히 회의적인 사람이라 이번이 제 첫 컨설팅이었는데 정말 200% 만족입니다!!</p>
+        <div class="tc-result">📌 서탈·면탈 반복 → 전략적 자소서 완성</div>
+        <div class="tc-name">las*******</div>
+        <div class="tc-meta">리포지셔닝 클래스 수강생 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 인간적으로도 좋은 강의</div>
+        <p class="tc-q">"취업 관련 강의 뿐만 아니라 인간적으로도 좋은 내용 알려주신 기획자 J님 덕분에 글 퀄리티가 올라갔습니다."</p>
+        <p class="tc-full">단순히 자기소개서를 작성하는 것이 아니라 자신이 취업시장에서 어떻게 해야 가치를 올릴 수 있는지, 기업의 니즈를 정확히 파악할 수 있는지에 대해 꼼꼼한 강의 잘 들었습니다. 실제 이전의 글들에 비해 훨씬 퀄리티가 올라갔고 어떤 식으로 접근해야 하는지 보다 명확해졌습니다. 또한 개인적인 피드백으로 귀찮게 해도 오히려 반겨주시며 이런 열정이 자신에게는 더 보람이 된다며 환영해주시는 모습이 인상적이었습니다.</p>
+        <div class="tc-result">📌 글 퀄리티 향상 + 방향성 확립</div>
+        <div class="tc-name">han*****</div>
+        <div class="tc-meta">부트캠프 수강생 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 합격하는 자소서 발견</div>
+        <p class="tc-q">"자소서를 쓰면서 늘 이게 맞는 방향일까? 라는 고민이 있었지만 이제는 스스로 설계하는 힘이 생겼습니다."</p>
+        <p class="tc-full">그동안 자소서를 쓰면서 늘 '이게 맞는 방향일까?'라는 고민이 있었지만 제 글의 구조적인 문제를 스스로 파악하기는 어려웠습니다. 여러 컨설팅을 받아봤지만 대부분 그때그때 첨삭해 주는 방식이라 자소서 작성 능력이 크게 늘지 않았습니다. 하지만 이 부트캠프에서는 자소서를 어떤 사고 과정과 구조로 써야 하는지 체계적인 프로세스로 설명해 주셔서 방향을 잡을 수 있었습니다. 그리고 이를 통해 작성한 자소서로 서류통과가 되는 기적이 있었습니당 핳하ㅏ😙</p>
+        <div class="tc-result">📌 서류 합격 달성</div>
+        <div class="tc-name">han*****</div>
+        <div class="tc-meta">부트캠프 수강생 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 면접 2군데 확정</div>
+        <p class="tc-q">"J님 덕분에 자소서랑 포폴 잘 만들어서 면접 2군데 갑니다. 한 군덴 제 연봉보다 20%는 높은 곳이네요 ㅎㅎ"</p>
+        <p class="tc-full">J님 덕분에 자소서랑 포폴 잘 만들어서 면접 2군데 갑니다. 한 군덴 잡포털 기준 제 연봉보다 20%는 높은 곳이네요 ㅎㅎ</p>
+        <div class="tc-result">📌 연봉 20%↑ 기업 면접 확정</div>
+        <div class="tc-name">n92****</div>
+        <div class="tc-meta">수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 커리어 2막 오픈</div>
+        <p class="tc-q">"최종으로 2군데에 합격해서 내일 처우 협의하러 갑니다. 리포지셔닝 캠프 감다살 개쩐다 그자체!"</p>
+        <p class="tc-full">윈터캠프 같이 진행하며 제이님 방식대로 쓴 자소서가 반응이 와서 4개 면접을 보게 되었고 2개 기업에 최종 합격해서 그 중 가장 규모 있는 곳에 내일 처우 협의하러 갑니다! 면접까지 간 경험조차도 없었는데 최합까지 같이 해주셔서 감사했습니다!! 커리어 2막을 여는 데 크으으으으은 도움을 주셔서 또 감사드리고 리포지셔닝 캠프 진짜 감다살 개쩐다 그자체였습니다!!</p>
+        <div class="tc-result">📌 2개 기업 최종 합격</div>
+        <div class="tc-name">dus******</div>
+        <div class="tc-meta">윈터캠프 3기 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 대기업 신입 가능 확신</div>
+        <p class="tc-q">"반년 재직 직장 세 개인데 대기업 신입 가능하다고 못박아주시고 언제나 격려를 해주셔서 두렵지 않아진 것 같아요."</p>
+        <p class="tc-full">우선 기획자 J님께 감사드린다고 하고 싶어요. 반년 재직 직장 세 개인데 대기업 신입 가능하다고 못박아주시고 언제나 격려를 해주셔서 소기업만 다니던 저에게 공채 준비가 두렵지 않아진 것 같아요. 퇴사 이유도 아주 큰 고민이었는데 그것도 명쾌하게 잡아주신 점이 너무 좋았습니다. 특히 비틀기! 아주 유용하게 잘 쓰고 있어요. 앞으로 오게 될 공채 시즌에 단단하고 강한 무기를 장착한 느낌이라 아주 좋아요.</p>
+        <div class="tc-result">📌 공채 준비 전략 완성</div>
+        <div class="tc-name">jep****</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 9년차 마케터도 새발의 피</div>
+        <p class="tc-q">"자소서를 수없이 써왔다 생각했지만 저의 자소서들은 새발의 피였습니다... J님만의 킥이 강의에 있습니다."</p>
+        <p class="tc-full">저는 올해 9년차 마케터입니다. 자소서를 수없이 써왔다 생각했지만 저의 자소서들은 새발의 피였습니다....ㅋㅋㅋㅋ ㅠㅠ PPT 자료만 보고 파악할 수 없는 J님만의 킥이 강의 3회에 걸쳐 있다고 생각했어요. 연차가 있어도 방향이 필요하다면 꼭 도움이 될만한 클래스라 생각합니다!</p>
+        <div class="tc-result">📌 연차 불문 방향성 재정립</div>
+        <div class="tc-name">wce****</div>
+        <div class="tc-meta">9년차 마케터 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ GPT 의존 탈출</div>
+        <p class="tc-q">"수강하기 전엔 GPT가 써준 자소서만 있었어요. 이제는 스스로 생각하고 나만의 자소서를 씁니다."</p>
+        <p class="tc-full">수강하기 전에 과제 제출용 GPT가 써준 자소서만 있었어요. 질문 의도를 못 잡으니 동문서답하기 바빴고요. 내 이야기는 없고 합격 자소서 내용이랑 틀을 비슷하게 가져가니 설득하는 글은 내밀지도 못했죠. 수강 후 나아진 점: GPT 의존하지 않고 스스로 생각하는 연습, 자소서 문항을 읽고 무엇을 요구하는지 직무분석, 무슨 내용을 어떻게 적어야 하는지 드디어 알았다. 취준 처음이고 무경력이라고 쫄지 말아요 잘 할거에요!</p>
+        <div class="tc-result">📌 스스로 쓰는 자소서 완성</div>
+        <div class="tc-name">mae******</div>
+        <div class="tc-meta">리클 2기 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 5Why로 질문 의도 파악</div>
+        <p class="tc-q">"5Why 기법을 활용해 질문의 진짜 의도를 파악하는 방법을 배우면서 스스로 정리하는 능력이 크게 향상됐습니다."</p>
+        <p class="tc-full">3주 동안 진행된 리포지셔닝 클래스를 통해 그동안 막연하게 느껴졌던 자소서 작성의 방향성을 확실히 잡을 수 있었어요. 특히 5Why 기법을 활용해 질문의 진짜 의도를 파악하는 방법을 배우면서 어떤 내용을 중심으로 써야 하는지 스스로 정리하는 능력이 크게 향상된 것 같습니다! 짧은 기간이었지만 실제로 문장을 구성하는 방식이나 나만의 경험을 효과적으로 드러내는 방법을 익히는 데에 큰 도움이 된 시간이었습니다.</p>
+        <div class="tc-result">📌 자소서 방향성 확립</div>
+        <div class="tc-name">wce****</div>
+        <div class="tc-meta">리클 1기 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 생각의 전환</div>
+        <p class="tc-q">"글은 글이고 면접은 면접이라는 생각이 잘못됐다는 걸 알게 됐습니다. 이전 자소서와 비교해보면 퀄이 다릅니다!!"</p>
+        <p class="tc-full">솔직히 이전에 자기소개서를 썼을 때는 글은 글이고 면접은 면접이라는 생각도 있었고 년차별로 뽑고자 인재상 이런 것들에 대해서 파악하는 것도 없이 그냥 무조건 들이박듯이 썼습니다. 하지만 어느 순간 이게 잘못된 것 같다는 생각이 들기도 했는데 마침 J님의 무료로 배포해주시는 자료를 읽으면서 바로 윈터 캠프에 참여하기로 했습니다. 첫주는 솔직히 어떻게 따라가야 할지 어려움이 클 수도 있지만 2째주부터는 실력이 향상된 것을 느끼실 겁니다. 이전 자소서와 비교해봐도 퀄이 다릅니다!! 꼭 참여해보시길 추천 드립니다!!</p>
+        <div class="tc-result">📌 자소서 퀄리티 대폭 향상</div>
+        <div class="tc-name">whd*******</div>
+        <div class="tc-meta">윈터캠프 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 스스로 쓰는 힘</div>
+        <p class="tc-q">"다른 클래스도 들어보고 첨삭도 받아봤지만 대부분 일회성이었는데 리클은 스스로 쓰는 힘을 길러줍니다."</p>
+        <p class="tc-full">리포지셔닝 클래스의 차별화된 점은 '스스로' 자소서를 쓸 수 있는 힘을 길러주는 점이라고 생각합니다. 다른 클래스도 들어보고 첨삭도 받아봤지만 대부분이 일회성이었고 타 기업 자소서를 쓰려고 할 때면 또 다시 막막함과 답답함이 느껴졌습니다. 리클 수강 이후 자소서 작성 시 구조적인 짜임을 어떻게 가져가야 할지 이해할 수 있었습니다. 어떤 문항이 나오더라도 스스로 답을 찾아 작성할 수 있는 힘을 길러준다는 점에서 타 클래스와 확연한 차이를 느낄 수 있었습니다. 최근 첫 번째 서류 합격해서 면접도 보고 왔습니다 ㅎㅎ 리클 듣기 전에는 서류 합격률 0%였는데 이게 됩니다..?</p>
+        <div class="tc-result">📌 서합률 0% → 첫 서류 합격!</div>
+        <div class="tc-name">doh**********</div>
+        <div class="tc-meta">리클 1기 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 자소서 레시피 획득</div>
+        <p class="tc-q">"자소서 레시피 배웠으니 재료만 잘 구해오면 되겠다는 자신감 얻었어요. 2025년 하반기 최고의 소비!"</p>
+        <p class="tc-full">수강하기 전에 과제 제출용 GPT가 써준 자소서만 있었어요. 내 이야기는 없고 취준카페에 있는 합격자소서 내용이랑 틀을 비슷하게 가져가니 설득하는 글은 내밀지도 못했죠. 얼마나 엉망이었냐면 지원동기에 동기는 안 꺼내고 회사 칭찬만 했어요ㅋㅋ 수강 후: GPT 의존하지 않고 스스로 생각하는 연습, 자소서 문항을 읽고 무엇을 요구하는지 직무분석 가능, 자소서 레시피 배웠으니 자격증 취득이든 경험이든 내가 재료만 잘 구해오면 되겠다 자신감 얻었어요. 취준 처음이고 무경력이라고 쫄지 말아요!</p>
+        <div class="tc-result">📌 2025 하반기 최고의 소비</div>
+        <div class="tc-name">seo**********</div>
+        <div class="tc-meta">리클 2기 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 스스로 사고하는 자소서</div>
+        <p class="tc-q">"J님만의 법칙으로 자소서의 기본 개념을 알려준 수업. 어떤 문항이 나오더라도 스스로 답을 찾을 수 있어요."</p>
+        <p class="tc-full">리포지셔닝 클래스는 J님만의 법칙으로 자소서의 기본 개념을 알려준 수업입니다. 저는 인터넷에서 이것저것 본 문구 혹은 구조로 자소서를 써왔던 사람이었는데 찬찬히 기본을 배우고 자신만의 틀을 쓰는 법을 배울 수 있어 많이 배운 수업이었다고 생각합니다. 요즘 워낙 자소서 자료들이 많기도 하다보니 근본적인 고민 혹은 질문을 놓치는 것들이 많은데 처음부터 구조화된 수업으로 나라는 사람을 잘 어필할 수 있게 도와주었습니다. 또한 매 수업 후 주어지는 과제들을 통해 연습할 수 있던 것도 큰 도움이 되었습니다.</p>
+        <div class="tc-result">📌 자소서 구조화 완성</div>
+        <div class="tc-name">tmd*********</div>
+        <div class="tc-meta">리클 1기 수강생 · 2026.01</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 서류 합격률이 달라졌어요</div>
+        <p class="tc-q">"서류 통과율이 다릅니다! 리포지셔닝 클래스 이후 확실히 결과가 달라졌습니다."</p>
+        <p class="tc-full">서류 합격률이 달라졌어요! 서류 통과율이 다릅니다! 리포지셔닝 클래스를 수강한 이후 서류 결과가 확실히 달라졌음을 체감하고 있습니다. 자소서를 어떻게 써야 하는지, 인사담당자의 시각에서 어떻게 읽히는지를 배운 것이 가장 큰 도움이 되었습니다.</p>
+        <div class="tc-result">📌 서류 합격률 향상 체감</div>
+        <div class="tc-name">jk9****</div>
+        <div class="tc-meta">수강생 · 2026.05</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 유용했어요</div>
+        <p class="tc-q">"내용이 정말 유용했습니다. 자소서 작성에 있어 새로운 관점을 얻게 되었어요."</p>
+        <p class="tc-full">내용이 정말 유용했습니다. 자소서 작성에 있어 새로운 관점을 얻게 되었어요. 앞으로의 취업 준비에 큰 도움이 될 것 같습니다. 감사합니다.</p>
+        <div class="tc-result">📌 새로운 관점 획득</div>
+        <div class="tc-name">tul********</div>
+        <div class="tc-meta">수강생 · 2026.04</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card">
+        <div class="tc-tag">✦ 감사합니다</div>
+        <p class="tc-q">"정말 감사합니다. 자소서에 대한 막연한 두려움이 사라졌어요."</p>
+        <p class="tc-full">정말 감사합니다. 자소서에 대한 막연한 두려움이 사라졌어요. 이전까지는 자소서를 쓸 때마다 막막했는데 이제는 어떻게 접근해야 하는지 알게 된 것 같습니다. 덕분에 취업 준비에 자신감이 생겼습니다.</p>
+        <div class="tc-result">📌 자소서 두려움 극복</div>
+        <div class="tc-name">inj********</div>
+        <div class="tc-meta">수강생 · 2026.03</div>
+      </div>
+
+      <div aria-hidden="true" class="tc-card tc-yellow">
+        <div class="tc-tag">✦ 취업이 마무리될 것</div>
+        <p class="tc-q">"리포지셔닝 클래스를 통해 좋은 시작을 하다보면 어느새 취업이 마무리 될 것입니다!"</p>
+        <p class="tc-full">요즘 취업 정말 어렵고 서류조차 통과하는 것이 너무 어려운 시대가 왔습니다. J님의 자소서 클래스는 '스스로 사고하고 답변할 수 있는 방법'을 알려주는 클래스입니다. 그리고 동시에 '가장 나다운 자소서'를 작성할 수 있게 되어 나를 설득할 수 있는 구조를 체계적으로 만들어나갈 수 있답니다. 리포지셔닝 클래스를 통해 좋은 시작을 하다보면 어느새 취업이 마무리 될 것입니다!</p>
+        <div class="tc-result">📌 나다운 자소서 완성</div>
+        <div class="tc-name">doh**********</div>
+        <div class="tc-meta">리클 2기 수강생 · 2026.01</div>
+      </div>
+
+    </div><!-- end tc-track -->
+  </div><!-- end tc-outer -->
+
+  <div class="t-count rev">★★★★★ 수강생 후기 23개 전원 만족</div>
+</section>
+
+<!-- REVIEW POPUP -->
+<div id="t-popup-bg">
+  <div id="t-popup">
+    <button id="t-popup-close">✕</button>
+    <div id="t-popup-content"></div>
+  </div>
+</div>
+<!-- CTA -->
+<section id="cta">
+  <div class="cta-l rev">
+    <div class="cta-eye">무료 스펙 진단 · 30분 · 이력서 한 장</div>
+    <h2 class="cta-h">지금 가진 경험으로 충분합니다.</h2>
+    <p class="cta-sub">부족한 건 스펙이 아니라, 스펙을 읽히게 만드는 전략입니다. 이력서 한 장만 가져오세요. 30분이면 달라집니다.</p>
+  </div>
+  <div class="cta-r rev d1">
+    <a href="#" class="btn-blk">지금 무료 진단 신청하기 →</a>
+    <p class="cta-u">⚡ 이번 달 잔여 슬롯 <strong>3자리</strong> · 매월 선착순 마감</p>
+  </div>
+</section>
+
+<footer>
+  <div class="fl"><span>REPOSITION</span></div>
+  <div class="fc">© 2025 기획자 J · REPOSITION</div>
+  <div class="flinks">
+    <a href="#">리포지셔닝</a>
+    <a href="#">서비스</a>
+    <a href="#">카카오톡 문의</a>
+  </div>
+</footer>
+</div>
+
+<div id="page-tool">
+  <nav class="t-nav">
+    <a href="#" class="t-logo" onclick="showPage('home');return false;"><span>REPOSITION</span></a>
+    <button class="t-back" onclick="showPage('home')">← 홈으로</button>
+  </nav>
+<nav>
+  <a href="index.html" class="logo"><span>REPOSITION</span></a>
+  <a href="index.html" class="nav-back">← 홈으로</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">JD 리포지셔닝 분석기</div>
+  <h1 class="hero-h1">공고를 붙여넣으면<br><span>자기설득서 전략</span>이 나옵니다.</h1>
+  <p class="hero-sub">채용공고 URL 또는 텍스트를 입력하면 REPOSITION의 자기설득서 논리로 각 문항 전략과 초안을 제안합니다.</p>
+</div>
+
+<div class="main">
+  <!-- LEFT: INPUT -->
+  <div class="panel-left">
+    <div class="panel-title">공고 입력</div>
+
+    <!-- URL + 지원 직무 -->
+    <div class="url-section">
+      <span class="url-label">채용공고 URL</span>
+      <div class="url-wrap">
+        <input id="urlInput" class="url-input" type="url" placeholder="https://jasoseol.com/recruit/... 또는 사람인, 잡코리아 등">
+        <button class="btn-fetch" id="btnFetch" onclick="fetchJD()">공고 가져오기</button>
+      </div>
+      <div style="margin-top:12px">
+        <input id="jobInput" class="url-input" type="text" placeholder="지원 직무 입력 (예: 마케팅 기획, 브랜드 매니저, 영업관리 등)" style="width:100%">
+      </div>
+    </div>
+
+    <div class="or-divider">또는 직접 붙여넣기</div>
+
+    <!-- JD textarea -->
+    <span class="jd-label">채용공고 내용</span>
+    <textarea id="jdText" class="jd-textarea" placeholder="채용공고 페이지의 내용을 복사해서 붙여넣어 주세요.
+
+예)
+[회사명] OO기업
+[직무] 마케팅 기획
+[주요업무] ...
+[자격요건] ...
+[우대사항] ...
+[자소서 문항]
+1. 지원동기를 서술하시오 (700자)
+2. 직무역량을 기술하시오 (500자)
+..."></textarea>
+
+    <!-- User context -->
+    <div class="context-section">
+      <span class="context-label">내 경험 요약 <span style="color:rgba(255,255,255,.35);font-weight:400">(선택 — 입력하면 맞춤형 초안이 나옵니다)</span></span>
+      <textarea id="contextText" class="context-textarea" placeholder="예) 마케팅 인턴 6개월, SNS 콘텐츠 기획 담당, 팔로워 2만 성장. 비전공자 (경제학과). 직무 전환 준비 중."></textarea>
+    </div>
+
+    <button class="btn-analyze" id="btnAnalyze" onclick="analyze()">
+      <div class="spinner" id="spinner"></div>
+      <span class="btn-text" id="btnText">🔍 REPOSITION 논리로 분석하기</span>
+    </button>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  <!-- RIGHT: OUTPUT -->
+  <div class="panel-right" id="panelRight">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">⟳</div>
+      <div class="empty-title">아직 분석 결과가 없습니다</div>
+      <div class="empty-sub">왼쪽에 채용공고를 붙여넣고<br>분석 버튼을 누르면<br>자기설득서 전략이 나타납니다.</div>
+    </div>
+
+    <div id="resultArea" class="result-hidden">
+      <!-- 0. Positioning -->
+      <div class="result-section" id="sec0">
+        <div class="rs-header">
+          <div class="rs-num">00</div>
+          <div class="rs-title">나의 포지셔닝 한 줄</div>
+          <div class="rs-badge">REPOSITION CORE</div>
+        </div>
+        <div class="pos-box">
+          <div class="pos-headline" id="pos-headline"></div>
+          <div class="pos-sub" id="pos-sub"></div>
+          <div class="pos-tags" id="pos-tags"></div>
+        </div>
+      </div>
+
+      <!-- 1. JD 분석 -->
+      <div class="result-section" id="sec1">
+        <div class="rs-header">
+          <div class="rs-num">01</div>
+          <div class="rs-title">JD 핵심 분석</div>
+          <div class="rs-badge">인사담당자 언어</div>
+        </div>
+        <div class="company-grid" id="companyGrid"></div>
+        <div class="jd-parsed" id="jdParsed"></div>
+      </div>
+
+      <!-- 2. 문항별 전략 -->
+      <div class="result-section" id="sec2">
+        <div class="rs-header">
+          <div class="rs-num">02</div>
+          <div class="rs-title">문항별 자기설득서 전략</div>
+          <div class="rs-badge">주장→근거→어필</div>
+        </div>
+        <div class="q-cards" id="qCards"></div>
+      </div>
+
+      <!-- 3. 초안 -->
+      <div class="result-section" id="sec3">
+        <div class="rs-header">
+          <div class="rs-num">03</div>
+          <div class="rs-title">자기설득서 초안</div>
+          <div class="rs-badge">바로 수정 가능</div>
+        </div>
+        <div class="draft-items" id="draftItems"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl"><span>REPOSITION</span></div>
+  <div class="fc">© 2025 REPOSITION · 스펙 리포지셔닝 에이전시</div>
+</footer>
+</div>
+
+<script>
+
+// ── PAGE ROUTER ──
+function showPage(page) {
+  var ph = document.getElementById('page-home');
+  var pt = document.getElementById('page-tool');
+  if(page === 'tool') {
+    ph.style.display = 'none';
+    pt.style.display = 'block';
+    window.scrollTo(0,0);
+    document.title = 'JD 분석기 | REPOSITION';
+    history.pushState({page:'tool'}, '', '#tool');
+  } else {
+    ph.style.display = 'block';
+    pt.style.display = 'none';
+    window.scrollTo(0,0);
+    document.title = 'REPOSITION | 스펙 리포지셔닝 에이전시';
+    history.pushState({page:'home'}, '', location.pathname);
+  }
+}
+window.addEventListener('popstate', function(e) {
+  if(location.hash === '#tool') showPage('tool');
+  else showPage('home');
+});
+if(location.hash === '#tool') showPage('tool');
+document.addEventListener('click', function(e) {
+  var a = e.target.closest('a');
+  if(!a) return;
+  var href = a.getAttribute('href') || '';
+  if(href === 'tool.html' || href === '#tool') { e.preventDefault(); showPage('tool'); }
+  else if(href === 'index.html' || href === '#home' || href === '#') { e.preventDefault(); showPage('home'); }
+});
+
+
+// ── ALL JS ── runs after DOM ready
+document.addEventListener('DOMContentLoaded', function(){
+
+  /* ── INTRO ── */
+  var intro = document.getElementById('intro');
+  var bar   = document.getElementById('intro-bar');
+  var wipe  = document.getElementById('wipe');
+  if(intro && bar && wipe){
+    var chars = intro.querySelectorAll('.ic');
+    document.body.classList.add('noscroll');
+    var base = 100;
+    chars.forEach(function(c,i){
+      setTimeout(function(){ c.style.opacity='1'; c.style.transform='translateY(0)'; }, base+i*60);
+    });
+    var hold = base + chars.length*60 + 500;
+    bar.style.transition = 'width '+(hold/1000).toFixed(2)+'s linear';
+    setTimeout(function(){ bar.style.width='100%'; }, 20);
+    setTimeout(function(){
+      wipe.style.transition='transform 0.48s cubic-bezier(.86,0,.07,1)';
+      wipe.style.transform='translateX(0)';
+    }, hold);
+    setTimeout(function(){
+      intro.style.display='none';
+      document.body.classList.remove('noscroll');
+      wipe.style.transition='transform 0.48s cubic-bezier(.86,0,.07,1)';
+      wipe.style.transform='translateX(100%)';
+      document.querySelectorAll('.rev').forEach(function(el){ el.classList.add('on'); });
+    }, hold+500);
+    setTimeout(function(){
+      wipe.style.display='none';
+      document.querySelectorAll('.rev').forEach(function(el){ el.classList.add('on'); });
+    }, hold+1050);
+  }
+
+  /* ── CURSOR ── */
+  var cur=document.getElementById('cur'), cur2=document.getElementById('cur2');
+  if(cur && cur2){
+    var mx=0,my=0,fx=0,fy=0;
+    document.addEventListener('mousemove',function(e){ mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+    (function t(){ fx+=(mx-fx)*.11; fy+=(my-fy)*.11; cur2.style.left=fx+'px'; cur2.style.top=fy+'px'; requestAnimationFrame(t); })();
+    document.querySelectorAll('a,button').forEach(function(el){
+      el.addEventListener('mouseenter',function(){ cur.style.width='18px'; cur.style.height='18px'; });
+      el.addEventListener('mouseleave',function(){ cur.style.width='10px'; cur.style.height='10px'; });
+    });
+  }
+
+  /* ── SCROLL REVEAL ── */
+  var obs=new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) e.target.classList.add('on'); }); },{threshold:0,rootMargin:'0px 0px -50px 0px'});
+  document.querySelectorAll('.rev').forEach(function(el){ obs.observe(el); });
+
+  /* ── REVIEW POPUP ── */
+  var popBg    = document.getElementById('t-popup-bg');
+  var popClose = document.getElementById('t-popup-close');
+  var popContent = document.getElementById('t-popup-content');
+  document.querySelectorAll('.t-more').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var id = btn.getAttribute('data-id');
+      var card = btn.closest('.tcard') || btn.closest('.tc-card');
+      var full = document.getElementById(id);
+      if(!full || !popBg || !popContent) return;
+      var tag   = card.querySelector('.ttag')   ? card.querySelector('.ttag').textContent   : '';
+      var tres  = card.querySelector('.tres')   ? card.querySelector('.tres').textContent   : '';
+      var tname = card.querySelector('.tname')  ? card.querySelector('.tname').textContent  : '';
+      var tmeta = card.querySelector('.tmeta')  ? card.querySelector('.tmeta').textContent  : '';
+      popContent.innerHTML =
+        '<div class="pop-tag">' + tag + '</div>' +
+        '<p class="pop-body">' + full.textContent.trim() + '</p>' +
+        '<div class="pop-result">' + tres + '</div>' +
+        '<div class="pop-name">' + tname + '</div>' +
+        '<div class="pop-meta">' + tmeta + '</div>';
+      popBg.classList.add('open');
+    });
+  });
+  if(popClose) popClose.addEventListener('click', function(){ popBg.classList.remove('open'); });
+  // carousel card click → popup
+  document.querySelectorAll('.tc-card').forEach(function(card){
+    card.style.cursor='none';
+    card.addEventListener('click',function(){
+      if(!popBg||!popContent) return;
+      var tag    = card.querySelector('.tc-tag')    ? card.querySelector('.tc-tag').textContent    : '';
+      var full   = card.querySelector('.tc-full')   ? card.querySelector('.tc-full').textContent.trim() : '';
+      var result = card.querySelector('.tc-result') ? card.querySelector('.tc-result').textContent : '';
+      var name   = card.querySelector('.tc-name')   ? card.querySelector('.tc-name').textContent   : '';
+      var meta   = card.querySelector('.tc-meta')   ? card.querySelector('.tc-meta').textContent   : '';
+      popContent.innerHTML =
+        '<div class="pop-tag">'+tag+'</div>'+
+        '<p class="pop-body">'+full+'</p>'+
+        '<div class="pop-result">'+result+'</div>'+
+        '<div class="pop-name">'+name+'</div>'+
+        '<div class="pop-meta">'+meta+'</div>';
+      popBg.classList.add('open');
+    });
+  });
+  if(popBg) popBg.addEventListener('click', function(e){ if(e.target===popBg) popBg.classList.remove('open'); });
+
+  /* ── NAV on scroll ── */
+  var nav=document.getElementById('nav');
+  if(nav){
+    window.addEventListener('scroll',function(){
+      if(window.scrollY>10){ nav.style.background='rgba(0,0,0,.98)'; nav.style.borderBottom='1px solid rgba(255,255,255,.1)'; }
+      else{ nav.style.background='rgba(0,0,0,.97)'; nav.style.borderBottom='1px solid rgba(255,255,255,.07)'; }
+    });
+  }
+
+  /* ── KEY VISUAL word switcher ── */
+  var words = Array.prototype.slice.call(document.querySelectorAll('.kv-word'));
+  if(words.length){
+    var current = 0;
+    var durations = [1200, 1400, 1200];
+    words.forEach(function(w,i){
+      w.style.transition='none';
+      w.style.position='absolute';
+      w.style.inset='0';
+      w.style.display='flex';
+      w.style.alignItems='center';
+      if(i===0){ w.style.transform='translateY(0%)'; w.style.opacity='1'; }
+      else { w.style.transform='translateY(-110%)'; w.style.opacity='0'; }
+    });
+    function switchWord(){
+      var curW  = words[current];
+      var next  = (current + 1) % words.length;
+      var nextW = words[next];
+
+      /* current always drops DOWN */
+      curW.style.transition = 'transform 0.3s cubic-bezier(.55,0,1,.45), opacity 0.3s ease';
+      curW.style.transform  = 'translateY(110%)';
+      curW.style.opacity    = '0';
+      curW.style.textShadow = 'none';
+      curW.style.filter     = 'none';
+      curW.style.clipPath   = 'none';
+
+      /* next always enters from TOP */
+      nextW.style.transition = 'none';
+      nextW.style.transform  = 'translateY(-110%)';
+      nextW.style.opacity    = '0';
+      nextW.style.filter     = 'none';
+      nextW.style.textShadow = 'none';
+      nextW.style.clipPath   = 'none';
+      setTimeout(function(){
+        nextW.style.transition = 'transform 0.3s cubic-bezier(0,.55,.45,1), opacity 0.3s ease';
+        nextW.style.transform  = 'translateY(0%)';
+        nextW.style.opacity    = '1';
+      }, 30);
+
+      current = next;
+      setTimeout(switchWord, durations[next]);
+    }
+    setTimeout(switchWord, durations[0]);
+  }
+
+});
+
+
+// ── URL fetch with multiple proxy fallbacks ──
+async function fetchJD(){
+  const url = document.getElementById('urlInput').value.trim();
+  if(!url){ alert('URL을 입력해주세요.'); return; }
+  const btn = document.getElementById('btnFetch');
+  btn.disabled = true; btn.textContent = '가져오는 중...';
+  setStatus('공고 페이지를 불러오는 중입니다...');
+
+  const proxies = [
+    u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://cors-anywhere.herokuapp.com/${u}`,
+  ];
+
+  let text = null;
+  for(const makeUrl of proxies){
+    try {
+      const res = await fetch(makeUrl(url), {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      if(!res.ok) continue;
+      const ct = res.headers.get('content-type') || '';
+      let raw = '';
+      if(ct.includes('json')){
+        const data = await res.json();
+        raw = data.contents || data.data || '';
+      } else {
+        raw = await res.text();
+      }
+      if(raw && raw.length > 200){ text = raw; break; }
+    } catch(e){ continue; }
+  }
+
+  if(text){
+    // strip HTML
+    const tmp = document.createElement('div');
+    tmp.innerHTML = text;
+    // remove script/style tags
+    tmp.querySelectorAll('script,style,nav,footer,header').forEach(el=>el.remove());
+    const clean = (tmp.innerText || tmp.textContent || '').replace(/\s{3,}/g,'\n\n').trim();
+    document.getElementById('jdText').value = clean.slice(0, 5000);
+    setStatus('✓ 공고 내용을 가져왔습니다. 내용을 확인하고 분석 버튼을 눌러주세요.');
+  } else {
+    setStatus('⚠ 자동 가져오기 실패 — 아래 이유 중 하나입니다:\n① 해당 사이트가 크롤링을 차단함 (사람인, 잡코리아 등 대부분)\n② 로그인이 필요한 페이지\n→ 공고 페이지에서 Ctrl+A → Ctrl+C 후 아래 입력창에 직접 붙여넣기 해주세요.');
+  }
+  btn.disabled = false; btn.textContent = '공고 가져오기';
+}
+
+// ── MAIN ANALYZE ──
+async function analyze(){
+  const jd = document.getElementById('jdText').value.trim();
+  const ctx = document.getElementById('contextText').value.trim();
+  const job = document.getElementById('jobInput').value.trim();
+  if(!jd){ alert('채용공고 내용을 입력해주세요.'); return; }
+
+  setLoading(true);
+  setStatus('AI가 공고를 분석하고 있습니다... (약 20~40초)');
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('resultArea').className = 'result-hidden';
+
+  const systemPrompt = `당신은 "REPOSITION" 취업 컨설팅 에이전시의 AI 분석 엔진입니다.
+
+핵심 철학:
+- 취업은 마케팅이다. 인사담당자의 인식을 점유하는 자가 채용된다.
+- 자기소개서는 "자기설득서"다 — 나를 소개하는 글이 아니라, 내가 이 직무에 이익이 될 수 있음을 설득하는 글.
+- 모든 문항은 "주장 → 근거 → 어필" 구조로 써야 한다.
+- 5 Why 기법으로 질문의 진짜 의도를 파악해야 한다.
+- 약점(낮은 학점, 공백기, 직무전환)은 방어하지 말고 리포지셔닝하라.
+- 스펙의 양이 아니라, 스펙이 읽히는 방식을 바꿔야 한다.
+
+반드시 아래 JSON 구조로만 응답하세요. 다른 텍스트 없이 JSON만 출력:
+{
+  "positioning": {
+    "headline": "나를 한 문장으로 정의하는 포지셔닝 (예: '소비자 인사이트를 데이터로 번역하는 마케터')",
+    "sub": "이 포지셔닝이 왜 이 공고에 맞는지 2~3문장 설명",
+    "keywords": ["키워드1","키워드2","키워드3","키워드4"]
+  },
+  "jd_analysis": {
+    "company": "기업명",
+    "job": "직무명",
+    "type": "신입/경력/인턴",
+    "core_need": "인사담당자가 이 공고를 통해 진짜 원하는 것 (1~2문장)",
+    "key_traits": "이 직무에서 뽑히는 사람의 공통 특성 (2~3문장)"
+  },
+  "questions": [
+    {
+      "question": "자소서 문항 원문",
+      "char_limit": "글자수 제한 (없으면 '미상')",
+      "real_intent": "5 Why로 분석한 이 질문의 진짜 의도",
+      "strategy": "주장→근거→어필 전략 설명",
+      "keywords": ["강조해야 할 키워드1","키워드2"]
+    }
+  ],
+  "drafts": [
+    {
+      "question": "문항 요약",
+      "draft": "자기설득서 초안 (주장→근거→어필 구조, 실제 쓸 수 있는 수준으로)"
+    }
+  ]
+}`;
+
+  const userPrompt = `채용공고:
+${jd}
+
+${job ? '지원 직무: ' + job : '(지원 직무 미입력 — 공고에서 유추)'}
+${ctx ? '\n지원자 경험 요약:\n' + ctx : '\n(지원자 경험 정보 없음 — 일반적인 전략으로 작성)'}
+
+위 채용공고를 분석하고 REPOSITION 자기설득서 전략을 JSON으로 출력하세요.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    // strip markdown fences
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    renderResult(parsed);
+    setStatus('✓ 분석 완료! 전략과 초안을 확인하세요.');
+  } catch(e) {
+    document.getElementById('resultArea').className = '';
+    document.getElementById('resultArea').innerHTML = '<div class="error-box">분석 중 오류가 발생했습니다. 공고 내용을 확인하고 다시 시도해주세요.<br><small style="opacity:.6">' + e.message + '</small></div>';
+    setStatus('');
+  }
+  setLoading(false);
+}
+
+function renderResult(d){
+  // positioning
+  document.getElementById('pos-headline').textContent = d.positioning.headline;
+  document.getElementById('pos-sub').textContent = d.positioning.sub;
+  document.getElementById('pos-tags').innerHTML = (d.positioning.keywords||[]).map(k=>`<span class="pos-tag">${k}</span>`).join('');
+
+  // company grid
+  const cg = d.jd_analysis;
+  document.getElementById('companyGrid').innerHTML = [
+    ['기업',cg.company],['직무',cg.job],['구분',cg.type],['문항수',`${(d.questions||[]).length}개`]
+  ].map(([k,v])=>`<div class="cg-item"><div class="cg-key">${k}</div><div class="cg-val">${v||'-'}</div></div>`).join('');
+  document.getElementById('jdParsed').innerHTML =
+    `<p><strong>핵심 니즈:</strong> ${cg.core_need}</p><br><p><strong>뽑히는 사람:</strong> ${cg.key_traits}</p>`;
+
+  // question cards
+  document.getElementById('qCards').innerHTML = (d.questions||[]).map((q,i)=>`
+    <div class="q-card">
+      <div class="q-card-top">
+        <div class="q-card-num">Q${i+1}</div>
+        <div class="q-card-question">${q.question}${q.char_limit&&q.char_limit!='미상'?' <span style="font-size:12px;color:#FECC00;font-weight:400">('+q.char_limit+')</span>':''}</div>
+      </div>
+      <div class="q-card-strategy">
+        <p style="margin-bottom:8px;color:rgba(255,255,255,.5);font-size:12px">💡 진짜 의도: ${q.real_intent}</p>
+        <p style="margin-bottom:10px">${q.strategy}</p>
+        ${(q.keywords||[]).map(k=>`<span class="kw">${k}</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // drafts
+  document.getElementById('draftItems').innerHTML = (d.drafts||[]).map((dr,i)=>`
+    <div class="draft-item">
+      <div class="draft-q">Q${i+1}. ${dr.question}</div>
+      <div class="draft-a" id="draft-${i}">${dr.draft}</div>
+      <button class="draft-copy" onclick="copyDraft(${i})">📋 복사하기</button>
+    </div>`).join('');
+
+  document.getElementById('resultArea').className = '';
+}
+
+function copyDraft(i){
+  const el = document.getElementById('draft-'+i);
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    const btn = el.nextElementSibling;
+    btn.textContent = '✓ 복사됨!';
+    setTimeout(()=>{ btn.textContent='📋 복사하기'; },2000);
+  });
+}
+
+function setLoading(on){
+  const btn = document.getElementById('btnAnalyze');
+  const spinner = document.getElementById('spinner');
+  if(on){ btn.disabled=true; btn.classList.add('loading'); spinner.style.display='block'; }
+  else  { btn.disabled=false; btn.classList.remove('loading'); spinner.style.display='none'; }
+}
+function setStatus(msg){ document.getElementById('statusMsg').textContent = msg; }
+
+</script>
+</body>
+</html>
