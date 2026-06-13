@@ -58,10 +58,11 @@ section{padding:100px 64px}
    RESPONSIVE / MOBILE
 ════════════════════════════ */
 
-/* Hamburger button */
+/* ── Hamburger button ── */
 .nav-hamburger{
   display:none;flex-direction:column;justify-content:center;gap:5px;
-  background:none;border:none;cursor:pointer;padding:8px;margin-left:auto;flex-shrink:0;
+  background:none;border:none;cursor:pointer;padding:8px;
+  margin-left:auto;flex-shrink:0;
 }
 .nav-hamburger span{
   display:block;width:22px;height:2px;background:#fff;
@@ -71,104 +72,223 @@ section{padding:100px 64px}
 .nav-hamburger.open span:nth-child(2){opacity:0;width:0}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* Mobile nav drawer */
+/* ── Mobile nav drawer ── */
 .nav-drawer{
   display:none;
   position:fixed;top:64px;left:0;right:0;bottom:0;
   background:rgba(0,0,0,.98);z-index:490;
-  overflow-y:auto;padding:24px 28px 48px;
+  overflow-y:auto;padding:20px 24px 48px;
   flex-direction:column;gap:0;
   backdrop-filter:blur(12px);
+  -webkit-overflow-scrolling:touch;
 }
 .nav-drawer.open{display:flex}
 .drawer-item{border-bottom:1px solid rgba(255,255,255,.07)}
 .drawer-link{
-  display:block;padding:18px 0;
+  display:block;padding:16px 0;
   font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:600;
-  color:rgba(255,255,255,.85);text-decoration:none;
-  transition:color .2s;
+  color:rgba(255,255,255,.85);text-decoration:none;transition:color .2s;
 }
-.drawer-link:hover,.drawer-link.active{color:#FECC00}
 .drawer-link.highlight{color:#FECC00}
-.drawer-sub{display:flex;flex-direction:column;gap:0;padding-bottom:12px}
+.drawer-sub{display:flex;flex-direction:column;gap:0;padding-bottom:10px}
 .drawer-sub a{
-  display:block;padding:10px 0 10px 16px;
-  font-size:14px;color:rgba(255,255,255,.5);text-decoration:none;
+  display:block;padding:9px 0 9px 14px;
+  font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;
   border-left:1px solid rgba(255,255,255,.1);transition:color .2s;
 }
 .drawer-sub a:hover{color:#FECC00}
 .drawer-cta{
-  margin-top:28px;background:#FECC00;color:#000;
-  padding:16px;text-align:center;font-family:'Noto Sans KR',sans-serif;
-  font-weight:700;font-size:15px;letter-spacing:.04em;text-decoration:none;
-  display:block;
+  margin-top:24px;background:#FECC00;color:#000;
+  padding:16px;text-align:center;
+  font-family:'Noto Sans KR',sans-serif;font-weight:700;
+  font-size:15px;letter-spacing:.04em;text-decoration:none;display:block;
 }
 
+/* ════ 900px 이하 ════ */
 @media(max-width:900px){
   /* NAV */
   .nav-menu,.nav-right{display:none!important}
   .nav-hamburger{display:flex}
-  nav{padding:0 24px}
+  nav{padding:0 20px;height:56px}
 
   /* HERO */
-  #hero{grid-template-columns:1fr!important;min-height:auto}
-  .hero-left{padding:100px 28px 56px!important}
+  #hero{grid-template-columns:1fr!important;min-height:auto!important}
+  .hero-left{
+    padding:88px 24px 56px!important;
+    min-width:0!important;overflow:hidden!important;
+  }
   .hero-right{display:none!important}
-  .hero-h1{font-size:clamp(26px,7vw,42px)!important}
-  .hero-sub{font-size:15px!important}
-  .hero-btns{flex-direction:column!important;gap:12px!important}
-  .hero-btn{width:100%!important;text-align:center!important}
+  .hero-h1{
+    font-size:clamp(24px,7vw,40px)!important;
+    word-break:keep-all!important;
+  }
+  .hero-sub{font-size:14px!important;max-width:100%!important}
+  .hero-btns{flex-direction:column!important;gap:10px!important;width:100%!important}
+  .hero-btn{width:100%!important;text-align:center!important;padding:14px!important}
+  .hero-tag{margin-bottom:24px!important;font-size:10px!important}
 
   /* MARQUEE */
-  .mbar{display:none}
+  .mbar{display:none!important}
 
   /* SECTIONS */
-  section{padding:72px 28px!important}
-  .slabel{margin-bottom:36px!important}
+  section{padding:64px 24px!important}
+  .slabel{margin-bottom:28px!important;font-size:10px!important}
+  .sec-h2{
+    font-size:clamp(20px,6vw,32px)!important;
+    word-break:keep-all!important;
+    max-width:100%!important;
+  }
+  .sec-body{font-size:15px!important;max-width:100%!important}
 
   /* CONCEPT */
   .cgrid{grid-template-columns:1fr!important}
-  .concept-tagline{font-size:14px!important}
+  .concept-tagline{font-size:13px!important}
+  .reframe-item{
+    grid-template-columns:40px 1fr 30px 1fr!important;
+    gap:12px!important;
+    padding:24px 0!important;
+  }
 
   /* PROBLEM CARDS */
   .pgrid{grid-template-columns:1fr!important}
+  .pcard{padding:32px 24px!important}
 
   /* SERVICES */
   .slist{gap:0!important}
-  .sitem{padding:36px 28px!important;flex-direction:column!important;gap:20px!important}
-  .ss{flex-direction:row!important;gap:20px!important;flex-wrap:wrap!important}
+  .sitem{
+    padding:32px 24px!important;
+    flex-direction:column!important;
+    gap:16px!important;
+  }
+  .ss{flex-direction:row!important;gap:16px!important;flex-wrap:wrap!important}
+  .snum{font-size:11px!important}
 
-  /* TESTIMONIALS CAROUSEL */
-  .tc-card{width:280px!important}
-  .tc-outer{mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%)!important;
-    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%)!important}
+  /* TESTIMONIALS */
+  .tc-card{width:260px!important;padding:24px!important}
+  .tc-outer{
+    mask-image:linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%)!important;
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%)!important;
+  }
 
-  /* CTA */
-  #cta section{padding:72px 28px!important}
-  .cta-inner{flex-direction:column!important;text-align:center!important;gap:24px!important}
+  /* CTA SECTION */
+  #cta section{padding:64px 24px!important}
+  .cta-inner{
+    flex-direction:column!important;
+    text-align:center!important;
+    gap:20px!important;
+    align-items:center!important;
+  }
+  .cta-inner h2{font-size:clamp(22px,6vw,36px)!important;word-break:keep-all!important}
+  .cta-slots{justify-content:center!important}
 
   /* FOOTER */
-  footer{flex-direction:column!important;gap:16px!important;padding:36px 28px!important;text-align:center!important}
-  .flinks{justify-content:center!important}
+  footer{
+    flex-direction:column!important;
+    gap:16px!important;
+    padding:32px 24px!important;
+    text-align:center!important;
+  }
+  .flinks{justify-content:center!important;flex-wrap:wrap!important;gap:16px!important}
 
   /* POPUP */
-  #t-popup{padding:36px 24px!important}
+  #t-popup{
+    padding:32px 20px!important;
+    width:calc(100vw - 32px)!important;
+    max-width:100%!important;
+  }
+  #t-popup .tc-close{top:12px!important;right:12px!important}
 }
 
+/* ════ 600px 이하 (스마트폰) ════ */
 @media(max-width:600px){
-  .hero-h1{font-size:clamp(22px,8vw,36px)!important}
-  section{padding:60px 20px!important}
-  .sec-h2{font-size:clamp(22px,6vw,32px)!important}
-  .equation-wrap,.perception-grid,.points-grid,.vs-grid,.compare-grid,.flow-grid,.how-grid,.board-grid,.process-steps,.reframe-list{grid-template-columns:1fr!important}
+  /* NAV */
+  nav{padding:0 16px;height:52px}
+  .logo{font-size:15px!important}
+
+  /* HERO */
+  .hero-left{padding:76px 20px 48px!important}
+  .hero-h1{font-size:clamp(22px,8vw,34px)!important}
+  .hero-sub{font-size:13px!important;line-height:1.8!important}
+
+  /* INTRO */
+  #intro #iv-pos,#intro #iv-re,#intro #iv-ing{
+    font-size:clamp(22px,9vw,40px)!important;
+  }
+  #iv-tag{font-size:11px!important;letter-spacing:.16em!important}
+
+  /* SECTIONS */
+  section{padding:52px 20px!important}
+  .sec-h2{font-size:clamp(18px,7vw,28px)!important}
+  .sec-body{font-size:14px!important;line-height:1.85!important}
+
+  /* ALL GRIDS → 1열 */
+  .equation-wrap,
+  .perception-grid,
+  .points-grid,
+  .vs-grid,
+  .compare-grid,
+  .how-grid,
+  .board-grid,
+  .process-steps,
+  .company-grid,
+  .q-cards,
+  .reframe-list,
+  .course-section .cc-top{
+    grid-template-columns:1fr!important;
+  }
+  .flow-grid{grid-template-columns:1fr!important}
   .flow-arr{display:none!important}
+
+  /* COURSE */
+  .course-section{padding:52px 20px!important}
+  .cc-body{padding:24px 20px!important}
   .cc-results{grid-template-columns:repeat(3,1fr)!important}
-  .course-section{padding:60px 20px!important}
-  .apply-section{padding:60px 20px!important}
-  .cta-strip{padding:60px 20px!important;flex-direction:column!important;gap:24px!important}
-  .cta-strip .btn-dark{width:100%!important;text-align:center!important}
+  .cc-result{padding:14px 8px!important}
+  .cc-result-num{font-size:18px!important}
+  .cc-footer{flex-direction:column!important;gap:12px!important}
+  .btn-buy{width:100%!important;text-align:center!important}
+
+  /* APPLY / PRO */
+  .apply-section,.notify-section{padding:52px 20px!important}
+  .apply-wrap{max-width:100%!important}
+  .notify-form{flex-direction:column!important;max-width:100%!important}
+  .notify-input,.notify-btn{width:100%!important}
+
+  /* CTA STRIP */
+  .cta-strip{
+    padding:52px 20px!important;
+    flex-direction:column!important;
+    gap:20px!important;
+    text-align:center!important;
+  }
+  .btn-dark{width:100%!important;text-align:center!important}
+
+  /* ANCHORING GRID (about) */
+  [style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+  }
+
+  /* SCORE & RESULT (mock interview) */
+  .score-total{flex-direction:column!important;gap:16px!important}
   .result-btns{flex-direction:column!important}
-  .btn-retry,.btn-camp{width:100%!important}
-  .score-total{flex-direction:column!important;gap:20px!important}
+  .btn-retry,.btn-camp{width:100%!important;text-align:center!important}
+
+  /* DRAWER */
+  .nav-drawer{padding:16px 20px 40px!important}
+  .drawer-link{font-size:15px!important;padding:14px 0!important}
+}
+
+/* ════ 400px 이하 (소형폰) ════ */
+@media(max-width:400px){
+  .hero-h1{font-size:20px!important}
+  .sec-h2{font-size:18px!important}
+  nav{padding:0 14px}
+  .logo{font-size:14px!important}
+  section{padding:44px 16px!important}
+  #intro #iv-pos,#intro #iv-re,#intro #iv-ing{
+    font-size:20px!important;
+  }
 }
 
 </style>
@@ -186,7 +306,7 @@ section{padding:100px 64px}
 .pt:hover{background:#141414}
 .pt::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#FECC00;transform:scaleX(0);transform-origin:left;transition:transform .35s}
 .pt:hover::after{transform:scaleX(1)}
-.pt-num{font-family:'Syne',sans-serif;font-weight:800;font-size:48px;color:rgba(254,204,0,.2);line-height:1;margin-bottom:20px}
+.pt-num{font-family:'Noto Sans KR',sans-serif;font-weight:800;font-size:48px;color:rgba(254,204,0,.2);line-height:1;margin-bottom:20px}
 .pt-title{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:19px;margin-bottom:14px;color:#fff}
 .pt-body{font-size:14px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;word-break:keep-all}
 .vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-top:60px}
@@ -205,7 +325,10 @@ section{padding:100px 64px}
 .btn-dark:hover{transform:translateY(-2px);opacity:.9}
 </style>
 </head><body><nav id="nav">
-  <a href="/" class="logo"><span>REPOSITION</span></a>
+  <a href="/" class="logo">
+    
+    <span>REPOSITION</span>
+  </a>
   <ul class="nav-menu">
     <li>
       <a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
@@ -230,9 +353,7 @@ section{padding:100px 64px}
     <li>
       <a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
     </li>
-    <li>
-      <a href="/pro">현직자 피드백</a>
-    </li>
+    <li><a href="/pro">현직자 피드백</a></li>
     <li><a href="/tool">JD 분석기</a></li>
     <li><a href="/community">커뮤니티</a></li>
   </ul>
@@ -240,6 +361,42 @@ section{padding:100px 64px}
     <a href="/#cta" class="nav-cta">무료 진단 신청</a>
   </div>
 </nav>
+
+<button class="nav-hamburger" id="navHamburger" aria-label="메뉴">
+  <span></span><span></span><span></span>
+</button>
+<div class="nav-drawer" id="navDrawer">
+  <div class="drawer-item">
+    <a href="/about" class="drawer-link">리포지셔닝이란?</a>
+    <div class="drawer-sub">
+      <a href="/about">리포지셔닝이란?</a>
+      <a href="/jasoseol">자기설득서란?</a>
+      <a href="/interview">완벽통제면접이란?</a>
+    </div>
+  </div>
+  <div class="drawer-item">
+    <a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
+    <div class="drawer-sub">
+      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+      <a href="/course#jasoseol">자기설득서 클래스</a>
+      <a href="/course#interview">완벽통제 면접 클래스</a>
+    </div>
+  </div>
+  <div class="drawer-item">
+    <a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a>
+  </div>
+  <div class="drawer-item">
+    <a href="/pro" class="drawer-link">현직자 피드백</a>
+  </div>
+  <div class="drawer-item">
+    <a href="/tool" class="drawer-link">JD 분석기</a>
+  </div>
+  <div class="drawer-item">
+    <a href="/community" class="drawer-link">커뮤니티</a>
+  </div>
+  <a href="/#cta" class="drawer-cta">⚓ 무료 진단 신청 →</a>
+</div>
+
 
 <div class="intro-hero">
   <div class="hero-kw">INTERVIEW</div>

@@ -269,15 +269,7 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:44px 6
 }
 /* body locked during intro */
 body.intro-active{overflow:hidden}
-/* ── INTRO ── */
-#intro{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;pointer-events:all}
-#intro-inner{display:flex;flex-direction:column;align-items:center;gap:6px}
-.intro-line{display:flex;align-items:baseline;gap:3px;overflow:hidden;padding:3px 0}
-.intro-line2{gap:1px}
-.ic{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(36px,7vw,96px);letter-spacing:-.02em;color:#fff;opacity:0;transform:translateY(48px);display:inline-block;transition:opacity .5s cubic-bezier(.16,1,.3,1),transform .5s cubic-bezier(.16,1,.3,1)}
-#intro-bar{position:absolute;bottom:0;left:0;height:3px;width:0;background:#FECC00}
-#wipe{position:fixed;inset:0;z-index:9998;background:#FECC00;transform:translateX(-100%);pointer-events:none;will-change:transform}
-body.noscroll{overflow:hidden}
+
 
 /* ── KEY VISUAL ── */
 .hero-right{
@@ -586,7 +578,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .result-hidden{display:none}
 .result-section{margin-bottom:48px}
 .rs-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.07)}
-.rs-num{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#FECC00;line-height:1}
+.rs-num{font-family:'Noto Sans KR',sans-serif;font-weight:800;font-size:28px;color:#FECC00;line-height:1}
 .rs-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#fff;letter-spacing:.04em}
 .rs-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(254,204,0,.1);color:#FECC00;border:1px solid rgba(254,204,0,.25);padding:4px 10px;margin-left:auto}
 
@@ -643,10 +635,11 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 6
    RESPONSIVE / MOBILE
 ════════════════════════════ */
 
-/* Hamburger button */
+/* ── Hamburger button ── */
 .nav-hamburger{
   display:none;flex-direction:column;justify-content:center;gap:5px;
-  background:none;border:none;cursor:pointer;padding:8px;margin-left:auto;flex-shrink:0;
+  background:none;border:none;cursor:pointer;padding:8px;
+  margin-left:auto;flex-shrink:0;
 }
 .nav-hamburger span{
   display:block;width:22px;height:2px;background:#fff;
@@ -656,128 +649,348 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 6
 .nav-hamburger.open span:nth-child(2){opacity:0;width:0}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
-/* Mobile nav drawer */
+/* ── Mobile nav drawer ── */
 .nav-drawer{
   display:none;
   position:fixed;top:64px;left:0;right:0;bottom:0;
   background:rgba(0,0,0,.98);z-index:490;
-  overflow-y:auto;padding:24px 28px 48px;
+  overflow-y:auto;padding:20px 24px 48px;
   flex-direction:column;gap:0;
   backdrop-filter:blur(12px);
+  -webkit-overflow-scrolling:touch;
 }
 .nav-drawer.open{display:flex}
 .drawer-item{border-bottom:1px solid rgba(255,255,255,.07)}
 .drawer-link{
-  display:block;padding:18px 0;
+  display:block;padding:16px 0;
   font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:600;
-  color:rgba(255,255,255,.85);text-decoration:none;
-  transition:color .2s;
+  color:rgba(255,255,255,.85);text-decoration:none;transition:color .2s;
 }
-.drawer-link:hover,.drawer-link.active{color:#FECC00}
 .drawer-link.highlight{color:#FECC00}
-.drawer-sub{display:flex;flex-direction:column;gap:0;padding-bottom:12px}
+.drawer-sub{display:flex;flex-direction:column;gap:0;padding-bottom:10px}
 .drawer-sub a{
-  display:block;padding:10px 0 10px 16px;
-  font-size:14px;color:rgba(255,255,255,.5);text-decoration:none;
+  display:block;padding:9px 0 9px 14px;
+  font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;
   border-left:1px solid rgba(255,255,255,.1);transition:color .2s;
 }
 .drawer-sub a:hover{color:#FECC00}
 .drawer-cta{
-  margin-top:28px;background:#FECC00;color:#000;
-  padding:16px;text-align:center;font-family:'Noto Sans KR',sans-serif;
-  font-weight:700;font-size:15px;letter-spacing:.04em;text-decoration:none;
-  display:block;
+  margin-top:24px;background:#FECC00;color:#000;
+  padding:16px;text-align:center;
+  font-family:'Noto Sans KR',sans-serif;font-weight:700;
+  font-size:15px;letter-spacing:.04em;text-decoration:none;display:block;
 }
 
+/* ════ 900px 이하 ════ */
 @media(max-width:900px){
   /* NAV */
   .nav-menu,.nav-right{display:none!important}
   .nav-hamburger{display:flex}
-  nav{padding:0 24px}
+  nav{padding:0 20px;height:56px}
 
   /* HERO */
-  #hero{grid-template-columns:1fr!important;min-height:auto}
-  .hero-left{padding:100px 28px 56px!important}
+  #hero{grid-template-columns:1fr!important;min-height:auto!important}
+  .hero-left{
+    padding:88px 24px 56px!important;
+    min-width:0!important;overflow:hidden!important;
+  }
   .hero-right{display:none!important}
-  .hero-h1{font-size:clamp(26px,7vw,42px)!important}
-  .hero-sub{font-size:15px!important}
-  .hero-btns{flex-direction:column!important;gap:12px!important}
-  .hero-btn{width:100%!important;text-align:center!important}
+  .hero-h1{
+    font-size:clamp(24px,7vw,40px)!important;
+    word-break:keep-all!important;
+  }
+  .hero-sub{font-size:14px!important;max-width:100%!important}
+  .hero-btns{flex-direction:column!important;gap:10px!important;width:100%!important}
+  .hero-btn{width:100%!important;text-align:center!important;padding:14px!important}
+  .hero-tag{margin-bottom:24px!important;font-size:10px!important}
 
   /* MARQUEE */
-  .mbar{display:none}
+  .mbar{display:none!important}
 
   /* SECTIONS */
-  section{padding:72px 28px!important}
-  .slabel{margin-bottom:36px!important}
+  section{padding:64px 24px!important}
+  .slabel{margin-bottom:28px!important;font-size:10px!important}
+  .sec-h2{
+    font-size:clamp(20px,6vw,32px)!important;
+    word-break:keep-all!important;
+    max-width:100%!important;
+  }
+  .sec-body{font-size:15px!important;max-width:100%!important}
 
   /* CONCEPT */
   .cgrid{grid-template-columns:1fr!important}
-  .concept-tagline{font-size:14px!important}
+  .concept-tagline{font-size:13px!important}
+  .reframe-item{
+    grid-template-columns:40px 1fr 30px 1fr!important;
+    gap:12px!important;
+    padding:24px 0!important;
+  }
 
   /* PROBLEM CARDS */
   .pgrid{grid-template-columns:1fr!important}
+  .pcard{padding:32px 24px!important}
 
   /* SERVICES */
   .slist{gap:0!important}
-  .sitem{padding:36px 28px!important;flex-direction:column!important;gap:20px!important}
-  .ss{flex-direction:row!important;gap:20px!important;flex-wrap:wrap!important}
+  .sitem{
+    padding:32px 24px!important;
+    flex-direction:column!important;
+    gap:16px!important;
+  }
+  .ss{flex-direction:row!important;gap:16px!important;flex-wrap:wrap!important}
+  .snum{font-size:11px!important}
 
-  /* TESTIMONIALS CAROUSEL */
-  .tc-card{width:280px!important}
-  .tc-outer{mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%)!important;
-    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 3%,#000 97%,transparent 100%)!important}
+  /* TESTIMONIALS */
+  .tc-card{width:260px!important;padding:24px!important}
+  .tc-outer{
+    mask-image:linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%)!important;
+    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%)!important;
+  }
 
-  /* CTA */
-  #cta section{padding:72px 28px!important}
-  .cta-inner{flex-direction:column!important;text-align:center!important;gap:24px!important}
+  /* CTA SECTION */
+  #cta section{padding:64px 24px!important}
+  .cta-inner{
+    flex-direction:column!important;
+    text-align:center!important;
+    gap:20px!important;
+    align-items:center!important;
+  }
+  .cta-inner h2{font-size:clamp(22px,6vw,36px)!important;word-break:keep-all!important}
+  .cta-slots{justify-content:center!important}
 
   /* FOOTER */
-  footer{flex-direction:column!important;gap:16px!important;padding:36px 28px!important;text-align:center!important}
-  .flinks{justify-content:center!important}
+  footer{
+    flex-direction:column!important;
+    gap:16px!important;
+    padding:32px 24px!important;
+    text-align:center!important;
+  }
+  .flinks{justify-content:center!important;flex-wrap:wrap!important;gap:16px!important}
 
   /* POPUP */
-  #t-popup{padding:36px 24px!important}
+  #t-popup{
+    padding:32px 20px!important;
+    width:calc(100vw - 32px)!important;
+    max-width:100%!important;
+  }
+  #t-popup .tc-close{top:12px!important;right:12px!important}
 }
 
+/* ════ 600px 이하 (스마트폰) ════ */
 @media(max-width:600px){
-  .hero-h1{font-size:clamp(22px,8vw,36px)!important}
-  section{padding:60px 20px!important}
-  .sec-h2{font-size:clamp(22px,6vw,32px)!important}
-  .equation-wrap,.perception-grid,.points-grid,.vs-grid,.compare-grid,.flow-grid,.how-grid,.board-grid,.process-steps,.reframe-list{grid-template-columns:1fr!important}
+  /* NAV */
+  nav{padding:0 16px;height:52px}
+  .logo{font-size:15px!important}
+
+  /* HERO */
+  .hero-left{padding:76px 20px 48px!important}
+  .hero-h1{font-size:clamp(22px,8vw,34px)!important}
+  .hero-sub{font-size:13px!important;line-height:1.8!important}
+
+  /* INTRO */
+  #intro #iv-pos,#intro #iv-re,#intro #iv-ing{
+    font-size:clamp(22px,9vw,40px)!important;
+  }
+  #iv-tag{font-size:11px!important;letter-spacing:.16em!important}
+
+  /* SECTIONS */
+  section{padding:52px 20px!important}
+  .sec-h2{font-size:clamp(18px,7vw,28px)!important}
+  .sec-body{font-size:14px!important;line-height:1.85!important}
+
+  /* ALL GRIDS → 1열 */
+  .equation-wrap,
+  .perception-grid,
+  .points-grid,
+  .vs-grid,
+  .compare-grid,
+  .how-grid,
+  .board-grid,
+  .process-steps,
+  .company-grid,
+  .q-cards,
+  .reframe-list,
+  .course-section .cc-top{
+    grid-template-columns:1fr!important;
+  }
+  .flow-grid{grid-template-columns:1fr!important}
   .flow-arr{display:none!important}
+
+  /* COURSE */
+  .course-section{padding:52px 20px!important}
+  .cc-body{padding:24px 20px!important}
   .cc-results{grid-template-columns:repeat(3,1fr)!important}
-  .course-section{padding:60px 20px!important}
-  .apply-section{padding:60px 20px!important}
-  .cta-strip{padding:60px 20px!important;flex-direction:column!important;gap:24px!important}
-  .cta-strip .btn-dark{width:100%!important;text-align:center!important}
+  .cc-result{padding:14px 8px!important}
+  .cc-result-num{font-size:18px!important}
+  .cc-footer{flex-direction:column!important;gap:12px!important}
+  .btn-buy{width:100%!important;text-align:center!important}
+
+  /* APPLY / PRO */
+  .apply-section,.notify-section{padding:52px 20px!important}
+  .apply-wrap{max-width:100%!important}
+  .notify-form{flex-direction:column!important;max-width:100%!important}
+  .notify-input,.notify-btn{width:100%!important}
+
+  /* CTA STRIP */
+  .cta-strip{
+    padding:52px 20px!important;
+    flex-direction:column!important;
+    gap:20px!important;
+    text-align:center!important;
+  }
+  .btn-dark{width:100%!important;text-align:center!important}
+
+  /* ANCHORING GRID (about) */
+  [style*="grid-template-columns:1fr 1fr"]{
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+  }
+
+  /* SCORE & RESULT (mock interview) */
+  .score-total{flex-direction:column!important;gap:16px!important}
   .result-btns{flex-direction:column!important}
-  .btn-retry,.btn-camp{width:100%!important}
-  .score-total{flex-direction:column!important;gap:20px!important}
+  .btn-retry,.btn-camp{width:100%!important;text-align:center!important}
+
+  /* DRAWER */
+  .nav-drawer{padding:16px 20px 40px!important}
+  .drawer-link{font-size:15px!important;padding:14px 0!important}
+}
+
+/* ════ 400px 이하 (소형폰) ════ */
+@media(max-width:400px){
+  .hero-h1{font-size:20px!important}
+  .sec-h2{font-size:18px!important}
+  nav{padding:0 14px}
+  .logo{font-size:14px!important}
+  section{padding:44px 16px!important}
+  #intro #iv-pos,#intro #iv-re,#intro #iv-ing{
+    font-size:20px!important;
+  }
 }
 
 </style>
 </head>
 <body>
+<!-- ═══ INTRO SCREEN ═══ -->
+<div id="intro" style="position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
+
+  <!-- Text -->
+  <div style="text-align:center;white-space:nowrap;">
+    <div style="display:flex;align-items:baseline;justify-content:center;">
+      <span id="iv-re"  style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,5vw,72px);color:#FECC00;letter-spacing:-.03em;opacity:0;display:inline-block;">RE</span>
+      <span id="iv-pos" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,5vw,72px);color:#fff;   letter-spacing:-.03em;opacity:0;display:inline-block;">POSITION</span>
+      <span id="iv-ing" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,5vw,72px);color:#FECC00;letter-spacing:-.03em;opacity:0;display:inline-block;">ING</span>
+    </div>
+    <div id="iv-tag" style="margin-top:16px;font-size:clamp(13px,1.4vw,18px);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:400;opacity:0;transition:opacity .6s ease;">세상을 유리하게 바라보는 관점의 기술</div>
+  </div>
+
+  <!-- Progress bar -->
+  <div id="iv-bar" style="position:absolute;bottom:0;left:0;height:2px;width:0;background:#FECC00;"></div>
+</div>
+
+<!-- Wipe panel -->
+<div id="iv-wipe" style="position:fixed;inset:0;z-index:9998;background:#FECC00;transform:translateX(-100%);pointer-events:none;"></div>
+
+<style>
+@keyframes textUp{
+  0%  {opacity:0;transform:translateY(32px)}
+  100%{opacity:1;transform:translateY(0)}
+}
+@keyframes reBlast{
+  0%  {opacity:0;transform:translateX(-60px) scale(.3)}
+  60% {opacity:1;transform:translateX(6px) scale(1.08)}
+  100%{opacity:1;transform:translateX(0) scale(1)}
+}
+@keyframes ingBlast{
+  0%  {opacity:0;transform:translateX(60px) scale(.3)}
+  60% {opacity:1;transform:translateX(-6px) scale(1.08)}
+  100%{opacity:1;transform:translateX(0) scale(1)}
+}
+body.iv-lock{overflow:hidden}
+</style>
+
+<script>
+(function(){
+  var els = {
+    intro: document.getElementById('intro'),
+    re:    document.getElementById('iv-re'),
+    pos:   document.getElementById('iv-pos'),
+    ing:   document.getElementById('iv-ing'),
+    tag:   document.getElementById('iv-tag'),
+    bar:   document.getElementById('iv-bar'),
+    wipe:  document.getElementById('iv-wipe'),
+  };
+  if(!els.intro) return;
+
+  document.body.classList.add('iv-lock');
+  function after(ms, fn){ setTimeout(fn, ms); }
+
+  // ① POSITION 올라옴
+  after(400, function(){
+    els.pos.style.animation = 'textUp .65s cubic-bezier(.16,1,.3,1) forwards';
+  });
+
+  // ② 충격 — 화면 흔들림 + shockwave + RE/ING 폭발
+  after(1400, function(){
+    // 화면 흔들림
+    var s = els.intro.style;
+    s.transform='translate(6px,5px)';
+    after(55,  function(){ s.transform='translate(-5px,-4px)'; });
+    after(110, function(){ s.transform='translate(4px,3px)'; });
+    after(165, function(){ s.transform='translate(-2px,-1px)'; });
+    after(220, function(){ s.transform='translate(0,0)'; });
+
+    // RE 왼쪽, ING 오른쪽에서 동시 폭발
+    after(60, function(){
+      els.re.style.animation  = 'reBlast .52s cubic-bezier(.34,1.6,.64,1) forwards';
+      els.ing.style.animation = 'ingBlast .52s cubic-bezier(.34,1.6,.64,1) forwards';
+    });
+  });
+
+  // ③ 태그라인
+  after(2200, function(){ els.tag.style.opacity = '1'; });
+
+  // ④ 프로그레스바
+  var HOLD = 3600;
+  after(50, function(){
+    els.bar.style.transition = 'width '+HOLD+'ms linear';
+    els.bar.style.width = '100%';
+  });
+
+  // ⑤ 와이프 인
+  after(HOLD, function(){
+    els.wipe.style.transition = 'transform .52s cubic-bezier(.86,0,.07,1)';
+    els.wipe.style.transform  = 'translateX(0)';
+  });
+
+  // ⑥ 스왑
+  after(HOLD+540, function(){
+    els.intro.style.display = 'none';
+    document.body.classList.remove('iv-lock');
+    document.querySelectorAll('.rev').forEach(function(e){ e.classList.add('on'); });
+    els.wipe.style.transition = 'transform .52s cubic-bezier(.86,0,.07,1)';
+    els.wipe.style.transform  = 'translateX(100%)';
+  });
+  after(HOLD+1100, function(){
+    els.wipe.style.display = 'none';
+    document.querySelectorAll('.rev').forEach(function(e){ e.classList.add('on'); });
+  });
+})();
+</script>
+
+
+
+
 
 <div id="page-home">
 <div id="cur"></div>
 <div id="cur2"></div>
-<!-- INTRO -->
-<div id="intro">
-  <div id="intro-inner">
-    <div class="intro-line">
-      <span class="ic">스</span><span class="ic">펙</span><span class="ic">의</span>
-    </div>
-    <div class="intro-line intro-line2">
-      <span class="ic">R</span><span class="ic">E</span><span class="ic">P</span><span class="ic">O</span><span class="ic">S</span><span class="ic">I</span><span class="ic">T</span><span class="ic">I</span><span class="ic">O</span><span class="ic">N</span><span class="ic">I</span><span class="ic">N</span><span class="ic">G</span>
-    </div>
-  </div>
-  <div id="intro-bar"></div>
-</div>
-<div id="wipe"></div>
+
 <nav id="nav">
-  <a href="/" class="logo"><span>REPOSITION</span></a>
+  <a href="/" class="logo">
+    
+    <span>REPOSITION</span>
+  </a>
   <ul class="nav-menu">
     <li>
       <a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
@@ -802,9 +1015,7 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 6
     <li>
       <a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
     </li>
-    <li>
-      <a href="/pro">현직자 피드백</a>
-    </li>
+    <li><a href="/pro">현직자 피드백</a></li>
     <li><a href="/tool">JD 분석기</a></li>
     <li><a href="/community">커뮤니티</a></li>
   </ul>
@@ -812,6 +1023,42 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 6
     <a href="/#cta" class="nav-cta">무료 진단 신청</a>
   </div>
 </nav>
+
+<button class="nav-hamburger" id="navHamburger" aria-label="메뉴">
+  <span></span><span></span><span></span>
+</button>
+<div class="nav-drawer" id="navDrawer">
+  <div class="drawer-item">
+    <a href="/about" class="drawer-link">리포지셔닝이란?</a>
+    <div class="drawer-sub">
+      <a href="/about">리포지셔닝이란?</a>
+      <a href="/jasoseol">자기설득서란?</a>
+      <a href="/interview">완벽통제면접이란?</a>
+    </div>
+  </div>
+  <div class="drawer-item">
+    <a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
+    <div class="drawer-sub">
+      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+      <a href="/course#jasoseol">자기설득서 클래스</a>
+      <a href="/course#interview">완벽통제 면접 클래스</a>
+    </div>
+  </div>
+  <div class="drawer-item">
+    <a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a>
+  </div>
+  <div class="drawer-item">
+    <a href="/pro" class="drawer-link">현직자 피드백</a>
+  </div>
+  <div class="drawer-item">
+    <a href="/tool" class="drawer-link">JD 분석기</a>
+  </div>
+  <div class="drawer-item">
+    <a href="/community" class="drawer-link">커뮤니티</a>
+  </div>
+  <a href="/#cta" class="drawer-cta">⚓ 무료 진단 신청 →</a>
+</div>
+
 
 <div class="mbar">
   <div class="mtrack">
@@ -1560,6 +1807,11 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 6
 
 <script>
 
+
+
+
+
+
 // ── PAGE ROUTER ──
 function showPage(page) {
   var ph = document.getElementById('page-home');
@@ -1964,6 +2216,8 @@ function setStatus(msg){ document.getElementById('statusMsg').textContent = msg;
     }
   });
 })();
+
+
 
 </script>
 </body>
