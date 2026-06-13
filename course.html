@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>리포지셔닝캠프 | REPOSITION</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
+a{text-decoration:none}
+.y{color:#FECC00}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:flex-start;gap:0;padding:0 48px;height:64px;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;letter-spacing:.14em;text-transform:uppercase}
+.logo span{color:#FECC00}
+.nav-menu{display:flex;align-items:stretch;height:64px;list-style:none;margin:0 0 0 16px;flex:1}
+.nav-menu > li{position:relative;display:flex;align-items:center}
+.nav-menu > li > a{display:flex;align-items:center;gap:5px;padding:0 16px;height:64px;color:rgba(255,255,255,.7);font-size:13px;font-weight:500;white-space:nowrap;transition:color .2s;position:relative}
+.nav-menu > li > a.y-link{color:#FECC00}
+.nav-menu > li > a:hover{color:#fff}
+.nav-menu > li > a::after{content:'';position:absolute;bottom:0;left:16px;right:16px;height:2px;background:#FECC00;transform:scaleX(0);transition:transform .2s}
+.nav-menu > li:hover > a::after{transform:scaleX(1)}
+.nav-arr{font-size:8px;opacity:.45;transition:transform .2s;display:inline-block}
+.nav-menu > li:hover .nav-arr{transform:rotate(180deg)}
+.nav-drop{display:none;position:absolute;top:64px;left:0;background:#111;border:1px solid rgba(255,255,255,.08);border-top:2px solid #FECC00;min-width:190px;padding:6px 0;box-shadow:0 16px 40px rgba(0,0,0,.7);z-index:600}
+.nav-menu > li:hover .nav-drop{display:block}
+.nav-drop a{display:block;padding:10px 20px;color:rgba(255,255,255,.65);font-size:13px;font-weight:400;transition:color .2s,background .2s;white-space:nowrap}
+.nav-drop a:hover{color:#FECC00;background:rgba(254,204,0,.05)}
+.drop-label{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.22);padding:10px 20px 4px;display:block}
+.nav-drop hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin:4px 0}
+.nav-right{display:flex;align-items:center;gap:14px;flex-shrink:0;margin-left:auto}
+.nav-cta{background:#FECC00;color:#000;padding:9px 20px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:12px;letter-spacing:.04em;transition:opacity .2s;white-space:nowrap}
+.nav-cta:hover{opacity:.85}
+
+/* REVEAL */
+.rev{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.rev.on{opacity:1;transform:none}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+
+/* FOOTER */
+footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+.fl{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;letter-spacing:.12em}
+.fl span{color:#FECC00}
+.fc{font-size:12px;color:rgba(255,255,255,.3)}
+
+/* COMMON SECTION STYLES */
+section{padding:100px 64px}
+.slabel{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FECC00;margin-bottom:48px;display:flex;align-items:center;gap:12px;font-weight:500}
+.slabel::after{content:'';width:36px;height:1px;background:#FECC00}
+.sec-h2{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(26px,3.2vw,46px);line-height:1.2;letter-spacing:-.025em;margin-bottom:20px;word-break:keep-all}
+.sec-body{font-size:16px;line-height:2.0;color:rgba(255,255,255,.75);font-weight:300;max-width:680px;word-break:keep-all}
+.sec-body strong{color:#fff;font-weight:600}
+</style>
+<style>
+/* COURSE PAGE STYLES */
+.course-hero{padding:140px 64px 80px;background:#000;border-bottom:1px solid rgba(255,255,255,.07);position:relative;overflow:hidden}
+.course-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(254,204,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(254,204,0,.025) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.ch-tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FECC00;margin-bottom:24px;display:flex;align-items:center;gap:12px;font-weight:500}
+.ch-tag::before{content:'';width:28px;height:1px;background:#FECC00;display:block}
+.ch-h1{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(32px,4.5vw,64px);line-height:1.1;letter-spacing:-.03em;margin-bottom:20px;word-break:keep-all}
+.ch-sub{font-size:16px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;max-width:560px;word-break:keep-all}
+
+/* COURSE CARD */
+.course-section{padding:80px 64px;background:#0a0a0a}
+.course-section:nth-child(even){background:#000}
+.course-card{background:#111;border:1px solid rgba(255,255,255,.08);padding:0;overflow:hidden;transition:border-color .3s}
+.course-card:hover{border-color:rgba(254,204,0,.3)}
+.cc-top{background:#FECC00;padding:36px 44px;display:flex;justify-content:space-between;align-items:flex-start}
+.cc-badge{font-family:'Syne',sans-serif;font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;background:rgba(0,0,0,.15);color:#000;padding:5px 12px}
+.cc-price{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#000;line-height:1}
+.cc-price span{font-size:14px;font-weight:400;opacity:.6}
+.cc-body{padding:44px}
+.cc-title{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(22px,2.5vw,32px);color:#fff;margin-bottom:16px;line-height:1.2;word-break:keep-all}
+.cc-desc{font-size:15px;line-height:1.95;color:rgba(255,255,255,.65);font-weight:300;margin-bottom:32px;word-break:keep-all}
+.cc-includes{display:flex;flex-direction:column;gap:10px;margin-bottom:36px}
+.cc-inc-item{display:flex;align-items:flex-start;gap:12px;font-size:14px;color:rgba(255,255,255,.75)}
+.cc-inc-item::before{content:'✓';color:#FECC00;font-weight:700;flex-shrink:0;margin-top:1px}
+.cc-results{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.06);margin-bottom:36px}
+.cc-result{background:#0d0d0d;padding:20px;text-align:center}
+.cc-result-num{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:26px;color:#FECC00;line-height:1;margin-bottom:6px}
+.cc-result-label{font-size:11px;color:rgba(255,255,255,.45);letter-spacing:.04em}
+.cc-footer{display:flex;align-items:center;justify-content:space-between;gap:20px}
+.cc-target{font-size:13px;color:rgba(255,255,255,.4);line-height:1.7;flex:1;word-break:keep-all}
+.btn-buy{background:#FECC00;color:#000;padding:16px 36px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;white-space:nowrap;transition:transform .2s,opacity .2s;display:inline-block;flex-shrink:0}
+.btn-buy:hover{transform:translateY(-2px);opacity:.9}
+.btn-consult{background:transparent;color:#FECC00;border:1px solid rgba(254,204,0,.4);padding:16px 28px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;letter-spacing:.04em;white-space:nowrap;transition:background .2s,color .2s;display:inline-block;flex-shrink:0}
+.btn-consult:hover{background:rgba(254,204,0,.08)}
+
+/* FAQ */
+.faq-section{padding:80px 64px;background:#111}
+.faq-list{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06);margin-top:48px}
+.faq-item{background:#0d0d0d;padding:28px 36px;cursor:pointer}
+.faq-q{font-weight:600;font-size:15px;color:#fff;display:flex;justify-content:space-between;align-items:center;gap:16px;word-break:keep-all}
+.faq-q::after{content:'+';font-family:'Syne',sans-serif;font-size:20px;color:#FECC00;flex-shrink:0}
+.faq-a{font-size:14px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;margin-top:16px;display:none;word-break:keep-all}
+.faq-item.open .faq-q::after{content:'−'}
+.faq-item.open .faq-a{display:block}
+</style>
+</head><body>
+<nav id="nav">
+  <a href="reposition.html" class="logo"><span>REPOSITION</span></a>
+  <ul class="nav-menu">
+    <li>
+      <a href="about.html">리포지셔닝이란? <span class="nav-arr">▼</span></a>
+      <div class="nav-drop">
+        <span class="drop-label">개념</span>
+        <a href="about.html">리포지셔닝이란?</a>
+        <a href="jasoseol.html">자기설득서란?</a>
+        <a href="interview.html">완벽통제면접이란?</a>
+      </div>
+    </li>
+    <li>
+      <a href="course.html" class="nav-highlight">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <div class="nav-drop">
+        <span class="drop-label">REPOSITION CAMP</span>
+        <a href="course.html#bootcamp">리포지셔닝 부트캠프</a>
+        <a href="course.html#jasoseol">자기설득서 클래스</a>
+        <a href="course.html#interview">완벽통제 면접 클래스</a>
+        <hr>
+        <a href="course.html" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+      </div>
+    </li>
+    <li>
+      <a href="mock_interview.html" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
+    </li>
+    <li>
+      <a href="pro.html">현직자 피드백</a>
+    </li>
+    <li><a href="tool.html">JD 분석기</a></li>
+    <li><a href="community.html">커뮤니티</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reposition.html#cta" class="nav-cta">무료 진단 신청</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="course-hero">
+  <div class="ch-tag">리포지셔닝캠프</div>
+  <h1 class="ch-h1">스펙을 쌓는 데는 6개월,<br>스펙이 <span style="color:#FECC00">읽히는 방식</span>을 바꾸는 건 지금입니다.</h1>
+  <p class="ch-sub">리포지셔닝 부트캠프, 자기설득서 클래스, 완벽통제 면접 클래스 — 서류부터 최종합격까지 함께합니다.</p>
+</div>
+
+<!-- 01 리포지셔닝 부트캠프 -->
+<div class="course-section" id="bootcamp">
+  <div class="slabel rev">COURSE 01</div>
+  <div class="course-card rev">
+    <div class="cc-top">
+      <div>
+        <div class="cc-badge">BEST · 가장 인기</div>
+        <div style="font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:22px;color:#000;margin-top:12px">리포지셔닝 부트캠프</div>
+      </div>
+      <div class="cc-price">28만원<span> / 3주</span></div>
+    </div>
+    <div class="cc-body">
+      <div class="cc-title">서류 · 자소서 · 면접<br>전 과정을 3주에 완성</div>
+      <div class="cc-desc">스펙을 리포지셔닝해 인사담당자의 인식을 점유하는 전략을 설계합니다. 1주차 자소서, 2주차 면접, 3주차 취업 STP 전략 특강 + 회차별 1:1 컨설팅으로 진행됩니다.</div>
+      <div class="cc-includes">
+        <div class="cc-inc-item">1주차: 취업 시장 특강 + 자소서 리포지셔닝 특강 4시간 + 1:1 개별 컨설팅</div>
+        <div class="cc-inc-item">2주차: 우수 과제 리뷰 + 면접 리포지셔닝 특강 2시간 + 1:1 컨설팅</div>
+        <div class="cc-inc-item">3주차: 취업 STP전략 특강 + 1:1 최종 컨설팅</div>
+        <div class="cc-inc-item">자기설득서 Building Up Book 제공</div>
+        <div class="cc-inc-item">수강 후 자소서 첨삭 지속 지원</div>
+      </div>
+      <div class="cc-results">
+        <div class="cc-result"><div class="cc-result-num">2.3×</div><div class="cc-result-label">서류 합격률 향상</div></div>
+        <div class="cc-result"><div class="cc-result-num">↓57%</div><div class="cc-result-label">합격 소요 기간</div></div>
+        <div class="cc-result"><div class="cc-result-num">3×</div><div class="cc-result-label">최종 합격률</div></div>
+      </div>
+      <div class="cc-footer">
+        <div class="cc-target">✦ 추천 대상: 서류 반복 탈락 · 직무전환 · 중고신입 · 취준 처음 시작</div>
+        <a href="https://litt.ly/j_positioning" target="_blank" class="btn-buy">강의 신청하기 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 02 자기설득서 클래스 -->
+<div class="course-section" id="jasoseol">
+  <div class="slabel rev">COURSE 02</div>
+  <div class="course-card rev">
+    <div class="cc-top" style="background:#222;border-bottom:2px solid #FECC00">
+      <div>
+        <div class="cc-badge" style="background:rgba(254,204,0,.15);color:#FECC00;border:1px solid rgba(254,204,0,.3)">자소서 특화</div>
+        <div style="font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:22px;color:#fff;margin-top:12px">자기설득서 클래스</div>
+      </div>
+      <div class="cc-price" style="color:#FECC00">별도 문의</div>
+    </div>
+    <div class="cc-body">
+      <div class="cc-title">자소서만 집중적으로<br>완전히 뜯어고칩니다</div>
+      <div class="cc-desc">단순 첨삭이 아니라 자소서를 어떤 사고 과정과 구조로 써야 하는지 체계적인 프로세스로 배웁니다. 스스로 쓰는 힘을 기르는 것이 목표입니다.</div>
+      <div class="cc-includes">
+        <div class="cc-inc-item">5 Why 기법으로 질문 의도 파악하는 법</div>
+        <div class="cc-inc-item">주장 → 근거 → 어필 구조 설계</div>
+        <div class="cc-inc-item">지원동기 · 직무역량 · 성장과정 문항별 전략</div>
+        <div class="cc-inc-item">1:1 실시간 화상통화 첨삭 (사고방식 체험)</div>
+        <div class="cc-inc-item">어떤 문항이 나와도 혼자 쓸 수 있는 자소서 레시피</div>
+      </div>
+      <div class="cc-results">
+        <div class="cc-result"><div class="cc-result-num">75%</div><div class="cc-result-label">4개 지원 3개 합격</div></div>
+        <div class="cc-result"><div class="cc-result-num">0%→70%</div><div class="cc-result-label">서합률 향상 사례</div></div>
+        <div class="cc-result"><div class="cc-result-num">★★★★★</div><div class="cc-result-label">수강생 만족도</div></div>
+      </div>
+      <div class="cc-footer">
+        <div class="cc-target">✦ 추천 대상: 자소서 방향을 못 잡는 분 · 첨삭받아도 왜 고쳐야 하는지 모르는 분</div>
+        <a href="https://litt.ly/j_positioning" target="_blank" class="btn-buy">강의 신청하기 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 03 완벽통제 면접 -->
+<div class="course-section" id="interview">
+  <div class="slabel rev">COURSE 03</div>
+  <div class="course-card rev">
+    <div class="cc-top" style="background:#1a1a1a;border-bottom:2px solid #FECC00">
+      <div>
+        <div class="cc-badge" style="background:rgba(254,204,0,.15);color:#FECC00;border:1px solid rgba(254,204,0,.3)">면접 특화</div>
+        <div style="font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:22px;color:#fff;margin-top:12px">완벽통제 면접 클래스</div>
+      </div>
+      <div class="cc-price" style="color:#FECC00">별도 문의</div>
+    </div>
+    <div class="cc-body">
+      <div class="cc-title">면접관의 질문에<br>끌려다니지 마세요</div>
+      <div class="cc-desc">면접은 예상 질문 암기가 아닙니다. 어떤 질문이 와도 내 핵심 메시지로 연결하는 구조를 만드는 것입니다. 약점 질문을 기회로 만드는 완벽통제 면접 전략을 배웁니다.</div>
+      <div class="cc-includes">
+        <div class="cc-inc-item">1분 자기소개로 면접 분위기 선점하는 법</div>
+        <div class="cc-inc-item">학점 · 공백기 · 퇴사 이유 약점 리포지셔닝</div>
+        <div class="cc-inc-item">면접관 기억에 남는 마지막 한마디 설계</div>
+        <div class="cc-inc-item">돌발 질문 대처 프레임</div>
+        <div class="cc-inc-item">1:1 모의 면접 + 피드백</div>
+      </div>
+      <div class="cc-results">
+        <div class="cc-result"><div class="cc-result-num">3×</div><div class="cc-result-label">최종 합격률 향상</div></div>
+        <div class="cc-result"><div class="cc-result-num">2주</div><div class="cc-result-label">면접 5개 달성 사례</div></div>
+        <div class="cc-result"><div class="cc-result-num">연봉↑</div><div class="cc-result-label">280만원 인상 사례</div></div>
+      </div>
+      <div class="cc-footer">
+        <div class="cc-target">✦ 추천 대상: 서류 합격 후 면접 탈락 반복 · 약점 질문에 흔들리는 분</div>
+        <a href="https://litt.ly/j_positioning" target="_blank" class="btn-buy">강의 신청하기 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- VIDEO SECTION -->
+<div style="background:#000;padding:80px 64px;border-top:1px solid rgba(255,255,255,.07)" id="videos">
+  <div class="slabel rev">강의 영상</div>
+  <h2 class="sec-h2 rev" style="margin-bottom:12px">강의 영상은<br><span style="color:#FECC00">이 페이지에서만</span> 시청 가능합니다</h2>
+  <p style="font-size:15px;color:rgba(255,255,255,.5);font-weight:300;margin-bottom:48px;line-height:1.8" class="rev">수강 신청 완료 후 열람 코드를 발급해드립니다. 외부 유출 불가.</p>
+
+  <!-- unlock bar -->
+  <div style="background:#111;border:1px solid rgba(255,255,255,.1);padding:28px 32px;display:flex;align-items:center;gap:16px;margin-bottom:40px;max-width:600px" class="rev">
+    <input id="unlockCode" style="flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:12px 16px;font-family:monospace;font-size:14px;outline:none;letter-spacing:.1em" placeholder="열람 코드를 입력하세요" type="password">
+    <button onclick="unlockVideos()" style="background:#FECC00;color:#000;padding:12px 24px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;white-space:nowrap">열람하기</button>
+  </div>
+  <p id="unlock-msg" style="font-size:13px;color:rgba(255,80,80,.7);margin-bottom:40px;display:none">코드가 올바르지 않습니다. 수강 신청 확인 후 재시도해주세요.</p>
+
+  <!-- locked video grid -->
+  <div id="video-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.06)">
+    <div class="vid-card" data-title="1강 · 리포지셔닝 개론" data-dur="48분">
+      <div class="vid-thumb">
+        <div class="vid-lock">🔒</div>
+        <div class="vid-title-overlay">1강 · 리포지셔닝 개론</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-name">1강 · 리포지셔닝 개론</div>
+        <div class="vid-meta">48분 · 리포지셔닝 부트캠프</div>
+      </div>
+    </div>
+    <div class="vid-card" data-title="2강 · 자기설득서 구조" data-dur="55분">
+      <div class="vid-thumb">
+        <div class="vid-lock">🔒</div>
+        <div class="vid-title-overlay">2강 · 자기설득서 구조</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-name">2강 · 자기설득서 구조</div>
+        <div class="vid-meta">55분 · 자기설득서 클래스</div>
+      </div>
+    </div>
+    <div class="vid-card" data-title="3강 · 5 Why 실전" data-dur="42분">
+      <div class="vid-thumb">
+        <div class="vid-lock">🔒</div>
+        <div class="vid-title-overlay">3강 · 5 Why 실전</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-name">3강 · 5 Why 실전</div>
+        <div class="vid-meta">42분 · 자기설득서 클래스</div>
+      </div>
+    </div>
+    <div class="vid-card" data-title="4강 · JD 분석법" data-dur="38분">
+      <div class="vid-thumb">
+        <div class="vid-lock">🔒</div>
+        <div class="vid-title-overlay">4강 · JD 분석법</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-name">4강 · JD 분석법</div>
+        <div class="vid-meta">38분 · 리포지셔닝 부트캠프</div>
+      </div>
+    </div>
+    <div class="vid-card" data-title="5강 · 완벽통제면접" data-dur="61분">
+      <div class="vid-thumb">
+        <div class="vid-lock">🔒</div>
+        <div class="vid-title-overlay">5강 · 완벽통제면접</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-name">5강 · 완벽통제면접</div>
+        <div class="vid-meta">61분 · 완벽통제 면접 클래스</div>
+      </div>
+    </div>
+    <div class="vid-card" data-title="6강 · 취업 STP 전략" data-dur="44분">
+      <div class="vid-thumb">
+        <div class="vid-lock">🔒</div>
+        <div class="vid-title-overlay">6강 · 취업 STP 전략</div>
+      </div>
+      <div class="vid-info">
+        <div class="vid-name">6강 · 취업 STP 전략</div>
+        <div class="vid-meta">44분 · 리포지셔닝 부트캠프</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- video modal -->
+  <div id="vid-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:8000;align-items:center;justify-content:center">
+    <div style="background:#111;border:1px solid rgba(254,204,0,.2);width:min(860px,92vw);padding:0;position:relative">
+      <div style="background:#000;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative">
+        <div style="text-align:center;color:rgba(255,255,255,.4)">
+          <div style="font-size:48px;margin-bottom:12px">▶</div>
+          <div id="vid-modal-title" style="font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:16px;color:#fff"></div>
+          <div style="font-size:13px;margin-top:8px;color:rgba(254,204,0,.6)" id="vid-modal-meta"></div>
+          <div style="font-size:12px;margin-top:20px;color:rgba(255,255,255,.3)">실제 강의 영상은 수강 완료 후<br>별도 안내드립니다.</div>
+        </div>
+        <button onclick="closeVid()" style="position:absolute;top:16px;right:16px;background:none;border:none;color:rgba(255,255,255,.5);font-size:20px;cursor:pointer">✕</button>
+      </div>
+      <div style="padding:20px 28px;display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:13px;color:rgba(255,255,255,.4)">🔐 수강생 전용 콘텐츠</div>
+        <a href="https://litt.ly/j_positioning" target="_blank" style="background:#FECC00;color:#000;padding:10px 24px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px">지금 수강 신청 →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.vid-card{background:#0d0d0d;cursor:pointer;transition:background .2s}
+.vid-card:hover{background:#161616}
+.vid-thumb{aspect-ratio:16/9;background:#1a1a1a;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.vid-lock{font-size:28px;z-index:2}
+.vid-title-overlay{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));padding:20px 16px 10px;font-size:12px;color:rgba(255,255,255,.7);font-weight:500;word-break:keep-all}
+.vid-card.unlocked .vid-lock{display:none}
+.vid-card.unlocked .vid-thumb{background:linear-gradient(135deg,#1a1a00,#0d0d0d)}
+.vid-card.unlocked .vid-thumb::before{content:"▶";position:absolute;font-size:32px;color:#FECC00;opacity:.8}
+.vid-info{padding:16px 20px}
+.vid-name{font-family:'Noto Sans KR',sans-serif;font-weight:600;font-size:14px;color:#fff;margin-bottom:6px;word-break:keep-all}
+.vid-meta{font-size:12px;color:rgba(255,255,255,.35)}
+#vid-modal.open{display:flex}
+</style>
+
+<script>
+var UNLOCK_CODE = 'REPOSITION2025';
+var unlocked = false;
+function unlockVideos(){
+  var code = document.getElementById('unlockCode').value.trim().toUpperCase();
+  var msg = document.getElementById('unlock-msg');
+  if(code === UNLOCK_CODE){
+    unlocked = true;
+    document.querySelectorAll('.vid-card').forEach(function(c){ c.classList.add('unlocked'); });
+    document.getElementById('unlockCode').value = '';
+    document.getElementById('unlockCode').placeholder = '✓ 열람 완료! 강의를 클릭해 시청하세요.';
+    document.getElementById('unlockCode').style.borderColor = '#FECC00';
+    msg.style.display = 'none';
+  } else {
+    msg.style.display = 'block';
+  }
+}
+document.querySelectorAll('.vid-card').forEach(function(c){
+  c.addEventListener('click', function(){
+    if(!unlocked){ alert('열람 코드를 먼저 입력해주세요.'); return; }
+    var modal = document.getElementById('vid-modal');
+    document.getElementById('vid-modal-title').textContent = c.dataset.title;
+    document.getElementById('vid-modal-meta').textContent = c.dataset.dur;
+    modal.classList.add('open');
+  });
+});
+function closeVid(){
+  document.getElementById('vid-modal').classList.remove('open');
+}
+document.getElementById('vid-modal').addEventListener('click', function(e){
+  if(e.target === this) closeVid();
+});
+</script>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="slabel rev">FAQ</div>
+  <h2 class="sec-h2 rev">자주 묻는 질문</h2>
+  <div class="faq-list rev">
+    <div class="faq-item">
+      <div class="faq-q">비전공자나 경력이 없는 쌩신입도 들을 수 있나요?</div>
+      <div class="faq-a">네, 오히려 더 효과적입니다. 리포지셔닝은 스펙의 양이 아니라 스펙이 읽히는 방식을 바꾸는 전략입니다. 경험이 적을수록 프레이밍이 중요합니다. 리클 수강생 중 무경력 신입의 첫 서류 합격 사례가 다수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">9년차 경력직도 도움이 되나요?</div>
+      <div class="faq-a">네. 연차가 높아도 채용 시장이 급변하면 서류 탈락이 반복됩니다. 실제로 10년차 마케터 수강생이 자소서 방향성을 재정립하고 재취업에 성공한 사례가 있습니다. 경험은 충분하지만 방향을 못 잡는 분들에게 특히 효과적입니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">강의가 끝난 후에도 자소서 첨삭을 받을 수 있나요?</div>
+      <div class="faq-a">네. 수강 후에도 지속적으로 지원 결과를 공유하고 피드백을 받을 수 있습니다. 제한 시간을 넘겨가며 질문에 답해드리는 것으로 많은 수강생분들이 후기를 남겨주셨습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">온라인으로 진행되나요?</div>
+      <div class="faq-a">네, 화상통화 기반 비대면으로 진행됩니다. 특강 후 1:1 컨설팅은 실시간 화상통화로 진행하며, 기획자님이 실시간으로 초안을 수정하는 과정을 직접 보면서 사고방식을 체험할 수 있습니다.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">다음 기수는 언제인가요?</div>
+      <div class="faq-a">매월 선착순으로 모집합니다. 이번 달 잔여 슬롯은 무료 진단 신청 후 확인 가능합니다. 빠르게 마감되니 관심 있으시면 무료 진단을 먼저 신청해두시길 추천드립니다.</div>
+    </div>
+  </div>
+</div>
+<footer>
+  <div class="fl"><span>REPOSITION</span></div>
+  <div class="fc">© 2025 REPOSITION · 스펙 리포지셔닝 에이전시</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+  var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{threshold:0.08});
+  document.querySelectorAll('.rev').forEach(function(el){obs.observe(el);});
+  document.querySelectorAll('.faq-item').forEach(function(item){
+    item.addEventListener('click',function(){
+      item.classList.toggle('open');
+    });
+  });
+});
+</script>
+</body></html>

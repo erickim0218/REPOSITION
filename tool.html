@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JD 분석기 | REPOSITION</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase}
+.logo span{color:#FECC00}
+.nav-back{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;transition:color .2s,border-color .2s}
+.nav-back:hover{color:#FECC00;border-color:#FECC00}
+
+/* HERO */
+.hero{padding:140px 64px 80px;border-bottom:1px solid rgba(255,255,255,.07)}
+.hero-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FECC00;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-weight:500}
+.hero-label::before{content:'';width:28px;height:1px;background:#FECC00;display:block}
+.hero-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,5vw,72px);line-height:1.05;letter-spacing:-.03em;margin-bottom:20px}
+.hero-h1 span{color:#FECC00}
+.hero-sub{font-size:16px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;max-width:560px}
+
+/* MAIN LAYOUT */
+.main{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 320px);border-bottom:1px solid rgba(255,255,255,.07)}
+
+/* LEFT PANEL — INPUT */
+.panel-left{padding:60px 64px;border-right:1px solid rgba(255,255,255,.07);background:#0a0a0a}
+.panel-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:32px;display:flex;align-items:center;gap:10px}
+.panel-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+/* URL input */
+.url-section{margin-bottom:40px}
+.url-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
+.url-wrap{display:flex;gap:10px}
+.url-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:14px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
+.url-input::placeholder{color:rgba(255,255,255,.3)}
+.url-input:focus{border-color:#FECC00}
+.btn-fetch{background:#FECC00;color:#000;padding:14px 22px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;white-space:nowrap;transition:opacity .2s}
+.btn-fetch:hover{opacity:.85}
+.btn-fetch:disabled{opacity:.4;cursor:not-allowed}
+
+/* divider */
+.or-divider{text-align:center;color:rgba(255,255,255,.25);font-size:12px;letter-spacing:.1em;margin:24px 0;position:relative}
+.or-divider::before,.or-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:rgba(255,255,255,.08)}
+.or-divider::before{left:0}
+.or-divider::after{right:0}
+
+/* textarea */
+.jd-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
+.jd-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:16px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;outline:none;resize:vertical;min-height:260px;transition:border-color .2s}
+.jd-textarea::placeholder{color:rgba(255,255,255,.3)}
+.jd-textarea:focus{border-color:#FECC00}
+
+/* user context */
+.context-section{margin-top:28px}
+.context-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
+.context-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:16px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;outline:none;resize:vertical;min-height:120px;transition:border-color .2s}
+.context-textarea::placeholder{color:rgba(255,255,255,.3)}
+.context-textarea:focus{border-color:#FECC00}
+
+/* analyze btn */
+.btn-analyze{width:100%;margin-top:28px;background:#FECC00;color:#000;padding:18px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:.04em;border:none;cursor:pointer;transition:opacity .2s,transform .2s;display:flex;align-items:center;justify-content:center;gap:10px}
+.btn-analyze:hover{opacity:.9;transform:translateY(-1px)}
+.btn-analyze:disabled{opacity:.4;cursor:not-allowed;transform:none}
+.btn-analyze .spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;display:none}
+.btn-analyze.loading .spinner{display:block}
+.btn-analyze.loading .btn-text{opacity:.7}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* status */
+.status-msg{margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);text-align:center;min-height:18px;line-height:1.7;white-space:pre-line}
+
+/* RIGHT PANEL — OUTPUT */
+.panel-right{padding:60px 64px;background:#050505;overflow-y:auto}
+.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:400px;text-align:center;color:rgba(255,255,255,.2)}
+.empty-icon{font-size:48px;margin-bottom:20px;opacity:.4}
+.empty-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;color:rgba(255,255,255,.3)}
+.empty-sub{font-size:13px;line-height:1.8;color:rgba(255,255,255,.2)}
+
+/* result sections */
+.result-hidden{display:none}
+.result-section{margin-bottom:48px}
+.rs-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.07)}
+.rs-num{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:#FECC00;line-height:1}
+.rs-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#fff;letter-spacing:.04em}
+.rs-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(254,204,0,.1);color:#FECC00;border:1px solid rgba(254,204,0,.25);padding:4px 10px;margin-left:auto}
+
+/* company summary */
+.company-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-bottom:8px}
+.cg-item{background:#0d0d0d;padding:16px 20px}
+.cg-key{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;font-weight:600}
+.cg-val{font-size:14px;font-weight:500;color:#fff;line-height:1.5}
+
+/* JD parse */
+.jd-parsed{background:#0d0d0d;border-left:2px solid #FECC00;padding:20px 24px;margin-bottom:8px}
+.jd-parsed p{font-size:14px;line-height:1.95;color:rgba(255,255,255,.8);font-weight:300}
+.jd-parsed strong{color:#fff;font-weight:600}
+
+/* question strategy cards */
+.q-cards{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06)}
+.q-card{background:#0d0d0d;padding:28px 28px}
+.q-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
+.q-card-num{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#FECC00;flex-shrink:0;line-height:1;margin-top:2px}
+.q-card-question{font-weight:700;font-size:15px;line-height:1.55;color:#fff}
+.q-card-strategy{font-size:13px;line-height:1.9;color:rgba(255,255,255,.7);font-weight:300;padding-left:34px}
+.q-card-strategy .kw{display:inline-block;background:rgba(254,204,0,.1);border:1px solid rgba(254,204,0,.2);color:#FECC00;font-size:11px;font-weight:700;padding:2px 8px;margin:0 2px;letter-spacing:.06em}
+
+/* draft */
+.draft-items{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06)}
+.draft-item{background:#0d0d0d;padding:28px}
+.draft-q{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FECC00;margin-bottom:12px}
+.draft-a{font-size:14px;line-height:2.05;color:rgba(255,255,255,.82);font-weight:300;white-space:pre-wrap}
+.draft-copy{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);font-family:'Noto Sans KR',sans-serif;font-size:11px;padding:7px 14px;cursor:pointer;transition:border-color .2s,color .2s}
+.draft-copy:hover{border-color:#FECC00;color:#FECC00}
+
+/* positioning box */
+.pos-box{background:#0d0d0d;border:1px solid rgba(254,204,0,.2);padding:28px}
+.pos-headline{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#FECC00;margin-bottom:12px;line-height:1.3}
+.pos-sub{font-size:14px;line-height:1.9;color:rgba(255,255,255,.75);font-weight:300}
+.pos-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.pos-tag{font-size:11px;font-weight:700;letter-spacing:.08em;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);padding:5px 12px}
+
+/* loading skeleton */
+.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.05) 25%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.05) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;height:16px;border-radius:2px;margin-bottom:8px}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+/* error */
+.error-box{background:rgba(255,80,80,.08);border:1px solid rgba(255,80,80,.25);padding:20px 24px;color:rgba(255,120,120,.9);font-size:14px;line-height:1.8}
+
+/* FOOTER */
+footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
+.fl{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;letter-spacing:.12em}
+.fl span{color:#FECC00}
+.fc{font-size:12px;color:rgba(255,255,255,.3)}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="reposition.html" class="logo"><span>REPOSITION</span></a>
+  <ul class="nav-menu">
+    <li>
+      <a href="about.html">리포지셔닝이란? <span class="nav-arr">▼</span></a>
+      <div class="nav-drop">
+        <span class="drop-label">개념</span>
+        <a href="about.html">리포지셔닝이란?</a>
+        <a href="jasoseol.html">자기설득서란?</a>
+        <a href="interview.html">완벽통제면접이란?</a>
+      </div>
+    </li>
+    <li>
+      <a href="course.html" class="nav-highlight">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <div class="nav-drop">
+        <span class="drop-label">REPOSITION CAMP</span>
+        <a href="course.html#bootcamp">리포지셔닝 부트캠프</a>
+        <a href="course.html#jasoseol">자기설득서 클래스</a>
+        <a href="course.html#interview">완벽통제 면접 클래스</a>
+        <hr>
+        <a href="course.html" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+      </div>
+    </li>
+    <li>
+      <a href="mock_interview.html" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
+    </li>
+    <li>
+      <a href="pro.html">현직자 피드백</a>
+    </li>
+    <li><a href="tool.html">JD 분석기</a></li>
+    <li><a href="community.html">커뮤니티</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="reposition.html#cta" class="nav-cta">무료 진단 신청</a>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-label">JD 리포지셔닝 분석기</div>
+  <h1 class="hero-h1">공고를 붙여넣으면<br><span>자기설득서 전략</span>이 나옵니다.</h1>
+  <p class="hero-sub">채용공고 URL 또는 텍스트를 입력하면 REPOSITION의 자기설득서 논리로 각 문항 전략과 초안을 제안합니다.</p>
+</div>
+
+<div class="main">
+  <!-- LEFT: INPUT -->
+  <div class="panel-left">
+    <div class="panel-title">공고 입력</div>
+
+    <!-- URL + 지원 직무 -->
+    <div class="url-section">
+      <span class="url-label">채용공고 URL</span>
+      <div class="url-wrap">
+        <input id="urlInput" class="url-input" type="url" placeholder="https://jasoseol.com/recruit/... 또는 사람인, 잡코리아 등">
+        <button class="btn-fetch" id="btnFetch" onclick="fetchJD()">공고 가져오기</button>
+      </div>
+      <div style="margin-top:12px">
+        <input id="jobInput" class="url-input" type="text" placeholder="지원 직무 입력 (예: 마케팅 기획, 브랜드 매니저, 영업관리 등)" style="width:100%">
+      </div>
+    </div>
+
+    <div class="or-divider">또는 직접 붙여넣기</div>
+
+    <!-- JD textarea -->
+    <span class="jd-label">채용공고 내용</span>
+    <textarea id="jdText" class="jd-textarea" placeholder="채용공고 페이지의 내용을 복사해서 붙여넣어 주세요.
+
+예)
+[회사명] OO기업
+[직무] 마케팅 기획
+[주요업무] ...
+[자격요건] ...
+[우대사항] ...
+[자소서 문항]
+1. 지원동기를 서술하시오 (700자)
+2. 직무역량을 기술하시오 (500자)
+..."></textarea>
+
+    <!-- User context -->
+    <div class="context-section">
+      <span class="context-label">내 경험 요약 <span style="color:rgba(255,255,255,.35);font-weight:400">(선택 — 입력하면 맞춤형 초안이 나옵니다)</span></span>
+      <textarea id="contextText" class="context-textarea" placeholder="예) 마케팅 인턴 6개월, SNS 콘텐츠 기획 담당, 팔로워 2만 성장. 비전공자 (경제학과). 직무 전환 준비 중."></textarea>
+    </div>
+
+    <button class="btn-analyze" id="btnAnalyze" onclick="analyze()">
+      <div class="spinner" id="spinner"></div>
+      <span class="btn-text" id="btnText">🔍 REPOSITION 논리로 분석하기</span>
+    </button>
+    <div class="status-msg" id="statusMsg"></div>
+  </div>
+
+  <!-- RIGHT: OUTPUT -->
+  <div class="panel-right" id="panelRight">
+    <div class="empty-state" id="emptyState">
+      <div class="empty-icon">⟳</div>
+      <div class="empty-title">아직 분석 결과가 없습니다</div>
+      <div class="empty-sub">왼쪽에 채용공고를 붙여넣고<br>분석 버튼을 누르면<br>자기설득서 전략이 나타납니다.</div>
+    </div>
+
+    <div id="resultArea" class="result-hidden">
+      <!-- 0. Positioning -->
+      <div class="result-section" id="sec0">
+        <div class="rs-header">
+          <div class="rs-num">00</div>
+          <div class="rs-title">나의 포지셔닝 한 줄</div>
+          <div class="rs-badge">REPOSITION CORE</div>
+        </div>
+        <div class="pos-box">
+          <div class="pos-headline" id="pos-headline"></div>
+          <div class="pos-sub" id="pos-sub"></div>
+          <div class="pos-tags" id="pos-tags"></div>
+        </div>
+      </div>
+
+      <!-- 1. JD 분석 -->
+      <div class="result-section" id="sec1">
+        <div class="rs-header">
+          <div class="rs-num">01</div>
+          <div class="rs-title">JD 핵심 분석</div>
+          <div class="rs-badge">인사담당자 언어</div>
+        </div>
+        <div class="company-grid" id="companyGrid"></div>
+        <div class="jd-parsed" id="jdParsed"></div>
+      </div>
+
+      <!-- 2. 문항별 전략 -->
+      <div class="result-section" id="sec2">
+        <div class="rs-header">
+          <div class="rs-num">02</div>
+          <div class="rs-title">문항별 자기설득서 전략</div>
+          <div class="rs-badge">주장→근거→어필</div>
+        </div>
+        <div class="q-cards" id="qCards"></div>
+      </div>
+
+      <!-- 3. 초안 -->
+      <div class="result-section" id="sec3">
+        <div class="rs-header">
+          <div class="rs-num">03</div>
+          <div class="rs-title">자기설득서 초안</div>
+          <div class="rs-badge">바로 수정 가능</div>
+        </div>
+        <div class="draft-items" id="draftItems"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="fl"><span>REPOSITION</span></div>
+  <div class="fc">© 2025 REPOSITION · 스펙 리포지셔닝 에이전시</div>
+</footer>
+
+<script>
+// ── URL fetch with multiple proxy fallbacks ──
+async function fetchJD(){
+  const url = document.getElementById('urlInput').value.trim();
+  if(!url){ alert('URL을 입력해주세요.'); return; }
+  const btn = document.getElementById('btnFetch');
+  btn.disabled = true; btn.textContent = '가져오는 중...';
+  setStatus('공고 페이지를 불러오는 중입니다...');
+
+  const proxies = [
+    u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
+    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
+    u => `https://cors-anywhere.herokuapp.com/${u}`,
+  ];
+
+  let text = null;
+  for(const makeUrl of proxies){
+    try {
+      const res = await fetch(makeUrl(url), {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      if(!res.ok) continue;
+      const ct = res.headers.get('content-type') || '';
+      let raw = '';
+      if(ct.includes('json')){
+        const data = await res.json();
+        raw = data.contents || data.data || '';
+      } else {
+        raw = await res.text();
+      }
+      if(raw && raw.length > 200){ text = raw; break; }
+    } catch(e){ continue; }
+  }
+
+  if(text){
+    // strip HTML
+    const tmp = document.createElement('div');
+    tmp.innerHTML = text;
+    // remove script/style tags
+    tmp.querySelectorAll('script,style,nav,footer,header').forEach(el=>el.remove());
+    const clean = (tmp.innerText || tmp.textContent || '').replace(/\s{3,}/g,'\n\n').trim();
+    document.getElementById('jdText').value = clean.slice(0, 5000);
+    setStatus('✓ 공고 내용을 가져왔습니다. 내용을 확인하고 분석 버튼을 눌러주세요.');
+  } else {
+    setStatus('⚠ 자동 가져오기 실패 — 아래 이유 중 하나입니다:\n① 해당 사이트가 크롤링을 차단함 (사람인, 잡코리아 등 대부분)\n② 로그인이 필요한 페이지\n→ 공고 페이지에서 Ctrl+A → Ctrl+C 후 아래 입력창에 직접 붙여넣기 해주세요.');
+  }
+  btn.disabled = false; btn.textContent = '공고 가져오기';
+}
+
+// ── MAIN ANALYZE ──
+async function analyze(){
+  const jd = document.getElementById('jdText').value.trim();
+  const ctx = document.getElementById('contextText').value.trim();
+  const job = document.getElementById('jobInput').value.trim();
+  if(!jd){ alert('채용공고 내용을 입력해주세요.'); return; }
+
+  setLoading(true);
+  setStatus('AI가 공고를 분석하고 있습니다... (약 20~40초)');
+  document.getElementById('emptyState').style.display = 'none';
+  document.getElementById('resultArea').className = 'result-hidden';
+
+  const systemPrompt = `당신은 "REPOSITION" 취업 컨설팅 에이전시의 AI 분석 엔진입니다.
+
+핵심 철학:
+- 취업은 마케팅이다. 인사담당자의 인식을 점유하는 자가 채용된다.
+- 자기소개서는 "자기설득서"다 — 나를 소개하는 글이 아니라, 내가 이 직무에 이익이 될 수 있음을 설득하는 글.
+- 모든 문항은 "주장 → 근거 → 어필" 구조로 써야 한다.
+- 5 Why 기법으로 질문의 진짜 의도를 파악해야 한다.
+- 약점(낮은 학점, 공백기, 직무전환)은 방어하지 말고 리포지셔닝하라.
+- 스펙의 양이 아니라, 스펙이 읽히는 방식을 바꿔야 한다.
+
+반드시 아래 JSON 구조로만 응답하세요. 다른 텍스트 없이 JSON만 출력:
+{
+  "positioning": {
+    "headline": "나를 한 문장으로 정의하는 포지셔닝 (예: '소비자 인사이트를 데이터로 번역하는 마케터')",
+    "sub": "이 포지셔닝이 왜 이 공고에 맞는지 2~3문장 설명",
+    "keywords": ["키워드1","키워드2","키워드3","키워드4"]
+  },
+  "jd_analysis": {
+    "company": "기업명",
+    "job": "직무명",
+    "type": "신입/경력/인턴",
+    "core_need": "인사담당자가 이 공고를 통해 진짜 원하는 것 (1~2문장)",
+    "key_traits": "이 직무에서 뽑히는 사람의 공통 특성 (2~3문장)"
+  },
+  "questions": [
+    {
+      "question": "자소서 문항 원문",
+      "char_limit": "글자수 제한 (없으면 '미상')",
+      "real_intent": "5 Why로 분석한 이 질문의 진짜 의도",
+      "strategy": "주장→근거→어필 전략 설명",
+      "keywords": ["강조해야 할 키워드1","키워드2"]
+    }
+  ],
+  "drafts": [
+    {
+      "question": "문항 요약",
+      "draft": "자기설득서 초안 (주장→근거→어필 구조, 실제 쓸 수 있는 수준으로)"
+    }
+  ]
+}`;
+
+  const userPrompt = `채용공고:
+${jd}
+
+${job ? '지원 직무: ' + job : '(지원 직무 미입력 — 공고에서 유추)'}
+${ctx ? '\n지원자 경험 요약:\n' + ctx : '\n(지원자 경험 정보 없음 — 일반적인 전략으로 작성)'}
+
+위 채용공고를 분석하고 REPOSITION 자기설득서 전략을 JSON으로 출력하세요.`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 4000,
+        system: systemPrompt,
+        messages: [{ role: 'user', content: userPrompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    // strip markdown fences
+    const clean = raw.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(clean);
+    renderResult(parsed);
+    setStatus('✓ 분석 완료! 전략과 초안을 확인하세요.');
+  } catch(e) {
+    document.getElementById('resultArea').className = '';
+    document.getElementById('resultArea').innerHTML = '<div class="error-box">분석 중 오류가 발생했습니다. 공고 내용을 확인하고 다시 시도해주세요.<br><small style="opacity:.6">' + e.message + '</small></div>';
+    setStatus('');
+  }
+  setLoading(false);
+}
+
+function renderResult(d){
+  // positioning
+  document.getElementById('pos-headline').textContent = d.positioning.headline;
+  document.getElementById('pos-sub').textContent = d.positioning.sub;
+  document.getElementById('pos-tags').innerHTML = (d.positioning.keywords||[]).map(k=>`<span class="pos-tag">${k}</span>`).join('');
+
+  // company grid
+  const cg = d.jd_analysis;
+  document.getElementById('companyGrid').innerHTML = [
+    ['기업',cg.company],['직무',cg.job],['구분',cg.type],['문항수',`${(d.questions||[]).length}개`]
+  ].map(([k,v])=>`<div class="cg-item"><div class="cg-key">${k}</div><div class="cg-val">${v||'-'}</div></div>`).join('');
+  document.getElementById('jdParsed').innerHTML =
+    `<p><strong>핵심 니즈:</strong> ${cg.core_need}</p><br><p><strong>뽑히는 사람:</strong> ${cg.key_traits}</p>`;
+
+  // question cards
+  document.getElementById('qCards').innerHTML = (d.questions||[]).map((q,i)=>`
+    <div class="q-card">
+      <div class="q-card-top">
+        <div class="q-card-num">Q${i+1}</div>
+        <div class="q-card-question">${q.question}${q.char_limit&&q.char_limit!='미상'?' <span style="font-size:12px;color:#FECC00;font-weight:400">('+q.char_limit+')</span>':''}</div>
+      </div>
+      <div class="q-card-strategy">
+        <p style="margin-bottom:8px;color:rgba(255,255,255,.5);font-size:12px">💡 진짜 의도: ${q.real_intent}</p>
+        <p style="margin-bottom:10px">${q.strategy}</p>
+        ${(q.keywords||[]).map(k=>`<span class="kw">${k}</span>`).join('')}
+      </div>
+    </div>`).join('');
+
+  // drafts
+  document.getElementById('draftItems').innerHTML = (d.drafts||[]).map((dr,i)=>`
+    <div class="draft-item">
+      <div class="draft-q">Q${i+1}. ${dr.question}</div>
+      <div class="draft-a" id="draft-${i}">${dr.draft}</div>
+      <button class="draft-copy" onclick="copyDraft(${i})">📋 복사하기</button>
+    </div>`).join('');
+
+  document.getElementById('resultArea').className = '';
+}
+
+function copyDraft(i){
+  const el = document.getElementById('draft-'+i);
+  navigator.clipboard.writeText(el.textContent).then(()=>{
+    const btn = el.nextElementSibling;
+    btn.textContent = '✓ 복사됨!';
+    setTimeout(()=>{ btn.textContent='📋 복사하기'; },2000);
+  });
+}
+
+function setLoading(on){
+  const btn = document.getElementById('btnAnalyze');
+  const spinner = document.getElementById('spinner');
+  if(on){ btn.disabled=true; btn.classList.add('loading'); spinner.style.display='block'; }
+  else  { btn.disabled=false; btn.classList.remove('loading'); spinner.style.display='none'; }
+}
+function setStatus(msg){ document.getElementById('statusMsg').textContent = msg; }
+</script>
+</body>
+</html>
