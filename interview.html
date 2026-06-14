@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
-<title>완벽통제면접이란? | REPOSITION</title><style>
+<title>설득하는 자기소개서, 자기설득서 | REPOSITION</title><style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;-webkit-font-smoothing:antialiased;word-break:keep-all;overflow-x:hidden}
@@ -36,7 +36,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-cta:hover{opacity:.85}
 
 /* REVEAL */
-.rev{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.rev{opacity:1;transform:none}
 .rev.on{opacity:1;transform:none}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 
@@ -291,172 +291,220 @@ section{padding:100px 64px}
   }
 }
 
+
+@media(max-width:600px){.grid3{grid-template-columns:1fr!important}}
 </style>
 <style>
 .intro-hero{min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:140px 64px 80px;position:relative;overflow:hidden;background:#000}
 .intro-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(254,204,0,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(254,204,0,.025) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
-.hero-kw{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(60px,10vw,160px);color:transparent;-webkit-text-stroke:1px rgba(254,204,0,.05);position:absolute;bottom:-20px;right:-10px;letter-spacing:-.04em;pointer-events:none;user-select:none;white-space:nowrap}
+.hero-kw{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(80px,13vw,200px);color:transparent;-webkit-text-stroke:1px rgba(254,204,0,.06);position:absolute;bottom:-20px;right:-10px;letter-spacing:-.04em;pointer-events:none;user-select:none;white-space:nowrap}
 .hero-tag{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FECC00;margin-bottom:24px;display:flex;align-items:center;gap:12px;font-weight:500}
 .hero-tag::before{content:'';width:28px;height:1px;background:#FECC00;display:block}
 .hero-h1{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(32px,5vw,72px);line-height:1.1;letter-spacing:-.03em;max-width:820px;margin-bottom:28px}
 .hero-def{font-size:17px;line-height:1.95;color:rgba(255,255,255,.65);font-weight:300;max-width:580px;margin-bottom:48px;word-break:keep-all}
 .hero-quote{border-left:3px solid #FECC00;padding-left:28px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:clamp(16px,1.8vw,22px);line-height:1.7;color:#FECC00;max-width:640px}
-.points-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:rgba(255,255,255,.06);margin-top:60px}
-.pt{background:#0d0d0d;padding:48px 36px;transition:background .3s;position:relative;overflow:hidden}
-.pt:hover{background:#141414}
-.pt::after{content:'';position:absolute;bottom:0;left:0;right:0;height:3px;background:#FECC00;transform:scaleX(0);transform-origin:left;transition:transform .35s}
-.pt:hover::after{transform:scaleX(1)}
-.pt-num{font-family:'Noto Sans KR',sans-serif;font-weight:800;font-size:48px;color:rgba(254,204,0,.2);line-height:1;margin-bottom:20px}
-.pt-title{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:19px;margin-bottom:14px;color:#fff}
-.pt-body{font-size:14px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;word-break:keep-all}
-.vs-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-top:60px}
-.vs-card{background:#0d0d0d;padding:48px 44px}
-.vs-card.bad{border-top:2px solid rgba(255,80,80,.4)}
-.vs-card.good{border-top:2px solid #FECC00}
-.vs-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;margin-bottom:20px}
-.vs-badge.bad{background:rgba(255,80,80,.1);color:rgba(255,120,120,.8);border:1px solid rgba(255,80,80,.2)}
-.vs-badge.good{background:rgba(254,204,0,.1);color:#FECC00;border:1px solid rgba(254,204,0,.25)}
-.vs-title{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:20px;margin-bottom:16px;word-break:keep-all}
-.vs-desc{font-size:14px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;word-break:keep-all}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-top:60px}
+.cg-card{background:#0d0d0d;padding:48px 44px}
+.cg-card.bad{border-top:2px solid rgba(255,80,80,.4)}
+.cg-card.good{border-top:2px solid #FECC00;background:linear-gradient(135deg,rgba(254,204,0,.04),rgba(0,0,0,0))}
+.cg-badge{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:5px 12px;margin-bottom:20px}
+.cg-badge.bad{background:rgba(255,80,80,.1);color:rgba(255,120,120,.8);border:1px solid rgba(255,80,80,.2)}
+.cg-badge.good{background:rgba(254,204,0,.1);color:#FECC00;border:1px solid rgba(254,204,0,.25)}
+.cg-title{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:20px;margin-bottom:16px;word-break:keep-all}
+.cg-title.bad{color:rgba(255,255,255,.4)}
+.cg-title.good{color:#fff}
+.cg-desc{font-size:14px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;word-break:keep-all}
+.structure-steps{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06);margin-top:60px}
+.st-item{background:#0d0d0d;padding:36px 40px;display:grid;grid-template-columns:60px 1fr;gap:28px;align-items:start}
+.st-num{font-family:'Noto Sans KR',sans-serif;font-weight:800;font-size:36px;color:#FECC00;line-height:1}
+.st-content-title{font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:18px;margin-bottom:10px;color:#fff}
+.st-content-body{font-size:14px;line-height:1.9;color:rgba(255,255,255,.65);font-weight:300;word-break:keep-all}
 .cta-strip{background:#FECC00;padding:80px 64px;display:flex;justify-content:space-between;align-items:center;gap:48px}
 .cs-left h2{font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(24px,3vw,42px);color:#000;line-height:1.2;letter-spacing:-.025em;word-break:keep-all;margin-bottom:12px}
 .cs-left p{font-size:15px;color:rgba(0,0,0,.55);font-weight:300;word-break:keep-all}
 .btn-dark{background:#000;color:#FECC00;padding:18px 44px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;white-space:nowrap;transition:transform .2s,opacity .2s;display:inline-block}
 .btn-dark:hover{transform:translateY(-2px);opacity:.9}
 </style>
-</head><body><nav id="nav">
-  <a href="/" class="logo">
-    
-    <span>REPOSITION</span>
-  </a>
+</head>
+<body>
+<nav id="nav">
+  <a href="/" class="logo"><span>REPOSITION</span></a>
   <ul class="nav-menu">
     <li>
       <a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
-        <span class="drop-label">개념</span>
         <a href="/about">리포지셔닝이란?</a>
-        <a href="/jasoseol">자기설득서란?</a>
-        <a href="/interview">완벽통제면접이란?</a>
+        <a href="/marketing">취업은 마케팅이다</a>
+        <a href="/jasoseol">설득하는 자기소개서, 자기설득서</a>
+        <a href="/interview">면접을 더욱 완벽하게, 완벽통제면접</a>
       </div>
     </li>
     <li>
-      <a href="/course" class="nav-highlight">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <a href="/mock_interview" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
         <span class="drop-label">REPOSITION CAMP</span>
-        <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
-        <a href="/course#jasoseol">자기설득서 클래스</a>
-        <a href="/course#interview">완벽통제 면접 클래스</a>
-        <hr>
-        <a href="/course" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+        <a href="/mock_interview">리포지셔닝 부트캠프</a>
+        <a href="/mock_interview">자기설득서 클래스</a>
+        <a href="/mock_interview">완벽통제 면접 클래스</a>
+        <hr><a href="/mock_interview" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
       </div>
     </li>
-    <li>
-      <a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
-    </li>
+    <li><a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a></li>
     <li><a href="/pro">현직자 피드백</a></li>
     <li><a href="/tool">JD 분석기</a></li>
     <li><a href="/community">커뮤니티</a></li>
   </ul>
-  <div class="nav-right">
-    <a href="/#cta" class="nav-cta">무료 진단 신청</a>
-  </div>
+  <div class="nav-right"><a href="/mock_interview" class="nav-cta">무료 진단 신청</a></div>
 </nav>
-
-<button class="nav-hamburger" id="navHamburger" aria-label="메뉴">
-  <span></span><span></span><span></span>
-</button>
+<button class="nav-hamburger" id="navHamburger" aria-label="메뉴"><span></span><span></span><span></span></button>
 <div class="nav-drawer" id="navDrawer">
-  <div class="drawer-item">
-    <a href="/about" class="drawer-link">리포지셔닝이란?</a>
+  <div class="drawer-item"><a href="/about" class="drawer-link">리포지셔닝이란?</a>
     <div class="drawer-sub">
       <a href="/about">리포지셔닝이란?</a>
-      <a href="/jasoseol">자기설득서란?</a>
-      <a href="/interview">완벽통제면접이란?</a>
+      <a href="/marketing">취업은 마케팅이다</a>
+      <a href="/jasoseol">설득하는 자기소개서, 자기설득서</a>
+      <a href="/interview">면접을 더욱 완벽하게, 완벽통제면접</a>
     </div>
   </div>
-  <div class="drawer-item">
-    <a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
+  <div class="drawer-item"><a href="/mock_interview" class="drawer-link highlight">리포지셔닝캠프</a>
     <div class="drawer-sub">
-      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
-      <a href="/course#jasoseol">자기설득서 클래스</a>
-      <a href="/course#interview">완벽통제 면접 클래스</a>
+      <a href="/mock_interview">리포지셔닝 부트캠프</a>
+      <a href="/mock_interview">자기설득서 클래스</a>
+      <a href="/mock_interview">완벽통제 면접 클래스</a>
     </div>
   </div>
-  <div class="drawer-item">
-    <a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/pro" class="drawer-link">현직자 피드백</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/tool" class="drawer-link">JD 분석기</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/community" class="drawer-link">커뮤니티</a>
-  </div>
-  <a href="/#cta" class="drawer-cta">⚓ 무료 진단 신청 →</a>
+  <div class="drawer-item"><a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a></div>
+  <div class="drawer-item"><a href="/pro" class="drawer-link">현직자 피드백</a></div>
+  <div class="drawer-item"><a href="/tool" class="drawer-link">JD 분석기</a></div>
+  <div class="drawer-item"><a href="/community" class="drawer-link">커뮤니티</a></div>
+  <a href="/mock_interview" class="drawer-cta">무료 진단 신청 →</a>
 </div>
 
-
-<div class="intro-hero">
-  <div class="hero-kw">INTERVIEW</div>
-  <div class="hero-tag">완벽통제면접이란?</div>
-  <h1 class="hero-h1">질문에 <em style="font-style:normal;color:rgba(255,255,255,.4)">답하는</em> 면접이 아니라<br>내 <span class="y">프레임으로 끌고 가는</span> 면접</h1>
-  <p class="hero-def">면접관은 하루 평균 8~12명을 만납니다. 면접 후 기억에 남는 지원자는 2~3명뿐입니다. <strong>답변을 잘 외워가는 것과 면접관의 머릿속에 '이 사람'으로 기억되는 것은 전혀 다른 준비입니다.</strong></p>
-  <div class="hero-quote">"'왜 전직하냐'는 질문이 제일 무서웠는데,<br>이제는 그 질문이 오히려 기회가 됐습니다."<br><span style="font-size:13px;font-weight:400;opacity:.7">— 윈터캠프 수강생 박현우</span></div>
-</div>
-
-<section style="background:#0a0a0a">
-  <div class="slabel rev">완벽통제면접 3원칙</div>
-  <h2 class="sec-h2 rev">면접을<br><span class="y">통제하는 사람</span>이 합격합니다</h2>
-  <p class="sec-body rev">자소서를 통해 인식이 이미 점유된 면접관의 지갑을 여는 것이 면접입니다. 하지만 준비 없이 들어가면 면접관의 프레임에 끌려다니게 됩니다.</p>
-  <div class="points-grid">
-    <div class="pt rev">
-      <div class="pt-num">01</div>
-      <div class="pt-title">1분 자기소개로<br>프레임 선점</div>
-      <div class="pt-body">면접의 첫 1분이 전체 분위기를 결정합니다. 나를 어떤 사람으로 각인시킬지 전략적으로 설계한 1분 자기소개는 면접관의 이후 질문 방향을 내가 원하는 쪽으로 유도합니다.</div>
+<section style="background:#000;padding:100px 64px;">
+  <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:32px;">
+    <div class="slabel">완벽통제면접이란?</div>
+    <h2 class="sec-h2">면접은 결국<br><span style="color:#FECC00;">통제</span>입니다</h2>
+    <p style="font-size:17px;color:rgba(255,255,255,.75);font-weight:300;line-height:2.1;word-break:keep-all;">
+      완벽통제면접 = 완벽하게 상황을 통제하여 내 주도권을 지키는 자리
+    </p>
+    <p style="font-size:17px;color:rgba(255,255,255,.75);font-weight:300;line-height:2.1;word-break:keep-all;">
+      자소서는 내 스스로가 모든 통제권을 가지고 있습니다. 하지만 면접은 그 통제권을 인사담당자가 가지고 있습니다. 주도권을 잃게 되면 승산이 없습니다.
+    </p>
+    <div class="grid3" style="background:#0d0d0d;padding:32px 36px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;background:rgba(255,255,255,.07);">
+      <div style="background:#0d0d0d;padding:28px 24px;text-align:center;border-right:1px solid rgba(255,255,255,.07);">
+        <div style="font-size:13px;color:#FECC00;font-weight:700;letter-spacing:.1em;margin-bottom:10px;">1단계</div>
+        <div style="font-size:16px;color:#fff;font-weight:700;margin-bottom:6px;">자기소개</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);">완전 통제 가능</div>
+      </div>
+      <div style="background:#111;padding:28px 24px;text-align:center;border-right:1px solid rgba(255,255,255,.07);border:1px solid rgba(254,204,0,.2);">
+        <div style="font-size:13px;color:rgba(255,255,255,.5);font-weight:700;letter-spacing:.1em;margin-bottom:10px;">2단계</div>
+        <div style="font-size:16px;color:rgba(255,255,255,.7);font-weight:700;margin-bottom:6px;">질의응답</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.35);">불완전 통제 ← 핵심</div>
+      </div>
+      <div style="background:#0d0d0d;padding:28px 24px;text-align:center;">
+        <div style="font-size:13px;color:#FECC00;font-weight:700;letter-spacing:.1em;margin-bottom:10px;">3단계</div>
+        <div style="font-size:16px;color:#fff;font-weight:700;margin-bottom:6px;">마무리 멘트</div>
+        <div style="font-size:12px;color:rgba(255,255,255,.45);">완전 통제 가능</div>
+      </div>
     </div>
-    <div class="pt rev d1">
-      <div class="pt-num">02</div>
-      <div class="pt-title">약점 질문을<br>강점으로 전환</div>
-      <div class="pt-body">학점, 공백기, 퇴사 이유, 직무전환 — 약점을 방어하려 할수록 면접관은 더 파고듭니다. 리포지셔닝 기법으로 약점 질문을 오히려 나를 어필하는 기회로 만드세요.</div>
-    </div>
-    <div class="pt rev d2">
-      <div class="pt-num">03</div>
-      <div class="pt-title">마지막 한마디로<br>인식 각인</div>
-      <div class="pt-body">면접관이 퇴근 후에도 당신을 기억하게 만드는 마지막 한마디. "마지막으로 하고 싶은 말씀 있으신가요?"라는 질문은 당신이 완벽하게 준비한 클로징 기회입니다.</div>
+    <p style="font-size:17px;color:rgba(255,255,255,.75);font-weight:300;line-height:2.1;word-break:keep-all;">
+      1번과 3번 영역을 최대한 활용하여 2번을 간접적으로 통제해야 합니다. 자기소개 안에 2번에 대한 단서를 남겨(브릿지1), 자연스럽게 원하는 질문이 나오도록 유도하고, 2번이 모호했다면 3번에서 다시 한번 재강조(브릿지2)합니다.
+    </p>
+  </div>
+</section>
+
+<section style="background:#080808;padding:100px 64px;border-top:1px solid rgba(255,255,255,.07);">
+  <div style="max-width:720px;margin:0 auto;display:flex;flex-direction:column;gap:40px;">
+    <h2 class="sec-h2">완벽통제면접 5가지 필승전략</h2>
+
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div style="background:#0d0d0d;padding:32px 36px;display:flex;gap:24px;align-items:flex-start;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#FECC00;letter-spacing:.1em;white-space:nowrap;padding-top:3px;">★★★★☆</div>
+        <div>
+          <div style="font-weight:700;font-size:17px;color:#fff;margin-bottom:10px;">퍼스트 임팩트의 법칙 — 첫 10초가 모든 것을 결정한다</div>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.9;">면접의 첫 10초, 나라는 사람의 중심 메시지를 각인시키는 시간입니다. ① 나를 상징하는 한 문장(나의 방식·가치·일하는 스타일) → ② 왜 그 문장이 나를 설명하는가(형성 배경) → ③ 꼬리 질문을 유도하는 단서 심기. 이 기준점이 심어지는 순간 이후의 모든 질의응답은 그 기준을 중심으로 흘러갑니다.</p>
+        </div>
+      </div>
+      <div style="background:#0d0d0d;padding:32px 36px;display:flex;gap:24px;align-items:flex-start;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#FECC00;letter-spacing:.1em;white-space:nowrap;padding-top:3px;">★★★★☆</div>
+        <div>
+          <div style="font-weight:700;font-size:17px;color:#fff;margin-bottom:10px;">꼬리물기의 법칙 — 궁금증을 남겨 추가 질문을 유도하라</div>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.9;">정량 성과로 후킹하고, 과정은 비워 궁금증을 만들어 면접관이 내가 원하는 질문을 먼저 꺼내도록 만드는 전략입니다. 사람의 뇌는 숫자에 자동 반응합니다. 성과를 수치로 제시하는 것만으로도 면접관의 궁금증은 즉시 발생합니다. 이 궁금증이 꼬리 질문이 되고, 그 질문이 바로 내가 준비한 IMPACT5 답변으로 이어집니다.</p>
+        </div>
+      </div>
+      <div style="background:#0d0d0d;padding:32px 36px;display:flex;gap:24px;align-items:flex-start;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#FECC00;letter-spacing:.1em;white-space:nowrap;padding-top:3px;">★★★★★</div>
+        <div>
+          <div style="font-weight:700;font-size:17px;color:#fff;margin-bottom:10px;">임팩트5의 법칙 — 이 순서로만 대응하면 통제불가 영역은 없다</div>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.9;margin-bottom:16px;">어떤 질문이 들어와도 가장 임팩트 있고 조리 있게 답변하는 5단 구조입니다.</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#FECC00;font-weight:700;font-size:13px;white-space:nowrap;">① 문제정의</span><span style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;">상황을 단순하게 정리하고 핵심 문제를 선명하게 정의</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#FECC00;font-weight:700;font-size:13px;white-space:nowrap;">② 역할</span><span style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;">내가 맡은 책임과 역할 명확히 제시 — "팀이"가 아닌 "제가" 중심</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#FECC00;font-weight:700;font-size:13px;white-space:nowrap;">③ 행동</span><span style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;">실제로 판단하고 실행한 핵심 행동 2~3개만 선명하게</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#FECC00;font-weight:700;font-size:13px;white-space:nowrap;">④ 결과</span><span style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;">반드시 정량화된 숫자로 후킹 — 전후 비교 / % 변화 / 효율 개선</span></div>
+            <div style="display:flex;gap:14px;align-items:flex-start;"><span style="color:#FECC00;font-weight:700;font-size:13px;white-space:nowrap;">⑤ 직무 연결</span><span style="font-size:13px;color:rgba(255,255,255,.6);line-height:1.7;">이 경험이 지원 직무와 어떻게 연결되는가 — "나는 이 직무에 적합하다" 선언</span></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:#0d0d0d;padding:32px 36px;display:flex;gap:24px;align-items:flex-start;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:#FECC00;letter-spacing:.1em;white-space:nowrap;padding-top:3px;">★★★★★</div>
+        <div>
+          <div style="font-weight:700;font-size:17px;color:#fff;margin-bottom:10px;">프레임 전환의 법칙 — 망한 면접은 없다, 대응을 못한 면접만이 있을 뿐</div>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.9;">면접관의 부정적·애매한 질문을 내가 유리한 방향으로 바꾸는 기술입니다. ① 질문의 전제를 먼저 인정 + 이유 1줄 → ② 나의 기준점 회복 + 형성 이유 제시 → ③ IMPACT5 성과로 마무리. 어떤 질문이 들어와도 결론은 반드시 강점 + 정량 성과 + 직무 기여로 끝납니다.</p>
+        </div>
+      </div>
+      <div style="background:#0d0d0d;padding:32px 36px;display:flex;gap:24px;align-items:flex-start;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;color:rgba(254,204,0,.5);letter-spacing:.1em;white-space:nowrap;padding-top:3px;">★★★☆☆</div>
+        <div>
+          <div style="font-weight:700;font-size:17px;color:#fff;margin-bottom:10px;">거래의 법칙 — 기회 요청이 아닌 가치 제안으로 끝내라</div>
+          <p style="font-size:15px;color:rgba(255,255,255,.65);line-height:1.9;">마지막 마무리 멘트, 당신이 무엇을 줄 수 있는지에 대해 한번 더 어필하세요. ① 귀사의 전략을 정교하게 이해하고 있다는 문장 → ② 전략적 공명(왜 타당한지 해석) → ③ 나의 기준점 + 경험 + 반복 패턴 → ④ 기여 선언 + 시간 기반 목표. "열심히 하겠습니다"가 아닌 "이 역량으로 귀사의 ○○에 기여할 수 있습니다"로 끝냅니다.</p>
+        </div>
+      </div>
     </div>
   </div>
 </section>
 
-<section style="background:#000">
-  <div class="slabel rev">일반 면접 vs 완벽통제면접</div>
-  <h2 class="sec-h2 rev">면접 준비 방식을<br><span class="y">바꿔야</span> 합니다</h2>
-  <div class="vs-grid">
-    <div class="vs-card bad rev">
-      <div class="vs-badge bad">❌ 일반 면접 준비</div>
-      <div class="vs-title" style="color:rgba(255,255,255,.4)">예상 질문 100개 암기</div>
-      <div class="vs-desc">예상 질문에 대한 모범 답안을 외웁니다. 하지만 예상 못한 질문이 나오면 흔들립니다. 면접관의 질문에 끌려다니며 내가 하고 싶은 말을 못 하고 나옵니다. "면접이 끝나고 나서야 할 말이 생각났어요."</div>
-    </div>
-    <div class="vs-card good rev d1">
-      <div class="vs-badge good">✦ 완벽통제면접</div>
-      <div class="vs-title">하나의 메시지로 모든 질문 연결</div>
-      <div class="vs-desc">어떤 질문이 와도 내가 준비한 핵심 메시지로 연결하는 구조를 설계합니다. 약점 질문도, 돌발 질문도 내 강점을 어필하는 기회로 전환합니다. 면접관은 질문을 하지만, 대화의 흐름은 내가 통제합니다.</div>
+<section style="background:#000;padding:100px 64px;border-top:1px solid rgba(255,255,255,.07);">
+  <div style="max-width:720px;margin:0 auto;">
+    <h2 class="sec-h2" style="margin-bottom:36px;">1분 자기소개 공식 프로세스</h2>
+    <div style="display:flex;flex-direction:column;gap:2px;">
+      <div style="background:#0d0d0d;padding:28px 32px;display:flex;gap:20px;">
+        <span style="color:#FECC00;font-weight:800;font-size:20px;min-width:24px;">①</span>
+        <div><strong style="color:#fff;">퍼스트 임팩트</strong> <span style="color:rgba(255,255,255,.5);font-size:14px;margin-left:8px;">나는 이런 사람입니다</span><br><span style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;">"문제는 해결보다 정의가 어렵습니다. 저는 문제의 본질을 먼저 찾는 사람입니다."</span></div>
+      </div>
+      <div style="background:#0d0d0d;padding:28px 32px;display:flex;gap:20px;">
+        <span style="color:#FECC00;font-weight:800;font-size:20px;min-width:24px;">②</span>
+        <div><strong style="color:#fff;">형성 배경</strong> <span style="color:rgba(255,255,255,.5);font-size:14px;margin-left:8px;">왜 그런 사람이 되었는가</span><br><span style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;">핵심을 놓치면 결국 방향이 틀어진다는 경험을 여러 번 하면서 자연스럽게 본질부터 보자는 기준이 잡혔습니다.</span></div>
+      </div>
+      <div style="background:#111;padding:28px 32px;display:flex;gap:20px;border:1px solid rgba(254,204,0,.15);">
+        <span style="color:#FECC00;font-weight:800;font-size:20px;min-width:24px;">③</span>
+        <div><strong style="color:#FECC00;">꼬리물기 — 정량 성과</strong> <span style="color:rgba(255,255,255,.5);font-size:14px;margin-left:8px;">후킹 포인트</span><br><span style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;">"이 기준을 통해 ○○ 프로젝트에서 전환율을 12% → 47%까지 끌어올렸습니다." (과정 삭제, 성과만 → 면접관: "어떻게요?" 꼬리 질문 생성)</span></div>
+      </div>
+      <div style="background:#0d0d0d;padding:28px 32px;display:flex;gap:20px;">
+        <span style="color:#FECC00;font-weight:800;font-size:20px;min-width:24px;">④</span>
+        <div><strong style="color:#fff;">전환 브릿지</strong><br><span style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;">"그 경험이 제 일 방식의 기준을 확실히 잡아준 계기였습니다."</span></div>
+      </div>
+      <div style="background:#0d0d0d;padding:28px 32px;display:flex;gap:20px;">
+        <span style="color:#FECC00;font-weight:800;font-size:20px;min-width:24px;">⑤</span>
+        <div><strong style="color:#fff;">회사 기여</strong> <span style="color:rgba(255,255,255,.5);font-size:14px;margin-left:8px;">Job Fit</span><br><span style="font-size:14px;color:rgba(255,255,255,.55);line-height:1.8;">"이 역량을 기반으로 귀사에서도 문제의 본질을 정확히 정의하고 지표 중심의 전략 실행으로 확실한 성과를 만들겠습니다."</span></div>
+      </div>
     </div>
   </div>
 </section>
 
-<div class="cta-strip">
-  <div class="cs-left rev">
-    <h2>완벽통제면접법<br>배우고 싶다면</h2>
-    <p>면접 합격률 3배 향상. 서류부터 최종 합격까지 함께합니다.</p>
+<div style="background:#FECC00;padding:80px 64px;display:flex;justify-content:space-between;align-items:center;gap:40px;flex-wrap:wrap;">
+  <div>
+    <h2 style="font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:clamp(22px,2.8vw,38px);color:#000;line-height:1.2;letter-spacing:-.025em;word-break:keep-all;margin-bottom:10px;">면접의 주도권을 되찾아오세요</h2>
+    <p style="font-size:15px;color:rgba(0,0,0,.55);font-weight:300;">하나의 바늘(주장)이 끝까지 모든 옷감을 뚫고 나아가는 것처럼.</p>
   </div>
-  <a href="/course#interview" class="btn-dark rev d1">완벽통제 면접 클래스 보기 →</a>
+  <a href="/mock_interview" style="background:#000;color:#FECC00;padding:18px 44px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:14px;letter-spacing:.04em;text-decoration:none;white-space:nowrap;flex-shrink:0;">리포지셔닝 클래스 →</a>
 </div>
+
 <footer>
   <div class="fl"><span>REPOSITION</span></div>
   <div class="fc">© 2025 REPOSITION · 스펙 리포지셔닝 에이전시</div>
-</footer><script>
+</footer>
+<script>
 document.addEventListener('DOMContentLoaded',function(){
   var obs=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)e.target.classList.add('on');});},{threshold:0.08});
   document.querySelectorAll('.rev').forEach(function(el){obs.observe(el);});
@@ -490,4 +538,6 @@ document.addEventListener('DOMContentLoaded',function(){
   });
 })();
 
-</script></body></html>
+</script>
+</body>
+</html>
