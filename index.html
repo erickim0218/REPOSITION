@@ -1399,6 +1399,32 @@ body.intro-active{overflow:hidden}
 // ── ALL JS ── runs after DOM ready
 document.addEventListener('DOMContentLoaded', function(){
 
+  // ── MOBILE NAV HAMBURGER ──
+  (function(){
+    var btn = document.getElementById('navHamburger');
+    var drawer = document.getElementById('navDrawer');
+    if(!btn || !drawer) return;
+    btn.addEventListener('click', function(){
+      btn.classList.toggle('open');
+      drawer.classList.toggle('open');
+      document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
+    });
+    drawer.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        btn.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+    window.addEventListener('resize', function(){
+      if(window.innerWidth > 900){
+        btn.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    });
+  })();
+
   /* ── INTRO ── */
   var intro = document.getElementById('intro');
   var bar   = document.getElementById('intro-bar');
