@@ -7,7 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
 <style>
-
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
@@ -25,11 +24,11 @@ body{
 #cur2{width:36px;height:36px;border:1.5px solid rgba(254,204,0,.4);border-radius:50%;position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .1s ease}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:flex-start;gap:0;padding:0 48px;height:64px;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase;flex-shrink:0;padding-right:4px;border-right:1px solid rgba(255,255,255,.08)}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:flex-start;padding:0 48px;height:64px;background:rgba(0,0,0,.97);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
+.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase;flex-shrink:0;cursor:pointer;-webkit-user-select:none;user-select:none}
 .logo span{color:#FECC00}
 /* center menu */
-.nav-menu{display:flex;align-items:stretch;height:64px;list-style:none;margin:0 0 0 16px;flex:1}
+.nav-menu{display:flex;align-items:stretch;height:64px;list-style:none;margin:0 0 0 8px;flex:1}
 .nav-menu > li{position:relative;display:flex;align-items:center}
 .nav-menu > li > a{display:flex;align-items:center;gap:5px;padding:0 16px;height:64px;color:rgba(255,255,255,.7);text-decoration:none;font-size:13px;font-weight:500;white-space:nowrap;transition:color .2s;position:relative}
 .nav-menu > li > a:hover,.nav-menu > li > a.active{color:#fff}
@@ -246,7 +245,7 @@ footer{background:#000;border-top:1px solid rgba(255,255,255,.08);padding:44px 6
 .flinks a:hover{color:#FECC00}
 
 /* REVEAL */
-.rev{opacity:0;transform:translateY(24px);transition:opacity .75s ease,transform .75s ease}
+.rev{opacity:1;transform:none}
 .rev.on{opacity:1;transform:none}
 .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
 /* ══════════════════════
@@ -490,575 +489,217 @@ body.intro-active{overflow:hidden}
 .pop-meta{font-size:12px;color:rgba(255,255,255,.45);line-height:1.6;}
 
 
-/* ── TOOL PAGE STYLES ── */
-#page-tool { display:none; min-height:100vh; background:#000; }
-#page-tool .t-nav{position:sticky;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:0 64px;height:64px;background:rgba(0,0,0,.96);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
-#page-tool .t-logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase}
-#page-tool .t-logo span{color:#FECC00}
-#page-tool .t-back{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;cursor:pointer;background:none;border-left:none;border-right:none;border-top:none;font-family:inherit;transition:color .2s}
-#page-tool .t-back:hover{color:#FECC00;border-bottom-color:#FECC00}
-
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;overflow-x:hidden;-webkit-font-smoothing:antialiased;word-break:keep-all}
-
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:center;justify-content:space-between;padding:22px 64px;background:rgba(0,0,0,.95);border-bottom:1px solid rgba(255,255,255,.07);backdrop-filter:blur(12px)}
-.logo{font-family:'Syne',sans-serif;font-weight:800;font-size:17px;color:#fff;text-decoration:none;letter-spacing:.14em;text-transform:uppercase}
-.logo span{color:#FECC00}
-.nav-back{color:rgba(255,255,255,.5);text-decoration:none;font-size:12px;letter-spacing:.1em;text-transform:uppercase;border-bottom:1px solid rgba(255,255,255,.2);padding-bottom:2px;transition:color .2s,border-color .2s}
-.nav-back:hover{color:#FECC00;border-color:#FECC00}
-
-/* HERO */
-.hero{padding:140px 64px 80px;border-bottom:1px solid rgba(255,255,255,.07)}
-.hero-label{font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#FECC00;margin-bottom:20px;display:flex;align-items:center;gap:12px;font-weight:500}
-.hero-label::before{content:'';width:28px;height:1px;background:#FECC00;display:block}
-.hero-h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(36px,5vw,72px);line-height:1.05;letter-spacing:-.03em;margin-bottom:20px}
-.hero-h1 span{color:#FECC00}
-.hero-sub{font-size:16px;line-height:1.9;color:rgba(255,255,255,.6);font-weight:300;max-width:560px}
-
-/* MAIN LAYOUT */
-.main{display:grid;grid-template-columns:1fr 1fr;min-height:calc(100vh - 320px);border-bottom:1px solid rgba(255,255,255,.07)}
-
-/* LEFT PANEL — INPUT */
-.panel-left{padding:60px 64px;border-right:1px solid rgba(255,255,255,.07);background:#0a0a0a}
-.panel-title{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:32px;display:flex;align-items:center;gap:10px}
-.panel-title::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
-
-/* URL input */
-.url-section{margin-bottom:40px}
-.url-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
-.url-wrap{display:flex;gap:10px}
-.url-input{flex:1;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:14px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;outline:none;transition:border-color .2s}
-.url-input::placeholder{color:rgba(255,255,255,.3)}
-.url-input:focus{border-color:#FECC00}
-.btn-fetch{background:#FECC00;color:#000;padding:14px 22px;font-family:'Noto Sans KR',sans-serif;font-weight:700;font-size:13px;border:none;cursor:pointer;white-space:nowrap;transition:opacity .2s}
-.btn-fetch:hover{opacity:.85}
-.btn-fetch:disabled{opacity:.4;cursor:not-allowed}
-
-/* divider */
-.or-divider{text-align:center;color:rgba(255,255,255,.25);font-size:12px;letter-spacing:.1em;margin:24px 0;position:relative}
-.or-divider::before,.or-divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:rgba(255,255,255,.08)}
-.or-divider::before{left:0}
-.or-divider::after{right:0}
-
-/* textarea */
-.jd-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
-.jd-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:16px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;outline:none;resize:vertical;min-height:260px;transition:border-color .2s}
-.jd-textarea::placeholder{color:rgba(255,255,255,.3)}
-.jd-textarea:focus{border-color:#FECC00}
-
-/* user context */
-.context-section{margin-top:28px}
-.context-label{font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:10px;display:block}
-.context-textarea{width:100%;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;padding:16px 18px;font-family:'Noto Sans KR',sans-serif;font-size:14px;line-height:1.8;outline:none;resize:vertical;min-height:120px;transition:border-color .2s}
-.context-textarea::placeholder{color:rgba(255,255,255,.3)}
-.context-textarea:focus{border-color:#FECC00}
-
-/* analyze btn */
-.btn-analyze{width:100%;margin-top:28px;background:#FECC00;color:#000;padding:18px;font-family:'Syne',sans-serif;font-weight:700;font-size:15px;letter-spacing:.04em;border:none;cursor:pointer;transition:opacity .2s,transform .2s;display:flex;align-items:center;justify-content:center;gap:10px}
-.btn-analyze:hover{opacity:.9;transform:translateY(-1px)}
-.btn-analyze:disabled{opacity:.4;cursor:not-allowed;transform:none}
-.btn-analyze .spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.3);border-top-color:#000;border-radius:50%;animation:spin .7s linear infinite;display:none}
-.btn-analyze.loading .spinner{display:block}
-.btn-analyze.loading .btn-text{opacity:.7}
-@keyframes spin{to{transform:rotate(360deg)}}
-
-/* status */
-.status-msg{margin-top:14px;font-size:12px;color:rgba(255,255,255,.4);text-align:center;min-height:18px;line-height:1.7;white-space:pre-line}
-
-/* RIGHT PANEL — OUTPUT */
-.panel-right{padding:60px 64px;background:#050505;overflow-y:auto}
-.empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;min-height:400px;text-align:center;color:rgba(255,255,255,.2)}
-.empty-icon{font-size:48px;margin-bottom:20px;opacity:.4}
-.empty-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px;color:rgba(255,255,255,.3)}
-.empty-sub{font-size:13px;line-height:1.8;color:rgba(255,255,255,.2)}
-
-/* result sections */
-.result-hidden{display:none}
-.result-section{margin-bottom:48px}
-.rs-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid rgba(255,255,255,.07)}
-.rs-num{font-family:'Noto Sans KR',sans-serif;font-weight:800;font-size:28px;color:#FECC00;line-height:1}
-.rs-title{font-family:'Syne',sans-serif;font-weight:700;font-size:16px;color:#fff;letter-spacing:.04em}
-.rs-badge{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;background:rgba(254,204,0,.1);color:#FECC00;border:1px solid rgba(254,204,0,.25);padding:4px 10px;margin-left:auto}
-
-/* company summary */
-.company-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:rgba(255,255,255,.06);margin-bottom:8px}
-.cg-item{background:#0d0d0d;padding:16px 20px}
-.cg-key{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:6px;font-weight:600}
-.cg-val{font-size:14px;font-weight:500;color:#fff;line-height:1.5}
-
-/* JD parse */
-.jd-parsed{background:#0d0d0d;border-left:2px solid #FECC00;padding:20px 24px;margin-bottom:8px}
-.jd-parsed p{font-size:14px;line-height:1.95;color:rgba(255,255,255,.8);font-weight:300}
-.jd-parsed strong{color:#fff;font-weight:600}
-
-/* question strategy cards */
-.q-cards{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06)}
-.q-card{background:#0d0d0d;padding:28px 28px}
-.q-card-top{display:flex;align-items:flex-start;gap:14px;margin-bottom:16px}
-.q-card-num{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#FECC00;flex-shrink:0;line-height:1;margin-top:2px}
-.q-card-question{font-weight:700;font-size:15px;line-height:1.55;color:#fff}
-.q-card-strategy{font-size:13px;line-height:1.9;color:rgba(255,255,255,.7);font-weight:300;padding-left:34px}
-.q-card-strategy .kw{display:inline-block;background:rgba(254,204,0,.1);border:1px solid rgba(254,204,0,.2);color:#FECC00;font-size:11px;font-weight:700;padding:2px 8px;margin:0 2px;letter-spacing:.06em}
-
-/* draft */
-.draft-items{display:flex;flex-direction:column;gap:2px;background:rgba(255,255,255,.06)}
-.draft-item{background:#0d0d0d;padding:28px}
-.draft-q{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#FECC00;margin-bottom:12px}
-.draft-a{font-size:14px;line-height:2.05;color:rgba(255,255,255,.82);font-weight:300;white-space:pre-wrap}
-.draft-copy{display:inline-flex;align-items:center;gap:6px;margin-top:16px;background:transparent;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.45);font-family:'Noto Sans KR',sans-serif;font-size:11px;padding:7px 14px;cursor:pointer;transition:border-color .2s,color .2s}
-.draft-copy:hover{border-color:#FECC00;color:#FECC00}
-
-/* positioning box */
-.pos-box{background:#0d0d0d;border:1px solid rgba(254,204,0,.2);padding:28px}
-.pos-headline{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:#FECC00;margin-bottom:12px;line-height:1.3}
-.pos-sub{font-size:14px;line-height:1.9;color:rgba(255,255,255,.75);font-weight:300}
-.pos-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
-.pos-tag{font-size:11px;font-weight:700;letter-spacing:.08em;border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.55);padding:5px 12px}
-
-/* loading skeleton */
-.skeleton{background:linear-gradient(90deg,rgba(255,255,255,.05) 25%,rgba(255,255,255,.1) 50%,rgba(255,255,255,.05) 75%);background-size:200% 100%;animation:shimmer 1.5s infinite;height:16px;border-radius:2px;margin-bottom:8px}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-/* error */
-.error-box{background:rgba(255,80,80,.08);border:1px solid rgba(255,80,80,.25);padding:20px 24px;color:rgba(255,120,120,.9);font-size:14px;line-height:1.8}
-
-/* FOOTER */
-footer{background:#000;border-top:1px solid rgba(255,255,255,.07);padding:40px 64px;display:flex;justify-content:space-between;align-items:center}
-.fl{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;color:#fff;letter-spacing:.12em}
-.fl span{color:#FECC00}
-.fc{font-size:12px;color:rgba(255,255,255,.3)}
-
+/* ─── INTRO ─── */
+#iv-wrap{position:fixed;inset:0;z-index:9999;background:#000;display:flex;align-items:center;justify-content:center;}
+#iv-wipe{position:fixed;inset:0;z-index:9998;background:#FECC00;transform:translateX(-100%);pointer-events:none;}
 
 /* ════════════════════════════
-   RESPONSIVE / MOBILE
+   MOBILE / RESPONSIVE
 ════════════════════════════ */
 
-/* ── Hamburger button ── */
-.nav-hamburger{
-  display:none;flex-direction:column;justify-content:center;gap:5px;
-  background:none;border:none;cursor:pointer;padding:8px;
-  margin-left:auto;flex-shrink:0;
-}
-.nav-hamburger span{
-  display:block;width:22px;height:2px;background:#fff;
-  transition:transform .3s,opacity .3s,width .3s;transform-origin:center;
-}
+/* 햄버거 */
+.nav-hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;
+  background:none;border:none;cursor:pointer;padding:8px;margin-left:auto;flex-shrink:0}
+.nav-hamburger span{display:block;width:22px;height:2px;background:#fff;
+  transition:transform .3s,opacity .3s;transform-origin:center}
 .nav-hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.nav-hamburger.open span:nth-child(2){opacity:0;width:0}
+.nav-hamburger.open span:nth-child(2){opacity:0}
 .nav-hamburger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-
-/* ── Mobile nav drawer ── */
-.nav-drawer{
-  display:none;
-  position:fixed;top:64px;left:0;right:0;bottom:0;
-  background:rgba(0,0,0,.98);z-index:490;
-  overflow-y:auto;padding:20px 24px 48px;
-  flex-direction:column;gap:0;
-  backdrop-filter:blur(12px);
-  -webkit-overflow-scrolling:touch;
-}
+.nav-drawer{display:none;position:fixed;top:56px;left:0;right:0;bottom:0;
+  background:rgba(0,0,0,.98);z-index:490;overflow-y:auto;
+  padding:20px 24px 48px;flex-direction:column;-webkit-overflow-scrolling:touch}
 .nav-drawer.open{display:flex}
 .drawer-item{border-bottom:1px solid rgba(255,255,255,.07)}
-.drawer-link{
-  display:block;padding:16px 0;
-  font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:600;
-  color:rgba(255,255,255,.85);text-decoration:none;transition:color .2s;
-}
+.drawer-link{display:block;padding:16px 0;font-family:'Noto Sans KR',sans-serif;
+  font-size:16px;font-weight:600;color:rgba(255,255,255,.85);text-decoration:none}
 .drawer-link.highlight{color:#FECC00}
-.drawer-sub{display:flex;flex-direction:column;gap:0;padding-bottom:10px}
-.drawer-sub a{
-  display:block;padding:9px 0 9px 14px;
-  font-size:13px;color:rgba(255,255,255,.5);text-decoration:none;
-  border-left:1px solid rgba(255,255,255,.1);transition:color .2s;
-}
-.drawer-sub a:hover{color:#FECC00}
-.drawer-cta{
-  margin-top:24px;background:#FECC00;color:#000;
-  padding:16px;text-align:center;
-  font-family:'Noto Sans KR',sans-serif;font-weight:700;
-  font-size:15px;letter-spacing:.04em;text-decoration:none;display:block;
-}
+.drawer-sub{display:flex;flex-direction:column;padding-bottom:10px}
+.drawer-sub a{display:block;padding:9px 0 9px 14px;font-size:13px;
+  color:rgba(255,255,255,.5);text-decoration:none;
+  border-left:1px solid rgba(255,255,255,.1)}
+.drawer-cta{margin-top:24px;background:#FECC00;color:#000;padding:16px;
+  text-align:center;font-family:'Noto Sans KR',sans-serif;font-weight:700;
+  font-size:15px;text-decoration:none;display:block}
 
-/* ════ 900px 이하 ════ */
+/* ── 900px ── */
 @media(max-width:900px){
-  /* NAV */
   .nav-menu,.nav-right{display:none!important}
   .nav-hamburger{display:flex}
-  nav{padding:0 20px;height:56px}
+  nav{padding:0 20px!important;height:56px!important}
 
-  /* HERO */
+  /* hero */
   #hero{grid-template-columns:1fr!important;min-height:auto!important}
-  .hero-left{
-    padding:88px 24px 56px!important;
-    min-width:0!important;overflow:hidden!important;
-  }
+  .hero-left{padding:88px 24px 56px!important;min-width:0!important}
   .hero-right{display:none!important}
-  .hero-h1{
-    font-size:clamp(24px,7vw,40px)!important;
-    word-break:keep-all!important;
-  }
-  .hero-sub{font-size:14px!important;max-width:100%!important}
+  .hero-h1{font-size:clamp(24px,7vw,40px)!important;word-break:keep-all!important}
+  .hero-sub{font-size:14px!important;max-width:100%!important;line-height:1.85!important}
   .hero-btns{flex-direction:column!important;gap:10px!important;width:100%!important}
   .hero-btn{width:100%!important;text-align:center!important;padding:14px!important}
-  .hero-tag{margin-bottom:24px!important;font-size:10px!important}
 
-  /* MARQUEE */
+  /* marquee */
   .mbar{display:none!important}
 
-  /* SECTIONS */
+  /* sections */
   section{padding:64px 24px!important}
-  .slabel{margin-bottom:28px!important;font-size:10px!important}
-  .sec-h2{
-    font-size:clamp(20px,6vw,32px)!important;
-    word-break:keep-all!important;
-    max-width:100%!important;
-  }
+  .slabel{margin-bottom:24px!important;font-size:10px!important}
+  .sec-h2{font-size:clamp(22px,6vw,34px)!important;word-break:keep-all!important}
   .sec-body{font-size:15px!important;max-width:100%!important}
 
-  /* CONCEPT */
+  /* problem cards → 1열 */
+  .cards{grid-template-columns:1fr!important;gap:2px!important}
+  .card{padding:36px 28px!important}
+  .cnum{font-size:36px!important;margin-bottom:16px!important}
+  .ct{font-size:16px!important}
+  .cb{font-size:14px!important}
+
+  /* concept */
   .cgrid{grid-template-columns:1fr!important}
-  .concept-tagline{font-size:13px!important}
+
+  /* reframe */
   .reframe-item{
-    grid-template-columns:40px 1fr 30px 1fr!important;
-    gap:12px!important;
-    padding:24px 0!important;
+    grid-template-columns:40px 1fr 24px 1fr!important;
+    gap:10px!important;padding:24px 0!important
   }
 
-  /* PROBLEM CARDS */
-  .pgrid{grid-template-columns:1fr!important}
-  .pcard{padding:32px 24px!important}
-
-  /* SERVICES */
-  .slist{gap:0!important}
-  .sitem{
-    padding:32px 24px!important;
-    flex-direction:column!important;
-    gap:16px!important;
+  /* services */
+  .sh2{font-size:clamp(20px,5.5vw,30px)!important}
+  .svc{
+    grid-template-columns:1fr!important;
+    gap:10px!important;
+    padding:32px 0!important;
+    text-align:left!important;
+    align-items:flex-start!important
   }
-  .ss{flex-direction:row!important;gap:16px!important;flex-wrap:wrap!important}
-  .snum{font-size:11px!important}
+  .si{font-size:11px!important}
+  .sn{font-size:16px!important}
+  .sd{font-size:14px!important;line-height:1.85!important}
+  .ss{text-align:left!important;display:flex!important;align-items:baseline!important;gap:10px!important;margin-top:4px}
+  .ss-n{font-size:24px!important}
+  .ss-l{margin-top:0!important}
 
-  /* TESTIMONIALS */
+  /* testimonials */
   .tc-card{width:260px!important;padding:24px!important}
-  .tc-outer{
-    mask-image:linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%)!important;
-    -webkit-mask-image:linear-gradient(to right,transparent 0%,#000 4%,#000 96%,transparent 100%)!important;
-  }
 
-  /* CTA SECTION */
-  #cta section{padding:64px 24px!important}
-  .cta-inner{
-    flex-direction:column!important;
-    text-align:center!important;
-    gap:20px!important;
-    align-items:center!important;
-  }
-  .cta-inner h2{font-size:clamp(22px,6vw,36px)!important;word-break:keep-all!important}
-  .cta-slots{justify-content:center!important}
+  /* cta */
+  #cta{padding:64px 24px!important;flex-direction:column!important;
+    gap:32px!important;align-items:flex-start!important}
+  .cta-h{font-size:clamp(24px,7vw,38px)!important;word-break:keep-all!important}
+  .cta-sub{font-size:14px!important;max-width:100%!important}
+  .cta-r{text-align:left!important;width:100%!important}
+  .btn-blk{width:100%!important;text-align:center!important;display:block!important;
+    box-sizing:border-box!important;padding:18px 24px!important}
 
-  /* FOOTER */
-  footer{
-    flex-direction:column!important;
-    gap:16px!important;
-    padding:32px 24px!important;
-    text-align:center!important;
-  }
+  /* footer */
+  footer{flex-direction:column!important;gap:16px!important;
+    padding:32px 24px!important;text-align:center!important}
   .flinks{justify-content:center!important;flex-wrap:wrap!important;gap:16px!important}
 
-  /* POPUP */
-  #t-popup{
-    padding:32px 20px!important;
-    width:calc(100vw - 32px)!important;
-    max-width:100%!important;
-  }
-  #t-popup .tc-close{top:12px!important;right:12px!important}
+  /* popup */
+  #t-popup{padding:32px 20px!important;width:calc(100vw - 32px)!important;max-width:100%!important}
 }
 
-/* ════ 600px 이하 (스마트폰) ════ */
+/* ── 600px ── */
 @media(max-width:600px){
-  /* NAV */
-  nav{padding:0 16px;height:52px}
-  .logo{font-size:15px!important}
-
-  /* HERO */
-  .hero-left{padding:76px 20px 48px!important}
-  .hero-h1{font-size:clamp(22px,8vw,34px)!important}
-  .hero-sub{font-size:13px!important;line-height:1.8!important}
-
-  /* INTRO */
-  #intro #iv-pos,#intro #iv-re,#intro #iv-ing{
-    font-size:clamp(22px,9vw,40px)!important;
-  }
-  #iv-tag{font-size:11px!important;letter-spacing:.16em!important}
-
-  /* SECTIONS */
+  nav{padding:0 16px!important;height:52px!important}
+  .logo{font-size:14px!important;letter-spacing:.1em!important}
+  .hero-left{padding:72px 20px 44px!important}
+  .hero-h1{font-size:clamp(20px,8vw,32px)!important}
+  .hero-sub{font-size:13px!important}
   section{padding:52px 20px!important}
-  .sec-h2{font-size:clamp(18px,7vw,28px)!important}
-  .sec-body{font-size:14px!important;line-height:1.85!important}
-
-  /* ALL GRIDS → 1열 */
-  .equation-wrap,
-  .perception-grid,
-  .points-grid,
-  .vs-grid,
-  .compare-grid,
-  .how-grid,
-  .board-grid,
-  .process-steps,
-  .company-grid,
-  .q-cards,
-  .reframe-list,
-  .course-section .cc-top{
-    grid-template-columns:1fr!important;
-  }
-  .flow-grid{grid-template-columns:1fr!important}
-  .flow-arr{display:none!important}
-
-  /* COURSE */
-  .course-section{padding:52px 20px!important}
-  .cc-body{padding:24px 20px!important}
-  .cc-results{grid-template-columns:repeat(3,1fr)!important}
-  .cc-result{padding:14px 8px!important}
-  .cc-result-num{font-size:18px!important}
-  .cc-footer{flex-direction:column!important;gap:12px!important}
-  .btn-buy{width:100%!important;text-align:center!important}
-
-  /* APPLY / PRO */
-  .apply-section,.notify-section{padding:52px 20px!important}
-  .apply-wrap{max-width:100%!important}
-  .notify-form{flex-direction:column!important;max-width:100%!important}
-  .notify-input,.notify-btn{width:100%!important}
-
-  /* CTA STRIP */
-  .cta-strip{
-    padding:52px 20px!important;
-    flex-direction:column!important;
-    gap:20px!important;
-    text-align:center!important;
-  }
-  .btn-dark{width:100%!important;text-align:center!important}
-
-  /* ANCHORING GRID (about) */
-  [style*="grid-template-columns:1fr 1fr"]{
-    grid-template-columns:1fr!important;
-    gap:28px!important;
-  }
-
-  /* SCORE & RESULT (mock interview) */
-  .score-total{flex-direction:column!important;gap:16px!important}
-  .result-btns{flex-direction:column!important}
-  .btn-retry,.btn-camp{width:100%!important;text-align:center!important}
-
-  /* DRAWER */
-  .nav-drawer{padding:16px 20px 40px!important}
-  .drawer-link{font-size:15px!important;padding:14px 0!important}
+  .sec-h2{font-size:clamp(20px,7vw,28px)!important}
+  .cards{grid-template-columns:1fr!important}
+  .card{padding:32px 20px!important}
+  .cnum{font-size:32px!important}
+  .ch2{font-size:clamp(26px,8vw,40px)!important}
+  .concept-tagline{font-size:13px!important}
+  .concept-word{font-size:clamp(18px,6vw,26px)!important}
+  .cdef{padding-left:18px!important;margin-bottom:32px!important}
+  .cta-h{font-size:clamp(22px,8vw,32px)!important}
+  footer{padding:28px 20px!important}
 }
 
-/* ════ 400px 이하 (소형폰) ════ */
+/* ── 400px ── */
 @media(max-width:400px){
-  .hero-h1{font-size:20px!important}
+  .hero-h1{font-size:19px!important}
   .sec-h2{font-size:18px!important}
-  nav{padding:0 14px}
-  .logo{font-size:14px!important}
   section{padding:44px 16px!important}
-  #intro #iv-pos,#intro #iv-re,#intro #iv-ing{
-    font-size:20px!important;
-  }
+  .card{padding:28px 16px!important}
+  .cnum{font-size:28px!important}
+  .ct{font-size:15px!important}
 }
 
 </style>
 </head>
 <body>
-<!-- ═══ INTRO SCREEN ═══ -->
-<div id="intro" style="position:fixed;inset:0;z-index:9999;background:#000;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;">
-
-  <!-- Text -->
-  <div style="text-align:center;white-space:nowrap;">
-    <div style="display:flex;align-items:baseline;justify-content:center;">
-      <span id="iv-re"  style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,5vw,72px);color:#FECC00;letter-spacing:-.03em;opacity:0;display:inline-block;">RE</span>
-      <span id="iv-pos" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,5vw,72px);color:#fff;   letter-spacing:-.03em;opacity:0;display:inline-block;">POSITION</span>
-      <span id="iv-ing" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(28px,5vw,72px);color:#FECC00;letter-spacing:-.03em;opacity:0;display:inline-block;">ING</span>
+<div id="iv-wrap">
+  <div id="iv-inner" style="position:relative;display:inline-flex;flex-direction:column;align-items:flex-start;white-space:nowrap;">
+    <div id="iv-word" style="display:flex;align-items:baseline;">
+      <span id="iv-re"  style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(30px,5.5vw,76px);letter-spacing:-.03em;color:#FECC00;opacity:0;display:inline-block;transform:translateX(-24px) scale(.7);will-change:opacity,transform;">RE</span>
+      <span id="iv-pos" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(30px,5.5vw,76px);letter-spacing:-.03em;color:#fff;opacity:0;display:inline-block;transform:translateY(16px);will-change:opacity,transform;position:relative;">POSITION</span>
+      <span id="iv-ing" style="font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(30px,5.5vw,76px);letter-spacing:-.03em;color:#FECC00;opacity:0;display:inline-block;transform:translateX(24px) scale(.7);will-change:opacity,transform;">ING</span>
     </div>
-    <div id="iv-tag" style="margin-top:16px;font-size:clamp(13px,1.4vw,18px);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.4);font-weight:400;opacity:0;transition:opacity .6s ease;">세상을 유리하게 바라보는 관점의 기술</div>
+    <div id="iv-line" style="position:absolute;left:0;top:0;height:1px;width:0;background:#FECC00;margin-top:0;"></div>
+    <div id="iv-sub"  style="font-family:'Noto Sans KR',sans-serif;font-size:clamp(14px,1.6vw,21px);font-weight:400;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.65);opacity:0;transform:translateY(10px);margin-top:28px;align-self:center;white-space:nowrap;will-change:opacity,transform;">세상을 유리하게 바라보는 관점의 기술</div>
   </div>
-
-  <!-- Progress bar -->
   <div id="iv-bar" style="position:absolute;bottom:0;left:0;height:2px;width:0;background:#FECC00;"></div>
 </div>
+<div id="iv-wipe"></div>
 
-<!-- Wipe panel -->
-<div id="iv-wipe" style="position:fixed;inset:0;z-index:9998;background:#FECC00;transform:translateX(-100%);pointer-events:none;"></div>
-
-<style>
-@keyframes textUp{
-  0%  {opacity:0;transform:translateY(32px)}
-  100%{opacity:1;transform:translateY(0)}
-}
-@keyframes reBlast{
-  0%  {opacity:0;transform:translateX(-60px) scale(.3)}
-  60% {opacity:1;transform:translateX(6px) scale(1.08)}
-  100%{opacity:1;transform:translateX(0) scale(1)}
-}
-@keyframes ingBlast{
-  0%  {opacity:0;transform:translateX(60px) scale(.3)}
-  60% {opacity:1;transform:translateX(-6px) scale(1.08)}
-  100%{opacity:1;transform:translateX(0) scale(1)}
-}
-body.iv-lock{overflow:hidden}
-</style>
-
-<script>
-(function(){
-  var els = {
-    intro: document.getElementById('intro'),
-    re:    document.getElementById('iv-re'),
-    pos:   document.getElementById('iv-pos'),
-    ing:   document.getElementById('iv-ing'),
-    tag:   document.getElementById('iv-tag'),
-    bar:   document.getElementById('iv-bar'),
-    wipe:  document.getElementById('iv-wipe'),
-  };
-  if(!els.intro) return;
-
-  document.body.classList.add('iv-lock');
-  function after(ms, fn){ setTimeout(fn, ms); }
-
-  // ① POSITION 올라옴
-  after(400, function(){
-    els.pos.style.animation = 'textUp .65s cubic-bezier(.16,1,.3,1) forwards';
-  });
-
-  // ② 충격 — 화면 흔들림 + shockwave + RE/ING 폭발
-  after(1400, function(){
-    // 화면 흔들림
-    var s = els.intro.style;
-    s.transform='translate(6px,5px)';
-    after(55,  function(){ s.transform='translate(-5px,-4px)'; });
-    after(110, function(){ s.transform='translate(4px,3px)'; });
-    after(165, function(){ s.transform='translate(-2px,-1px)'; });
-    after(220, function(){ s.transform='translate(0,0)'; });
-
-    // RE 왼쪽, ING 오른쪽에서 동시 폭발
-    after(60, function(){
-      els.re.style.animation  = 'reBlast .52s cubic-bezier(.34,1.6,.64,1) forwards';
-      els.ing.style.animation = 'ingBlast .52s cubic-bezier(.34,1.6,.64,1) forwards';
-    });
-  });
-
-  // ③ 태그라인
-  after(2200, function(){ els.tag.style.opacity = '1'; });
-
-  // ④ 프로그레스바
-  var HOLD = 3600;
-  after(50, function(){
-    els.bar.style.transition = 'width '+HOLD+'ms linear';
-    els.bar.style.width = '100%';
-  });
-
-  // ⑤ 와이프 인
-  after(HOLD, function(){
-    els.wipe.style.transition = 'transform .52s cubic-bezier(.86,0,.07,1)';
-    els.wipe.style.transform  = 'translateX(0)';
-  });
-
-  // ⑥ 스왑
-  after(HOLD+540, function(){
-    els.intro.style.display = 'none';
-    document.body.classList.remove('iv-lock');
-    document.querySelectorAll('.rev').forEach(function(e){ e.classList.add('on'); });
-    els.wipe.style.transition = 'transform .52s cubic-bezier(.86,0,.07,1)';
-    els.wipe.style.transform  = 'translateX(100%)';
-  });
-  after(HOLD+1100, function(){
-    els.wipe.style.display = 'none';
-    document.querySelectorAll('.rev').forEach(function(e){ e.classList.add('on'); });
-  });
-})();
-</script>
-
-
-
-
-
-<div id="page-home">
 <div id="cur"></div>
 <div id="cur2"></div>
-
 <nav id="nav">
-  <a href="/" class="logo">
-    
-    <span>REPOSITION</span>
-  </a>
+  <a href="/" class="logo"><span>REPOSITION</span></a>
   <ul class="nav-menu">
     <li>
       <a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
-        <span class="drop-label">개념</span>
         <a href="/about">리포지셔닝이란?</a>
-        <a href="/jasoseol">자기설득서란?</a>
-        <a href="/interview">완벽통제면접이란?</a>
+        <a href="/marketing">취업은 마케팅이다</a>
+        <a href="/jasoseol">설득하는 자기소개서, 자기설득서</a>
+        <a href="/interview">면접을 더욱 완벽하게, 완벽통제면접</a>
       </div>
     </li>
     <li>
-      <a href="/course" class="nav-highlight">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <a href="/mock_interview" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
         <span class="drop-label">REPOSITION CAMP</span>
-        <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
-        <a href="/course#jasoseol">자기설득서 클래스</a>
-        <a href="/course#interview">완벽통제 면접 클래스</a>
-        <hr>
-        <a href="/course" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+        <a href="/mock_interview">리포지셔닝 부트캠프</a>
+        <a href="/mock_interview">자기설득서 클래스</a>
+        <a href="/mock_interview">완벽통제 면접 클래스</a>
+        <hr><a href="/mock_interview" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
       </div>
     </li>
-    <li>
-      <a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a>
-    </li>
+    <li><a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a></li>
     <li><a href="/pro">현직자 피드백</a></li>
     <li><a href="/tool">JD 분석기</a></li>
     <li><a href="/community">커뮤니티</a></li>
   </ul>
-  <div class="nav-right">
-    <a href="/#cta" class="nav-cta">무료 진단 신청</a>
-  </div>
+  <div class="nav-right"><a href="/mock_interview" class="nav-cta">무료 진단 신청</a></div>
 </nav>
+<button class="nav-hamburger" id="navHamburger" aria-label="메뉴"><span></span><span></span><span></span></button>
 
-<button class="nav-hamburger" id="navHamburger" aria-label="메뉴">
-  <span></span><span></span><span></span>
-</button>
-<div class="nav-drawer" id="navDrawer">
-  <div class="drawer-item">
-    <a href="/about" class="drawer-link">리포지셔닝이란?</a>
-    <div class="drawer-sub">
-      <a href="/about">리포지셔닝이란?</a>
-      <a href="/jasoseol">자기설득서란?</a>
-      <a href="/interview">완벽통제면접이란?</a>
-    </div>
-  </div>
-  <div class="drawer-item">
-    <a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
-    <div class="drawer-sub">
-      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
-      <a href="/course#jasoseol">자기설득서 클래스</a>
-      <a href="/course#interview">완벽통제 면접 클래스</a>
-    </div>
-  </div>
-  <div class="drawer-item">
-    <a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/pro" class="drawer-link">현직자 피드백</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/tool" class="drawer-link">JD 분석기</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/community" class="drawer-link">커뮤니티</a>
-  </div>
-  <a href="/#cta" class="drawer-cta">⚓ 무료 진단 신청 →</a>
-</div>
 
+<nav id="nav">
+  <a href="/" class="logo"><span>REPOSITION</span></a>
+  <ul class="nav-menu">
+    <li><a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
+      <div class="nav-drop"><span class="drop-label">개념</span>
+        <a href="/about">리포지셔닝이란?</a><a href="/jasoseol">자기설득서란?</a><a href="/interview">완벽통제면접이란?</a>
+      </div>
+    </li>
+    <li><a href="/mock_interview" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <div class="nav-drop"><span class="drop-label">REPOSITION CAMP</span>
+        <a href="/mock_interview">리포지셔닝 부트캠프</a><a href="/mock_interview">자기설득서 클래스</a><a href="/mock_interview">완벽통제 면접 클래스</a>
+        <hr><a href="/mock_interview" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+      </div>
+    </li>
+    <li><a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a></li>
+    <li><a href="/pro">현직자 피드백</a></li>
+    <li><a href="/tool">JD 분석기</a></li>
+    <li><a href="/community">커뮤니티</a></li>
+  </ul>
+  <div class="nav-right"><a href="/mock_interview" class="nav-cta">무료 진단 신청</a></div>
+</nav>
 
 <div class="mbar">
   <div class="mtrack">
@@ -1273,7 +914,7 @@ body.iv-lock{overflow:hidden}
       <div class="tc-card">
         <div class="tc-tag">✦ 화상통화로 사고방식 체험</div>
         <p class="tc-q">"단순 첨삭이 아니라 화상통화로 실시간 수정 과정을 지켜보면서 사고방식을 체험할 수 있었어요."</p>
-        <p class="tc-full">자소서의 거의 모든 문항이 직무 경험을 물어본다고 착각하고 있었어요. '인식을 바꿔야 한다'라는 말 뜻을 머리로만 이해하고 진심으로 깨닫기까지는 2~3주 정도 걸린 것 같아요. 아마 지속적인 1:1 피드백이 없었다면 어려웠을 거에요. 단순 첨삭이 아니라 화상통화를 통해서 실시간으로 제 초안을 수정하는 '과정'을 지켜보면서 기획자님의 사고방식을 잠깐이나마 체험할 수 있었어요. 비대면 리포지셔닝캠프에 굉장히 회의적인 사람이라 이번이 제 첫 컨설팅이었는데 정말 200% 만족입니다!!</p>
+        <p class="tc-full">자소서의 거의 모든 문항이 직무 경험을 물어본다고 착각하고 있었어요. '인식을 바꿔야 한다'라는 말 뜻을 머리로만 이해하고 진심으로 깨닫기까지는 2~3주 정도 걸린 것 같아요. 아마 지속적인 1:1 피드백이 없었다면 어려웠을 거에요. 단순 첨삭이 아니라 화상통화를 통해서 실시간으로 제 초안을 수정하는 '과정'을 지켜보면서 기획자님의 사고방식을 잠깐이나마 체험할 수 있었어요. 비대면 유료 강의에 굉장히 회의적인 사람이라 이번이 제 첫 컨설팅이었는데 정말 200% 만족입니다!!</p>
         <div class="tc-result">📌 서탈·면탈 반복 → 전략적 자소서 완성</div>
         <div class="tc-name">las*******</div>
         <div class="tc-meta">리포지셔닝 클래스 수강생 · 2026.03</div>
@@ -1492,7 +1133,7 @@ body.iv-lock{overflow:hidden}
       <div aria-hidden="true" class="tc-card">
         <div class="tc-tag">✦ 화상통화로 사고방식 체험</div>
         <p class="tc-q">"단순 첨삭이 아니라 화상통화로 실시간 수정 과정을 지켜보면서 사고방식을 체험할 수 있었어요."</p>
-        <p class="tc-full">자소서의 거의 모든 문항이 직무 경험을 물어본다고 착각하고 있었어요. '인식을 바꿔야 한다'라는 말 뜻을 머리로만 이해하고 진심으로 깨닫기까지는 2~3주 정도 걸린 것 같아요. 아마 지속적인 1:1 피드백이 없었다면 어려웠을 거에요. 단순 첨삭이 아니라 화상통화를 통해서 실시간으로 제 초안을 수정하는 '과정'을 지켜보면서 기획자님의 사고방식을 잠깐이나마 체험할 수 있었어요. 비대면 리포지셔닝캠프에 굉장히 회의적인 사람이라 이번이 제 첫 컨설팅이었는데 정말 200% 만족입니다!!</p>
+        <p class="tc-full">자소서의 거의 모든 문항이 직무 경험을 물어본다고 착각하고 있었어요. '인식을 바꿔야 한다'라는 말 뜻을 머리로만 이해하고 진심으로 깨닫기까지는 2~3주 정도 걸린 것 같아요. 아마 지속적인 1:1 피드백이 없었다면 어려웠을 거에요. 단순 첨삭이 아니라 화상통화를 통해서 실시간으로 제 초안을 수정하는 '과정'을 지켜보면서 기획자님의 사고방식을 잠깐이나마 체험할 수 있었어요. 비대면 유료 강의에 굉장히 회의적인 사람이라 이번이 제 첫 컨설팅이었는데 정말 200% 만족입니다!!</p>
         <div class="tc-result">📌 서탈·면탈 반복 → 전략적 자소서 완성</div>
         <div class="tc-name">las*******</div>
         <div class="tc-meta">리포지셔닝 클래스 수강생 · 2026.03</div>
@@ -1663,7 +1304,7 @@ body.iv-lock{overflow:hidden}
     <p class="cta-sub">부족한 건 스펙이 아니라, 스펙을 읽히게 만드는 전략입니다. 이력서 한 장만 가져오세요. 30분이면 달라집니다.</p>
   </div>
   <div class="cta-r rev d1">
-    <a href="#" class="btn-blk">지금 무료 진단 신청하기 →</a>
+    <a href="/mock_interview" class="btn-blk">리포지셔닝 클래스 시작하기 →</a>
     <p class="cta-u">⚡ 이번 달 잔여 슬롯 <strong>3자리</strong> · 매월 선착순 마감</p>
   </div>
 </section>
@@ -1677,172 +1318,87 @@ body.iv-lock{overflow:hidden}
     <a href="#">카카오톡 문의</a>
   </div>
 </footer>
-</div>
-
-<div id="page-tool">
-  <nav class="t-nav">
-    <a href="#" class="t-logo" onclick="showPage('home');return false;"><span>REPOSITION</span></a>
-    <button class="t-back" onclick="showPage('home')">← 홈으로</button>
-  </nav>
-<nav>
-  <a href="index.html" class="logo"><span>REPOSITION</span></a>
-  <a href="index.html" class="nav-back">← 홈으로</a>
-</nav>
-
-<div class="hero">
-  <div class="hero-label">JD 리포지셔닝 분석기</div>
-  <h1 class="hero-h1">공고를 붙여넣으면<br><span>자기설득서 전략</span>이 나옵니다.</h1>
-  <p class="hero-sub">채용공고 URL 또는 텍스트를 입력하면 REPOSITION의 자기설득서 논리로 각 문항 전략과 초안을 제안합니다.</p>
-</div>
-
-<div class="main">
-  <!-- LEFT: INPUT -->
-  <div class="panel-left">
-    <div class="panel-title">공고 입력</div>
-
-    <!-- URL + 지원 직무 -->
-    <div class="url-section">
-      <span class="url-label">채용공고 URL</span>
-      <div class="url-wrap">
-        <input id="urlInput" class="url-input" type="url" placeholder="https://jasoseol.com/recruit/... 또는 사람인, 잡코리아 등">
-        <button class="btn-fetch" id="btnFetch" onclick="fetchJD()">공고 가져오기</button>
-      </div>
-      <div style="margin-top:12px">
-        <input id="jobInput" class="url-input" type="text" placeholder="지원 직무 입력 (예: 마케팅 기획, 브랜드 매니저, 영업관리 등)" style="width:100%">
-      </div>
-    </div>
-
-    <div class="or-divider">또는 직접 붙여넣기</div>
-
-    <!-- JD textarea -->
-    <span class="jd-label">채용공고 내용</span>
-    <textarea id="jdText" class="jd-textarea" placeholder="채용공고 페이지의 내용을 복사해서 붙여넣어 주세요.
-
-예)
-[회사명] OO기업
-[직무] 마케팅 기획
-[주요업무] ...
-[자격요건] ...
-[우대사항] ...
-[자소서 문항]
-1. 지원동기를 서술하시오 (700자)
-2. 직무역량을 기술하시오 (500자)
-..."></textarea>
-
-    <!-- User context -->
-    <div class="context-section">
-      <span class="context-label">내 경험 요약 <span style="color:rgba(255,255,255,.35);font-weight:400">(선택 — 입력하면 맞춤형 초안이 나옵니다)</span></span>
-      <textarea id="contextText" class="context-textarea" placeholder="예) 마케팅 인턴 6개월, SNS 콘텐츠 기획 담당, 팔로워 2만 성장. 비전공자 (경제학과). 직무 전환 준비 중."></textarea>
-    </div>
-
-    <button class="btn-analyze" id="btnAnalyze" onclick="analyze()">
-      <div class="spinner" id="spinner"></div>
-      <span class="btn-text" id="btnText">🔍 REPOSITION 논리로 분석하기</span>
-    </button>
-    <div class="status-msg" id="statusMsg"></div>
-  </div>
-
-  <!-- RIGHT: OUTPUT -->
-  <div class="panel-right" id="panelRight">
-    <div class="empty-state" id="emptyState">
-      <div class="empty-icon">⟳</div>
-      <div class="empty-title">아직 분석 결과가 없습니다</div>
-      <div class="empty-sub">왼쪽에 채용공고를 붙여넣고<br>분석 버튼을 누르면<br>자기설득서 전략이 나타납니다.</div>
-    </div>
-
-    <div id="resultArea" class="result-hidden">
-      <!-- 0. Positioning -->
-      <div class="result-section" id="sec0">
-        <div class="rs-header">
-          <div class="rs-num">00</div>
-          <div class="rs-title">나의 포지셔닝 한 줄</div>
-          <div class="rs-badge">REPOSITION CORE</div>
-        </div>
-        <div class="pos-box">
-          <div class="pos-headline" id="pos-headline"></div>
-          <div class="pos-sub" id="pos-sub"></div>
-          <div class="pos-tags" id="pos-tags"></div>
-        </div>
-      </div>
-
-      <!-- 1. JD 분석 -->
-      <div class="result-section" id="sec1">
-        <div class="rs-header">
-          <div class="rs-num">01</div>
-          <div class="rs-title">JD 핵심 분석</div>
-          <div class="rs-badge">인사담당자 언어</div>
-        </div>
-        <div class="company-grid" id="companyGrid"></div>
-        <div class="jd-parsed" id="jdParsed"></div>
-      </div>
-
-      <!-- 2. 문항별 전략 -->
-      <div class="result-section" id="sec2">
-        <div class="rs-header">
-          <div class="rs-num">02</div>
-          <div class="rs-title">문항별 자기설득서 전략</div>
-          <div class="rs-badge">주장→근거→어필</div>
-        </div>
-        <div class="q-cards" id="qCards"></div>
-      </div>
-
-      <!-- 3. 초안 -->
-      <div class="result-section" id="sec3">
-        <div class="rs-header">
-          <div class="rs-num">03</div>
-          <div class="rs-title">자기설득서 초안</div>
-          <div class="rs-badge">바로 수정 가능</div>
-        </div>
-        <div class="draft-items" id="draftItems"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-<footer>
-  <div class="fl"><span>REPOSITION</span></div>
-  <div class="fc">© 2025 REPOSITION · 스펙 리포지셔닝 에이전시</div>
-</footer>
-</div>
 
 <script>
+// ── INTRO ──
+(function(){
+  var g=function(id){return document.getElementById(id);};
+  var wrap=g('iv-wrap'),re=g('iv-re'),pos=g('iv-pos'),ing=g('iv-ing'),
+      line=g('iv-line'),sub=g('iv-sub'),bar=g('iv-bar'),wipe=g('iv-wipe'),
+      word=g('iv-word');
+  if(!wrap)return;
+  document.body.style.overflow='hidden';
+  function T(ms,fn){return setTimeout(fn,ms);}
 
+  // ① POSITION 서서히 떠오름
+  T(280,function(){
+    pos.style.transition='opacity .7s ease, transform .7s cubic-bezier(.16,1,.3,1)';
+    pos.style.opacity='1';
+    pos.style.transform='translateY(0)';
+  });
 
+  // ② RE + ING — 쿵 하고 등장 (bounce)
+  T(850,function(){
+    re.style.transition ='opacity .2s ease, transform .28s cubic-bezier(.34,1.7,.64,1)';
+    ing.style.transition='opacity .2s ease, transform .28s cubic-bezier(.34,1.7,.64,1)';
+    re.style.opacity=ing.style.opacity='1';
+    re.style.transform='translateX(0) scale(1)';
+    ing.style.transform='translateX(0) scale(1)';
+  });
 
+  // ③ 서브카피 서서히 떠오름
+  T(1350,function(){
+    sub.style.transition='opacity .65s ease, transform .65s cubic-bezier(.16,1,.3,1)';
+    sub.style.opacity='1';
+    sub.style.transform='translateY(0)';
+  });
 
+  // ④ 선이 R→G 빠르게, REPOSITIONING 바로 밑
+  T(2000,function(){
+    var wW=word.offsetWidth||300, dur=480;
+    var gap=6; // 텍스트와 선 사이 간격(px)
+    line.style.top=(word.offsetTop+word.offsetHeight+gap)+'px';
+    line.style.left=word.offsetLeft+'px';
+    line.style.transition='width '+dur+'ms cubic-bezier(.6,0,.2,1)';
+    line.style.width=wW+'px';
+    // POSITION: P→N clip-path
+    var reW=re.offsetWidth, posW=pos.offsetWidth;
+    T(Math.round(dur*reW/wW),function(){
+      var ov=document.createElement('span');
+      ov.textContent='POSITION';
+      ov.style.cssText='position:absolute;left:0;top:0;color:#FECC00;'
+        +'font-family:Syne,sans-serif;font-weight:800;font-size:inherit;'
+        +'letter-spacing:-.03em;clip-path:inset(0 100% 0 0);'
+        +'pointer-events:none;white-space:nowrap;line-height:inherit;';
+      pos.appendChild(ov);
+      ov.getBoundingClientRect();
+      var cd=Math.round(dur*posW/wW);
+      ov.style.transition='clip-path '+cd+'ms linear';
+      ov.style.clipPath='inset(0 0% 0 0)';
+    });
+  });
 
+  // ⑤ 프로그레스바
+  var H=2600;
+  T(50,function(){bar.style.transition='width '+H+'ms linear';bar.style.width='100%';});
 
-// ── PAGE ROUTER ──
-function showPage(page) {
-  var ph = document.getElementById('page-home');
-  var pt = document.getElementById('page-tool');
-  if(page === 'tool') {
-    ph.style.display = 'none';
-    pt.style.display = 'block';
-    window.scrollTo(0,0);
-    document.title = 'JD 분석기 | REPOSITION';
-    history.pushState({page:'tool'}, '', '#tool');
-  } else {
-    ph.style.display = 'block';
-    pt.style.display = 'none';
-    window.scrollTo(0,0);
-    document.title = 'REPOSITION | 스펙 리포지셔닝 에이전시';
-    history.pushState({page:'home'}, '', location.pathname);
-  }
-}
-window.addEventListener('popstate', function(e) {
-  if(location.hash === '#tool') showPage('tool');
-  else showPage('home');
-});
-if(location.hash === '#tool') showPage('tool');
-document.addEventListener('click', function(e) {
-  var a = e.target.closest('a');
-  if(!a) return;
-  var href = a.getAttribute('href') || '';
-  if(href === 'tool.html' || href === '#tool') { e.preventDefault(); showPage('tool'); }
-  else if(href === 'index.html' || href === '#home' || href === '#') { e.preventDefault(); showPage('home'); }
-});
-
+  // ⑥ 와이프
+  T(H,function(){
+    wipe.style.transition='transform .48s cubic-bezier(.86,0,.07,1)';
+    wipe.style.transform='translateX(0)';
+  });
+  T(H+500,function(){
+    wrap.style.display='none';
+    wipe.style.transition='transform .48s cubic-bezier(.86,0,.07,1)';
+    wipe.style.transform='translateX(100%)';
+    document.body.style.overflow='';
+    document.querySelectorAll('.rev').forEach(function(e){e.classList.add('on');});
+  });
+  T(H+1000,function(){
+    wipe.style.display='none';
+    document.querySelectorAll('.rev').forEach(function(e){e.classList.add('on');});
+  });
+})();
 
 // ── ALL JS ── runs after DOM ready
 document.addEventListener('DOMContentLoaded', function(){
@@ -1995,230 +1551,6 @@ document.addEventListener('DOMContentLoaded', function(){
   }
 
 });
-
-
-// ── URL fetch with multiple proxy fallbacks ──
-async function fetchJD(){
-  const url = document.getElementById('urlInput').value.trim();
-  if(!url){ alert('URL을 입력해주세요.'); return; }
-  const btn = document.getElementById('btnFetch');
-  btn.disabled = true; btn.textContent = '가져오는 중...';
-  setStatus('공고 페이지를 불러오는 중입니다...');
-
-  const proxies = [
-    u => `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`,
-    u => `https://corsproxy.io/?${encodeURIComponent(u)}`,
-    u => `https://cors-anywhere.herokuapp.com/${u}`,
-  ];
-
-  let text = null;
-  for(const makeUrl of proxies){
-    try {
-      const res = await fetch(makeUrl(url), {
-        headers: { 'X-Requested-With': 'XMLHttpRequest' }
-      });
-      if(!res.ok) continue;
-      const ct = res.headers.get('content-type') || '';
-      let raw = '';
-      if(ct.includes('json')){
-        const data = await res.json();
-        raw = data.contents || data.data || '';
-      } else {
-        raw = await res.text();
-      }
-      if(raw && raw.length > 200){ text = raw; break; }
-    } catch(e){ continue; }
-  }
-
-  if(text){
-    // strip HTML
-    const tmp = document.createElement('div');
-    tmp.innerHTML = text;
-    // remove script/style tags
-    tmp.querySelectorAll('script,style,nav,footer,header').forEach(el=>el.remove());
-    const clean = (tmp.innerText || tmp.textContent || '').replace(/\s{3,}/g,'\n\n').trim();
-    document.getElementById('jdText').value = clean.slice(0, 5000);
-    setStatus('✓ 공고 내용을 가져왔습니다. 내용을 확인하고 분석 버튼을 눌러주세요.');
-  } else {
-    setStatus('⚠ 자동 가져오기 실패 — 아래 이유 중 하나입니다:\n① 해당 사이트가 크롤링을 차단함 (사람인, 잡코리아 등 대부분)\n② 로그인이 필요한 페이지\n→ 공고 페이지에서 Ctrl+A → Ctrl+C 후 아래 입력창에 직접 붙여넣기 해주세요.');
-  }
-  btn.disabled = false; btn.textContent = '공고 가져오기';
-}
-
-// ── MAIN ANALYZE ──
-async function analyze(){
-  const jd = document.getElementById('jdText').value.trim();
-  const ctx = document.getElementById('contextText').value.trim();
-  const job = document.getElementById('jobInput').value.trim();
-  if(!jd){ alert('채용공고 내용을 입력해주세요.'); return; }
-
-  setLoading(true);
-  setStatus('AI가 공고를 분석하고 있습니다... (약 20~40초)');
-  document.getElementById('emptyState').style.display = 'none';
-  document.getElementById('resultArea').className = 'result-hidden';
-
-  const systemPrompt = `당신은 "REPOSITION" 취업 컨설팅 에이전시의 AI 분석 엔진입니다.
-
-핵심 철학:
-- 취업은 마케팅이다. 인사담당자의 인식을 점유하는 자가 채용된다.
-- 자기소개서는 "자기설득서"다 — 나를 소개하는 글이 아니라, 내가 이 직무에 이익이 될 수 있음을 설득하는 글.
-- 모든 문항은 "주장 → 근거 → 어필" 구조로 써야 한다.
-- 5 Why 기법으로 질문의 진짜 의도를 파악해야 한다.
-- 약점(낮은 학점, 공백기, 직무전환)은 방어하지 말고 리포지셔닝하라.
-- 스펙의 양이 아니라, 스펙이 읽히는 방식을 바꿔야 한다.
-
-반드시 아래 JSON 구조로만 응답하세요. 다른 텍스트 없이 JSON만 출력:
-{
-  "positioning": {
-    "headline": "나를 한 문장으로 정의하는 포지셔닝 (예: '소비자 인사이트를 데이터로 번역하는 마케터')",
-    "sub": "이 포지셔닝이 왜 이 공고에 맞는지 2~3문장 설명",
-    "keywords": ["키워드1","키워드2","키워드3","키워드4"]
-  },
-  "jd_analysis": {
-    "company": "기업명",
-    "job": "직무명",
-    "type": "신입/경력/인턴",
-    "core_need": "인사담당자가 이 공고를 통해 진짜 원하는 것 (1~2문장)",
-    "key_traits": "이 직무에서 뽑히는 사람의 공통 특성 (2~3문장)"
-  },
-  "questions": [
-    {
-      "question": "자소서 문항 원문",
-      "char_limit": "글자수 제한 (없으면 '미상')",
-      "real_intent": "5 Why로 분석한 이 질문의 진짜 의도",
-      "strategy": "주장→근거→어필 전략 설명",
-      "keywords": ["강조해야 할 키워드1","키워드2"]
-    }
-  ],
-  "drafts": [
-    {
-      "question": "문항 요약",
-      "draft": "자기설득서 초안 (주장→근거→어필 구조, 실제 쓸 수 있는 수준으로)"
-    }
-  ]
-}`;
-
-  const userPrompt = `채용공고:
-${jd}
-
-${job ? '지원 직무: ' + job : '(지원 직무 미입력 — 공고에서 유추)'}
-${ctx ? '\n지원자 경험 요약:\n' + ctx : '\n(지원자 경험 정보 없음 — 일반적인 전략으로 작성)'}
-
-위 채용공고를 분석하고 REPOSITION 자기설득서 전략을 JSON으로 출력하세요.`;
-
-  try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 4000,
-        system: systemPrompt,
-        messages: [{ role: 'user', content: userPrompt }]
-      })
-    });
-    const data = await res.json();
-    const raw = data.content.map(c => c.text || '').join('');
-    // strip markdown fences
-    const clean = raw.replace(/```json|```/g,'').trim();
-    const parsed = JSON.parse(clean);
-    renderResult(parsed);
-    setStatus('✓ 분석 완료! 전략과 초안을 확인하세요.');
-  } catch(e) {
-    document.getElementById('resultArea').className = '';
-    document.getElementById('resultArea').innerHTML = '<div class="error-box">분석 중 오류가 발생했습니다. 공고 내용을 확인하고 다시 시도해주세요.<br><small style="opacity:.6">' + e.message + '</small></div>';
-    setStatus('');
-  }
-  setLoading(false);
-}
-
-function renderResult(d){
-  // positioning
-  document.getElementById('pos-headline').textContent = d.positioning.headline;
-  document.getElementById('pos-sub').textContent = d.positioning.sub;
-  document.getElementById('pos-tags').innerHTML = (d.positioning.keywords||[]).map(k=>`<span class="pos-tag">${k}</span>`).join('');
-
-  // company grid
-  const cg = d.jd_analysis;
-  document.getElementById('companyGrid').innerHTML = [
-    ['기업',cg.company],['직무',cg.job],['구분',cg.type],['문항수',`${(d.questions||[]).length}개`]
-  ].map(([k,v])=>`<div class="cg-item"><div class="cg-key">${k}</div><div class="cg-val">${v||'-'}</div></div>`).join('');
-  document.getElementById('jdParsed').innerHTML =
-    `<p><strong>핵심 니즈:</strong> ${cg.core_need}</p><br><p><strong>뽑히는 사람:</strong> ${cg.key_traits}</p>`;
-
-  // question cards
-  document.getElementById('qCards').innerHTML = (d.questions||[]).map((q,i)=>`
-    <div class="q-card">
-      <div class="q-card-top">
-        <div class="q-card-num">Q${i+1}</div>
-        <div class="q-card-question">${q.question}${q.char_limit&&q.char_limit!='미상'?' <span style="font-size:12px;color:#FECC00;font-weight:400">('+q.char_limit+')</span>':''}</div>
-      </div>
-      <div class="q-card-strategy">
-        <p style="margin-bottom:8px;color:rgba(255,255,255,.5);font-size:12px">💡 진짜 의도: ${q.real_intent}</p>
-        <p style="margin-bottom:10px">${q.strategy}</p>
-        ${(q.keywords||[]).map(k=>`<span class="kw">${k}</span>`).join('')}
-      </div>
-    </div>`).join('');
-
-  // drafts
-  document.getElementById('draftItems').innerHTML = (d.drafts||[]).map((dr,i)=>`
-    <div class="draft-item">
-      <div class="draft-q">Q${i+1}. ${dr.question}</div>
-      <div class="draft-a" id="draft-${i}">${dr.draft}</div>
-      <button class="draft-copy" onclick="copyDraft(${i})">📋 복사하기</button>
-    </div>`).join('');
-
-  document.getElementById('resultArea').className = '';
-}
-
-function copyDraft(i){
-  const el = document.getElementById('draft-'+i);
-  navigator.clipboard.writeText(el.textContent).then(()=>{
-    const btn = el.nextElementSibling;
-    btn.textContent = '✓ 복사됨!';
-    setTimeout(()=>{ btn.textContent='📋 복사하기'; },2000);
-  });
-}
-
-function setLoading(on){
-  const btn = document.getElementById('btnAnalyze');
-  const spinner = document.getElementById('spinner');
-  if(on){ btn.disabled=true; btn.classList.add('loading'); spinner.style.display='block'; }
-  else  { btn.disabled=false; btn.classList.remove('loading'); spinner.style.display='none'; }
-}
-function setStatus(msg){ document.getElementById('statusMsg').textContent = msg; }
-
-
-// ── MOBILE NAV ──
-(function(){
-  var btn = document.getElementById('navHamburger');
-  var drawer = document.getElementById('navDrawer');
-  if(!btn || !drawer) return;
-  btn.addEventListener('click', function(){
-    btn.classList.toggle('open');
-    drawer.classList.toggle('open');
-    document.body.style.overflow = drawer.classList.contains('open') ? 'hidden' : '';
-  });
-  // close on link click
-  drawer.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      btn.classList.remove('open');
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
-    });
-  });
-  // close on resize
-  window.addEventListener('resize', function(){
-    if(window.innerWidth > 900){
-      btn.classList.remove('open');
-      drawer.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-  });
-})();
-
-
-
 </script>
 </body>
 </html>
