@@ -154,7 +154,14 @@ section{padding:100px 64px}
 @media(max-width:900px){
   /* NAV */
   .nav-menu,.nav-right{display:none!important}
-  .nav-hamburger{display:flex}
+  .nav-hamburger{
+    display:flex;
+    position:fixed;top:0;right:0;
+    width:56px;height:56px;
+    z-index:600;
+    margin-left:0;
+    align-items:center;justify-content:center;
+  }
   nav{padding:0 20px;height:56px}
 
   /* HERO */
@@ -249,6 +256,8 @@ section{padding:100px 64px}
 @media(max-width:600px){
   /* NAV */
   nav{padding:0 16px;height:52px}
+  .nav-hamburger{height:52px!important}
+  .nav-drawer{top:52px!important}
   .logo{font-size:15px!important}
 
   /* HERO */
@@ -347,19 +356,17 @@ section{padding:100px 64px}
       <a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
         <a href="/about">리포지셔닝이란?</a>
-        <a href="/marketing">취업은 마케팅이다</a>
-        <a href="/jasoseol">설득하는 자기소개서, 자기설득서</a>
-        <a href="/interview">면접을 더욱 완벽하게, 완벽통제면접</a>
+        <a href="/strategy">리포지셔닝 실전 전략</a>
       </div>
     </li>
     <li>
-      <a href="/mock_interview" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <a href="/course" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
         <span class="drop-label">REPOSITION CAMP</span>
-        <a href="/mock_interview">리포지셔닝 부트캠프</a>
-        <a href="/mock_interview">자기설득서 클래스</a>
-        <a href="/mock_interview">완벽통제 면접 클래스</a>
-        <hr><a href="/mock_interview" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+        <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+        <a href="/course#jasoseol">자기설득서 클래스</a>
+        <a href="/course#interview">완벽통제 면접 클래스</a>
+        <hr><a href="/course" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
       </div>
     </li>
     <li><a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a></li>
@@ -374,16 +381,14 @@ section{padding:100px 64px}
   <div class="drawer-item"><a href="/about" class="drawer-link">리포지셔닝이란?</a>
     <div class="drawer-sub">
       <a href="/about">리포지셔닝이란?</a>
-      <a href="/marketing">취업은 마케팅이다</a>
-      <a href="/jasoseol">설득하는 자기소개서, 자기설득서</a>
-      <a href="/interview">면접을 더욱 완벽하게, 완벽통제면접</a>
+      <a href="/strategy">리포지셔닝 실전 전략</a>
     </div>
   </div>
-  <div class="drawer-item"><a href="/mock_interview" class="drawer-link highlight">리포지셔닝캠프</a>
+  <div class="drawer-item"><a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
     <div class="drawer-sub">
-      <a href="/mock_interview">리포지셔닝 부트캠프</a>
-      <a href="/mock_interview">자기설득서 클래스</a>
-      <a href="/mock_interview">완벽통제 면접 클래스</a>
+      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+      <a href="/course#jasoseol">자기설득서 클래스</a>
+      <a href="/course#interview">완벽통제 면접 클래스</a>
     </div>
   </div>
   <div class="drawer-item"><a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a></div>

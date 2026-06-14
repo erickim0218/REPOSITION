@@ -524,7 +524,14 @@ body.intro-active{overflow:hidden}
 /* ── 900px ── */
 @media(max-width:900px){
   .nav-menu,.nav-right{display:none!important}
-  .nav-hamburger{display:flex}
+  .nav-hamburger{
+    display:flex;
+    position:fixed;top:0;right:0;
+    width:56px;height:56px;
+    z-index:600;
+    margin-left:0;
+    align-items:center;justify-content:center;
+  }
   nav{padding:0 20px!important;height:56px!important}
 
   /* hero */
@@ -601,6 +608,8 @@ body.intro-active{overflow:hidden}
 /* ── 600px ── */
 @media(max-width:600px){
   nav{padding:0 16px!important;height:52px!important}
+  .nav-hamburger{height:52px!important}
+  .nav-drawer{top:52px!important}
   .logo{font-size:14px!important;letter-spacing:.1em!important}
   .hero-left{padding:72px 20px 44px!important}
   .hero-h1{font-size:clamp(20px,8vw,32px)!important}
@@ -631,6 +640,7 @@ body.intro-active{overflow:hidden}
 </style>
 </head>
 <body>
+
 <div id="iv-wrap">
   <div id="iv-inner" style="position:relative;display:inline-flex;flex-direction:column;align-items:flex-start;white-space:nowrap;">
     <div id="iv-word" style="display:flex;align-items:baseline;">
@@ -654,19 +664,17 @@ body.intro-active{overflow:hidden}
       <a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
         <a href="/about">리포지셔닝이란?</a>
-        <a href="/marketing">취업은 마케팅이다</a>
-        <a href="/jasoseol">설득하는 자기소개서, 자기설득서</a>
-        <a href="/interview">면접을 더욱 완벽하게, 완벽통제면접</a>
+        <a href="/strategy">리포지셔닝 실전 전략</a>
       </div>
     </li>
     <li>
-      <a href="/mock_interview" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
+      <a href="/course" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
       <div class="nav-drop">
         <span class="drop-label">REPOSITION CAMP</span>
-        <a href="/mock_interview">리포지셔닝 부트캠프</a>
-        <a href="/mock_interview">자기설득서 클래스</a>
-        <a href="/mock_interview">완벽통제 면접 클래스</a>
-        <hr><a href="/mock_interview" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
+        <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+        <a href="/course#jasoseol">자기설득서 클래스</a>
+        <a href="/course#interview">완벽통제 면접 클래스</a>
+        <hr><a href="/course" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
       </div>
     </li>
     <li><a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a></li>
@@ -677,49 +685,25 @@ body.intro-active{overflow:hidden}
   <div class="nav-right"><a href="/mock_interview" class="nav-cta">무료 진단 신청</a></div>
 </nav>
 <button class="nav-hamburger" id="navHamburger" aria-label="메뉴"><span></span><span></span><span></span></button>
-
-
-<nav id="nav">
-  <a href="/" class="logo"><span>REPOSITION</span></a>
-  <ul class="nav-menu">
-    <li><a href="/about">리포지셔닝이란? <span class="nav-arr">▼</span></a>
-      <div class="nav-drop"><span class="drop-label">개념</span>
-        <a href="/about">리포지셔닝이란?</a><a href="/jasoseol">자기설득서란?</a><a href="/interview">완벽통제면접이란?</a>
-      </div>
-    </li>
-    <li><a href="/mock_interview" style="color:#FECC00">리포지셔닝캠프 <span class="nav-arr">▼</span></a>
-      <div class="nav-drop"><span class="drop-label">REPOSITION CAMP</span>
-        <a href="/mock_interview">리포지셔닝 부트캠프</a><a href="/mock_interview">자기설득서 클래스</a><a href="/mock_interview">완벽통제 면접 클래스</a>
-        <hr><a href="/mock_interview" style="color:#FECC00;font-weight:700">→ 전체 강의 보기</a>
-      </div>
-    </li>
-    <li><a href="/mock_interview" style="color:#FECC00">AI 모의면접 <span style="font-size:9px;background:#FECC00;color:#000;padding:2px 5px;font-weight:700;vertical-align:middle;margin-left:2px">NEW</span></a></li>
-    <li><a href="/pro">현직자 피드백</a></li>
-    <li><a href="/tool">JD 분석기</a></li>
-    <li><a href="/community">커뮤니티</a></li>
-  </ul>
-  <div class="nav-right"><a href="/mock_interview" class="nav-cta">무료 진단 신청</a></div>
-</nav>
-
-<div class="mbar">
-  <div class="mtrack">
-    <span>REPOSITION</span><span class="dot">·</span>
-    <span>Repositioning®</span><span class="dot">·</span>
-    <span>자기설득서</span><span class="dot">·</span>
-    <span>취업은 마케팅이다</span><span class="dot">·</span>
-    <span>이력서 = 제품</span><span class="dot">·</span>
-    <span>자소서 = 브랜딩</span><span class="dot">·</span>
-    <span>면접 = 세일즈</span><span class="dot">·</span>
-    <span>인식 점유의 싸움</span><span class="dot">·</span>
-    <span>REPOSITION</span><span class="dot">·</span>
-    <span>Repositioning®</span><span class="dot">·</span>
-    <span>자기설득서</span><span class="dot">·</span>
-    <span>취업은 마케팅이다</span><span class="dot">·</span>
-    <span>이력서 = 제품</span><span class="dot">·</span>
-    <span>자소서 = 브랜딩</span><span class="dot">·</span>
-    <span>면접 = 세일즈</span><span class="dot">·</span>
-    <span>인식 점유의 싸움</span><span class="dot">·</span>
+<div class="nav-drawer" id="navDrawer">
+  <div class="drawer-item"><a href="/about" class="drawer-link">리포지셔닝이란?</a>
+    <div class="drawer-sub">
+      <a href="/about">리포지셔닝이란?</a>
+      <a href="/strategy">리포지셔닝 실전 전략</a>
+    </div>
   </div>
+  <div class="drawer-item"><a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
+    <div class="drawer-sub">
+      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+      <a href="/course#jasoseol">자기설득서 클래스</a>
+      <a href="/course#interview">완벽통제 면접 클래스</a>
+    </div>
+  </div>
+  <div class="drawer-item"><a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a></div>
+  <div class="drawer-item"><a href="/pro" class="drawer-link">현직자 피드백</a></div>
+  <div class="drawer-item"><a href="/tool" class="drawer-link">JD 분석기</a></div>
+  <div class="drawer-item"><a href="/community" class="drawer-link">커뮤니티</a></div>
+  <a href="/mock_interview" class="drawer-cta">무료 진단 신청 →</a>
 </div>
 
 <section id="hero">
@@ -1327,6 +1311,18 @@ body.intro-active{overflow:hidden}
       line=g('iv-line'),sub=g('iv-sub'),bar=g('iv-bar'),wipe=g('iv-wipe'),
       word=g('iv-word');
   if(!wrap)return;
+
+  // 한 세션에 1회만 재생
+  var played = false;
+  try{ played = sessionStorage.getItem('rpIntroPlayed') === '1'; }catch(e){}
+  if(played){
+    wrap.style.display='none';
+    wipe.style.display='none';
+    document.querySelectorAll('.rev').forEach(function(e){ e.classList.add('on'); });
+    return;
+  }
+  try{ sessionStorage.setItem('rpIntroPlayed','1'); }catch(e){}
+
   document.body.style.overflow='hidden';
   function T(ms,fn){return setTimeout(fn,ms);}
 
@@ -1552,5 +1548,6 @@ document.addEventListener('DOMContentLoaded', function(){
 
 });
 </script>
+
 </body>
 </html>

@@ -1,40 +1,4 @@
-<!DOC
-
-<button class="nav-hamburger" id="navHamburger" aria-label="메뉴">
-  <span></span><span></span><span></span>
-</button>
-<div class="nav-drawer" id="navDrawer">
-  <div class="drawer-item">
-    <a href="/about" class="drawer-link">리포지셔닝이란?</a>
-    <div class="drawer-sub">
-      <a href="/about">리포지셔닝이란?</a>
-      <a href="/jasoseol">자기설득서란?</a>
-      <a href="/interview">완벽통제면접이란?</a>
-    </div>
-  </div>
-  <div class="drawer-item">
-    <a href="/mock_interview" class="drawer-link highlight">리포지셔닝캠프</a>
-    <div class="drawer-sub">
-      <a href="/mock_interview">리포지셔닝 부트캠프</a>
-      <a href="/mock_interview">자기설득서 클래스</a>
-      <a href="/mock_interview">완벽통제 면접 클래스</a>
-    </div>
-  </div>
-  <div class="drawer-item">
-    <a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/pro" class="drawer-link">현직자 피드백</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/tool" class="drawer-link">JD 분석기</a>
-  </div>
-  <div class="drawer-item">
-    <a href="/community" class="drawer-link">커뮤니티</a>
-  </div>
-  <a href="/mock_interview" class="drawer-cta">⚓ 무료 진단 신청 →</a>
-</div>
-TYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -299,7 +263,14 @@ body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;-webkit-fo
 @media(max-width:900px){
   /* NAV */
   .nav-menu,.nav-right{display:none!important}
-  .nav-hamburger{display:flex}
+  .nav-hamburger{
+    display:flex;
+    position:fixed;top:0;right:0;
+    width:56px;height:56px;
+    z-index:600;
+    margin-left:0;
+    align-items:center;justify-content:center;
+  }
   nav{padding:0 20px;height:56px}
 
   /* HERO */
@@ -394,6 +365,8 @@ body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;-webkit-fo
 @media(max-width:600px){
   /* NAV */
   nav{padding:0 16px;height:52px}
+  .nav-hamburger{height:52px!important}
+  .nav-drawer{top:52px!important}
   .logo{font-size:15px!important}
 
   /* HERO */
@@ -524,6 +497,30 @@ body{background:#000;color:#fff;font-family:'Noto Sans KR',sans-serif;-webkit-fo
 </style>
 </head>
 <body>
+
+<button class="nav-hamburger" id="navHamburger" aria-label="메뉴">
+  <span></span><span></span><span></span>
+</button>
+<div class="nav-drawer" id="navDrawer">
+  <div class="drawer-item"><a href="/about" class="drawer-link">리포지셔닝이란?</a>
+    <div class="drawer-sub">
+      <a href="/about">리포지셔닝이란?</a>
+      <a href="/strategy">리포지셔닝 실전 전략</a>
+    </div>
+  </div>
+  <div class="drawer-item"><a href="/course" class="drawer-link highlight">리포지셔닝캠프</a>
+    <div class="drawer-sub">
+      <a href="/course#bootcamp">리포지셔닝 부트캠프</a>
+      <a href="/course#jasoseol">자기설득서 클래스</a>
+      <a href="/course#interview">완벽통제 면접 클래스</a>
+    </div>
+  </div>
+  <div class="drawer-item"><a href="/mock_interview" class="drawer-link highlight">AI 모의면접 ✨NEW</a></div>
+  <div class="drawer-item"><a href="/pro" class="drawer-link">현직자 피드백</a></div>
+  <div class="drawer-item"><a href="/tool" class="drawer-link">JD 분석기</a></div>
+  <div class="drawer-item"><a href="/community" class="drawer-link">커뮤니티</a></div>
+  <a href="/mock_interview" class="drawer-cta">⚓ 무료 진단 신청 →</a>
+</div>
 
 <!-- ── SETUP ── -->
 <div id="setup">
